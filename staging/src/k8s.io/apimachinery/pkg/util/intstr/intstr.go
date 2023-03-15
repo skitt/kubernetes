@@ -72,6 +72,18 @@ func FromString(val string) IntOrString {
 	return IntOrString{Type: String, StrVal: val}
 }
 
+// PointerFromInt32 creates an IntOrString object with an int32 value
+// and returns a pointer to it.
+func PointerFromInt32(val int32) *IntOrString {
+	return &IntOrString{Type: Int, IntVal: val}
+}
+
+// PointerFromString creates an IntOrString object with a string value
+// and returns a pointer to it.
+func PointerFromString(val string) *IntOrString {
+	return &IntOrString{Type: String, StrVal: val}
+}
+
 // Parse the given string and try to convert it to an integer before
 // setting it as a string value.
 func Parse(val string) IntOrString {

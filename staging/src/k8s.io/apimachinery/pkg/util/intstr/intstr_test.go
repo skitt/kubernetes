@@ -45,6 +45,24 @@ func TestFromString(t *testing.T) {
 	}
 }
 
+func TestPointerFromInt32(t *testing.T) {
+	i := PointerFromInt32(93)
+	if i == nil {
+		t.Errorf("Expected a pointer, got nil")
+	} else if (*i).Type != Int || i.IntVal != 93 {
+		t.Errorf("Expected IntVal=93, got %+v", i)
+	}
+}
+
+func TestPointerFromString(t *testing.T) {
+	i := PointerFromString("76")
+	if i == nil {
+		t.Errorf("Expected a pointer, got nil")
+	} else if (*i).Type != String || i.StrVal != "76" {
+		t.Errorf("Expected StrVal=\"76\", got %+v", i)
+	}
+}
+
 type IntOrStringHolder struct {
 	IOrS IntOrString `json:"val"`
 }
