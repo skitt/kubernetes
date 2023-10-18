@@ -242,7 +242,7 @@ func (g *applyConfigurationGenerator) generateMemberWith(sw *generator.SnippetWr
 	sw.Do("// and returns the receiver, so that objects can be built by chaining \"With\" function invocations.\n", memberParams)
 	sw.Do("// If called multiple times, the $.Member.Name$ field is set to the value of the last call.\n", memberParams)
 	sw.Do("func (b *$.ApplyConfig.ApplyConfiguration|public$) With$.Member.Name$(value $.MemberType|raw$) *$.ApplyConfig.ApplyConfiguration|public$ {\n", memberParams)
-	g.ensureEnbedExistsIfApplicable(sw, memberParams)
+	g.ensureEmbedExistsIfApplicable(sw, memberParams)
 	if g.refGraph.isApplyConfig(memberParams.Member.Type) || isNillable(memberParams.Member.Type) {
 		sw.Do("b.$.Member.Name$ = value\n", memberParams)
 	} else {
@@ -250,6 +250,18 @@ func (g *applyConfigurationGenerator) generateMemberWith(sw *generator.SnippetWr
 	}
 	sw.Do("  return b\n", memberParams)
 	sw.Do("}\n", memberParams)
+
+	if memberParams.Member.Name == "Name" {
+		sw.Do("// Get$.Member.Name$ retrieves the value of the $.Member.Name$ field in the declarative configuration.\n", memberParams)
+		if g.refGraph.isApplyConfig(memberParams.Member.Type) || isNillable(memberParams.Member.Type) {
+			sw.Do("func (b *$.ApplyConfig.ApplyConfiguration|public$) Get$.Member.Name$() $.MemberType|raw$ {\n", memberParams)
+		} else {
+			sw.Do("func (b *$.ApplyConfig.ApplyConfiguration|public$) Get$.Member.Name$() *$.MemberType|raw$ {\n", memberParams)
+		}
+		g.ensureEmbedExistsIfApplicable(sw, memberParams)
+		sw.Do("  return b.$.Member.Name$\n", memberParams)
+		sw.Do("}\n", memberParams)
+	}
 }
 
 func (g *applyConfigurationGenerator) generateMemberWithForSlice(sw *generator.SnippetWriter, member types.Member, memberParams memberParams) {
@@ -262,7 +274,7 @@ func (g *applyConfigurationGenerator) generateMemberWithForSlice(sw *generator.S
 	sw.Do("// and returns the receiver, so that objects can be build by chaining \"With\" function invocations.\n", memberParams)
 	sw.Do("// If called multiple times, values provided by each call will be appended to the $.Member.Name$ field.\n", memberParams)
 	sw.Do("func (b *$.ApplyConfig.ApplyConfiguration|public$) With$.Member.Name$(values ...$.ArgType|raw$) *$.ApplyConfig.ApplyConfiguration|public$ {\n", memberParams)
-	g.ensureEnbedExistsIfApplicable(sw, memberParams)
+	g.ensureEmbedExistsIfApplicable(sw, memberParams)
 
 	if memberIsPointerToSlice {
 		sw.Do("b.ensure$.MemberType.Elem|public$Exists()\n", memberParams)
@@ -297,7 +309,7 @@ func (g *applyConfigurationGenerator) generateMemberWithForMap(sw *generator.Sni
 	sw.Do("// If called multiple times, the entries provided by each call will be put on the $.Member.Name$ field,\n", memberParams)
 	sw.Do("// overwriting an existing map entries in $.Member.Name$ field with the same key.\n", memberParams)
 	sw.Do("func (b *$.ApplyConfig.ApplyConfiguration|public$) With$.Member.Name$(entries $.MemberType|raw$) *$.ApplyConfig.ApplyConfiguration|public$ {\n", memberParams)
-	g.ensureEnbedExistsIfApplicable(sw, memberParams)
+	g.ensureEmbedExistsIfApplicable(sw, memberParams)
 	sw.Do("  if b.$.Member.Name$ == nil && len(entries) > 0 {\n", memberParams)
 	sw.Do("    b.$.Member.Name$ = make($.MemberType|raw$, len(entries))\n", memberParams)
 	sw.Do("  }\n", memberParams)
@@ -308,7 +320,7 @@ func (g *applyConfigurationGenerator) generateMemberWithForMap(sw *generator.Sni
 	sw.Do("}\n", memberParams)
 }
 
-func (g *applyConfigurationGenerator) ensureEnbedExistsIfApplicable(sw *generator.SnippetWriter, memberParams memberParams) {
+func (g *applyConfigurationGenerator) ensureEmbedExistsIfApplicable(sw *generator.SnippetWriter, memberParams memberParams) {
 	// Embedded types that are not inlined must be nillable so they are not included in the apply configuration
 	// when all their fields are omitted.
 	if memberParams.EmbeddedIn != nil && !memberParams.EmbeddedIn.JSONTags.inline {
@@ -373,6 +385,13 @@ var constructor = `
 // apply.
 func $.ApplyConfig.Type|public$() *$.ApplyConfig.ApplyConfiguration|public$ {
   return &$.ApplyConfig.ApplyConfiguration|public${}
+}
+`
+
+var nameGetter = `
+// ExtractName extracts the configuration's name.
+func (b *$.ApplyConfig.ApplyConfiguration|public$) ExtractName() *string {
+	return b.Name
 }
 `
 
