@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
-
 	v1alpha2 "k8s.io/api/resource/v1alpha2"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	resourcev1alpha2 "k8s.io/client-go/applyconfigurations/resource/v1alpha2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type PodSchedulingContextsGetter interface {
 
 // PodSchedulingContextInterface has methods to work with PodSchedulingContext resources.
 type PodSchedulingContextInterface interface {
-	Create(ctx context.Context, podSchedulingContext *v1alpha2.PodSchedulingContext, opts v1.CreateOptions) (*v1alpha2.PodSchedulingContext, error)
-	Update(ctx context.Context, podSchedulingContext *v1alpha2.PodSchedulingContext, opts v1.UpdateOptions) (*v1alpha2.PodSchedulingContext, error)
+	generic.Interface[*v1alpha2.PodSchedulingContext, *v1alpha2.PodSchedulingContextList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, podSchedulingContext *v1alpha2.PodSchedulingContext, opts v1.UpdateOptions) (*v1alpha2.PodSchedulingContext, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.PodSchedulingContext, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.PodSchedulingContextList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.PodSchedulingContext, err error)
-	Apply(ctx context.Context, podSchedulingContext *resourcev1alpha2.PodSchedulingContextApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha2.PodSchedulingContext, err error)
+	generic.StatusUpdater[*v1alpha2.PodSchedulingContext]
+	generic.Applier[*v1alpha2.PodSchedulingContext, *resourcev1alpha2.PodSchedulingContextApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, podSchedulingContext *resourcev1alpha2.PodSchedulingContextApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha2.PodSchedulingContext, err error)
+	generic.StatusApplier[*v1alpha2.PodSchedulingContext, *resourcev1alpha2.PodSchedulingContextApplyConfiguration]
 	PodSchedulingContextExpansion
 }
 

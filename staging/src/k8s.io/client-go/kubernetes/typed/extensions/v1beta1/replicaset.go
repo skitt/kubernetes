@@ -26,7 +26,6 @@ import (
 	v1beta1 "k8s.io/api/extensions/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	extensionsv1beta1 "k8s.io/client-go/applyconfigurations/extensions/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -40,19 +39,12 @@ type ReplicaSetsGetter interface {
 
 // ReplicaSetInterface has methods to work with ReplicaSet resources.
 type ReplicaSetInterface interface {
-	Create(ctx context.Context, replicaSet *v1beta1.ReplicaSet, opts v1.CreateOptions) (*v1beta1.ReplicaSet, error)
-	Update(ctx context.Context, replicaSet *v1beta1.ReplicaSet, opts v1.UpdateOptions) (*v1beta1.ReplicaSet, error)
+	generic.Interface[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, replicaSet *v1beta1.ReplicaSet, opts v1.UpdateOptions) (*v1beta1.ReplicaSet, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.ReplicaSet, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.ReplicaSetList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.ReplicaSet, err error)
-	Apply(ctx context.Context, replicaSet *extensionsv1beta1.ReplicaSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.ReplicaSet, err error)
+	generic.StatusUpdater[*v1beta1.ReplicaSet]
+	generic.Applier[*v1beta1.ReplicaSet, *extensionsv1beta1.ReplicaSetApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, replicaSet *extensionsv1beta1.ReplicaSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.ReplicaSet, err error)
+	generic.StatusApplier[*v1beta1.ReplicaSet, *extensionsv1beta1.ReplicaSetApplyConfiguration]
 	GetScale(ctx context.Context, replicaSetName string, options v1.GetOptions) (*v1beta1.Scale, error)
 	UpdateScale(ctx context.Context, replicaSetName string, scale *v1beta1.Scale, opts v1.UpdateOptions) (*v1beta1.Scale, error)
 	ApplyScale(ctx context.Context, replicaSetName string, scale *extensionsv1beta1.ScaleApplyConfiguration, opts v1.ApplyOptions) (*v1beta1.Scale, error)

@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
 	v1alpha1 "k8s.io/api/admissionregistration/v1alpha1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	admissionregistrationv1alpha1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1alpha1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type ValidatingAdmissionPoliciesGetter interface {
 
 // ValidatingAdmissionPolicyInterface has methods to work with ValidatingAdmissionPolicy resources.
 type ValidatingAdmissionPolicyInterface interface {
-	Create(ctx context.Context, validatingAdmissionPolicy *v1alpha1.ValidatingAdmissionPolicy, opts v1.CreateOptions) (*v1alpha1.ValidatingAdmissionPolicy, error)
-	Update(ctx context.Context, validatingAdmissionPolicy *v1alpha1.ValidatingAdmissionPolicy, opts v1.UpdateOptions) (*v1alpha1.ValidatingAdmissionPolicy, error)
+	generic.Interface[*v1alpha1.ValidatingAdmissionPolicy, *v1alpha1.ValidatingAdmissionPolicyList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, validatingAdmissionPolicy *v1alpha1.ValidatingAdmissionPolicy, opts v1.UpdateOptions) (*v1alpha1.ValidatingAdmissionPolicy, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.ValidatingAdmissionPolicy, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.ValidatingAdmissionPolicyList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.ValidatingAdmissionPolicy, err error)
-	Apply(ctx context.Context, validatingAdmissionPolicy *admissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.ValidatingAdmissionPolicy, err error)
+	generic.StatusUpdater[*v1alpha1.ValidatingAdmissionPolicy]
+	generic.Applier[*v1alpha1.ValidatingAdmissionPolicy, *admissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, validatingAdmissionPolicy *admissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.ValidatingAdmissionPolicy, err error)
+	generic.StatusApplier[*v1alpha1.ValidatingAdmissionPolicy, *admissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration]
 	ValidatingAdmissionPolicyExpansion
 }
 

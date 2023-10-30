@@ -19,12 +19,7 @@ limitations under the License.
 package v1
 
 import (
-	"context"
-
 	v1 "k8s.io/api/admissionregistration/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	admissionregistrationv1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type MutatingWebhookConfigurationsGetter interface {
 
 // MutatingWebhookConfigurationInterface has methods to work with MutatingWebhookConfiguration resources.
 type MutatingWebhookConfigurationInterface interface {
-	Create(ctx context.Context, mutatingWebhookConfiguration *v1.MutatingWebhookConfiguration, opts metav1.CreateOptions) (*v1.MutatingWebhookConfiguration, error)
-	Update(ctx context.Context, mutatingWebhookConfiguration *v1.MutatingWebhookConfiguration, opts metav1.UpdateOptions) (*v1.MutatingWebhookConfiguration, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.MutatingWebhookConfiguration, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.MutatingWebhookConfigurationList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.MutatingWebhookConfiguration, err error)
-	Apply(ctx context.Context, mutatingWebhookConfiguration *admissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration, opts metav1.ApplyOptions) (result *v1.MutatingWebhookConfiguration, err error)
+	generic.Interface[*v1.MutatingWebhookConfiguration, *v1.MutatingWebhookConfigurationList]
+	generic.Applier[*v1.MutatingWebhookConfiguration, *admissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration]
 	MutatingWebhookConfigurationExpansion
 }
 

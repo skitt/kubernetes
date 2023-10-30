@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/scheduling/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	schedulingv1beta1 "k8s.io/client-go/applyconfigurations/scheduling/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type PriorityClassesGetter interface {
 
 // PriorityClassInterface has methods to work with PriorityClass resources.
 type PriorityClassInterface interface {
-	Create(ctx context.Context, priorityClass *v1beta1.PriorityClass, opts v1.CreateOptions) (*v1beta1.PriorityClass, error)
-	Update(ctx context.Context, priorityClass *v1beta1.PriorityClass, opts v1.UpdateOptions) (*v1beta1.PriorityClass, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.PriorityClass, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.PriorityClassList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.PriorityClass, err error)
-	Apply(ctx context.Context, priorityClass *schedulingv1beta1.PriorityClassApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.PriorityClass, err error)
+	generic.Interface[*v1beta1.PriorityClass, *v1beta1.PriorityClassList]
+	generic.Applier[*v1beta1.PriorityClass, *schedulingv1beta1.PriorityClassApplyConfiguration]
 	PriorityClassExpansion
 }
 

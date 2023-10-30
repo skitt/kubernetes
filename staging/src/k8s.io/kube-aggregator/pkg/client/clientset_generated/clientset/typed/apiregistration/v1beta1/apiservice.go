@@ -19,11 +19,6 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	generic "k8s.io/client-go/generic"
 	v1beta1 "k8s.io/kube-aggregator/pkg/apis/apiregistration/v1beta1"
 	scheme "k8s.io/kube-aggregator/pkg/client/clientset_generated/clientset/scheme"
@@ -37,16 +32,9 @@ type APIServicesGetter interface {
 
 // APIServiceInterface has methods to work with APIService resources.
 type APIServiceInterface interface {
-	Create(ctx context.Context, aPIService *v1beta1.APIService, opts v1.CreateOptions) (*v1beta1.APIService, error)
-	Update(ctx context.Context, aPIService *v1beta1.APIService, opts v1.UpdateOptions) (*v1beta1.APIService, error)
+	generic.Interface[*v1beta1.APIService, *v1beta1.APIServiceList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, aPIService *v1beta1.APIService, opts v1.UpdateOptions) (*v1beta1.APIService, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.APIService, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.APIServiceList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.APIService, err error)
+	generic.StatusUpdater[*v1beta1.APIService]
 	APIServiceExpansion
 }
 

@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta3
 
 import (
-	"context"
-
 	v1beta3 "k8s.io/api/flowcontrol/v1beta3"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	flowcontrolv1beta3 "k8s.io/client-go/applyconfigurations/flowcontrol/v1beta3"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type PriorityLevelConfigurationsGetter interface {
 
 // PriorityLevelConfigurationInterface has methods to work with PriorityLevelConfiguration resources.
 type PriorityLevelConfigurationInterface interface {
-	Create(ctx context.Context, priorityLevelConfiguration *v1beta3.PriorityLevelConfiguration, opts v1.CreateOptions) (*v1beta3.PriorityLevelConfiguration, error)
-	Update(ctx context.Context, priorityLevelConfiguration *v1beta3.PriorityLevelConfiguration, opts v1.UpdateOptions) (*v1beta3.PriorityLevelConfiguration, error)
+	generic.Interface[*v1beta3.PriorityLevelConfiguration, *v1beta3.PriorityLevelConfigurationList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, priorityLevelConfiguration *v1beta3.PriorityLevelConfiguration, opts v1.UpdateOptions) (*v1beta3.PriorityLevelConfiguration, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta3.PriorityLevelConfiguration, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta3.PriorityLevelConfigurationList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta3.PriorityLevelConfiguration, err error)
-	Apply(ctx context.Context, priorityLevelConfiguration *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration, opts v1.ApplyOptions) (result *v1beta3.PriorityLevelConfiguration, err error)
+	generic.StatusUpdater[*v1beta3.PriorityLevelConfiguration]
+	generic.Applier[*v1beta3.PriorityLevelConfiguration, *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, priorityLevelConfiguration *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration, opts v1.ApplyOptions) (result *v1beta3.PriorityLevelConfiguration, err error)
+	generic.StatusApplier[*v1beta3.PriorityLevelConfiguration, *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration]
 	PriorityLevelConfigurationExpansion
 }
 

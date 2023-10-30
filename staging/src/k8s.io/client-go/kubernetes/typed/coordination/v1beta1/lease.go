@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/coordination/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	coordinationv1beta1 "k8s.io/client-go/applyconfigurations/coordination/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type LeasesGetter interface {
 
 // LeaseInterface has methods to work with Lease resources.
 type LeaseInterface interface {
-	Create(ctx context.Context, lease *v1beta1.Lease, opts v1.CreateOptions) (*v1beta1.Lease, error)
-	Update(ctx context.Context, lease *v1beta1.Lease, opts v1.UpdateOptions) (*v1beta1.Lease, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.Lease, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.LeaseList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.Lease, err error)
-	Apply(ctx context.Context, lease *coordinationv1beta1.LeaseApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.Lease, err error)
+	generic.Interface[*v1beta1.Lease, *v1beta1.LeaseList]
+	generic.Applier[*v1beta1.Lease, *coordinationv1beta1.LeaseApplyConfiguration]
 	LeaseExpansion
 }
 

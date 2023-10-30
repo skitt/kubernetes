@@ -19,11 +19,6 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	generic "k8s.io/client-go/generic"
 	v1beta1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
 	wardlev1beta1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1beta1"
@@ -38,19 +33,12 @@ type FlundersGetter interface {
 
 // FlunderInterface has methods to work with Flunder resources.
 type FlunderInterface interface {
-	Create(ctx context.Context, flunder *v1beta1.Flunder, opts v1.CreateOptions) (*v1beta1.Flunder, error)
-	Update(ctx context.Context, flunder *v1beta1.Flunder, opts v1.UpdateOptions) (*v1beta1.Flunder, error)
+	generic.Interface[*v1beta1.Flunder, *v1beta1.FlunderList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, flunder *v1beta1.Flunder, opts v1.UpdateOptions) (*v1beta1.Flunder, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.Flunder, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.FlunderList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.Flunder, err error)
-	Apply(ctx context.Context, flunder *wardlev1beta1.FlunderApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.Flunder, err error)
+	generic.StatusUpdater[*v1beta1.Flunder]
+	generic.Applier[*v1beta1.Flunder, *wardlev1beta1.FlunderApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, flunder *wardlev1beta1.FlunderApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.Flunder, err error)
+	generic.StatusApplier[*v1beta1.Flunder, *wardlev1beta1.FlunderApplyConfiguration]
 	FlunderExpansion
 }
 

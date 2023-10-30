@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
 	v1alpha1 "k8s.io/api/rbac/v1alpha1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	rbacv1alpha1 "k8s.io/client-go/applyconfigurations/rbac/v1alpha1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type RoleBindingsGetter interface {
 
 // RoleBindingInterface has methods to work with RoleBinding resources.
 type RoleBindingInterface interface {
-	Create(ctx context.Context, roleBinding *v1alpha1.RoleBinding, opts v1.CreateOptions) (*v1alpha1.RoleBinding, error)
-	Update(ctx context.Context, roleBinding *v1alpha1.RoleBinding, opts v1.UpdateOptions) (*v1alpha1.RoleBinding, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.RoleBinding, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.RoleBindingList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.RoleBinding, err error)
-	Apply(ctx context.Context, roleBinding *rbacv1alpha1.RoleBindingApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.RoleBinding, err error)
+	generic.Interface[*v1alpha1.RoleBinding, *v1alpha1.RoleBindingList]
+	generic.Applier[*v1alpha1.RoleBinding, *rbacv1alpha1.RoleBindingApplyConfiguration]
 	RoleBindingExpansion
 }
 

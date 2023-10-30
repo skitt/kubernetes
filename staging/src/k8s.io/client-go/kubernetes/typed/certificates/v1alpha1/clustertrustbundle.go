@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
 	v1alpha1 "k8s.io/api/certificates/v1alpha1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	certificatesv1alpha1 "k8s.io/client-go/applyconfigurations/certificates/v1alpha1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type ClusterTrustBundlesGetter interface {
 
 // ClusterTrustBundleInterface has methods to work with ClusterTrustBundle resources.
 type ClusterTrustBundleInterface interface {
-	Create(ctx context.Context, clusterTrustBundle *v1alpha1.ClusterTrustBundle, opts v1.CreateOptions) (*v1alpha1.ClusterTrustBundle, error)
-	Update(ctx context.Context, clusterTrustBundle *v1alpha1.ClusterTrustBundle, opts v1.UpdateOptions) (*v1alpha1.ClusterTrustBundle, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.ClusterTrustBundle, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.ClusterTrustBundleList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.ClusterTrustBundle, err error)
-	Apply(ctx context.Context, clusterTrustBundle *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.ClusterTrustBundle, err error)
+	generic.Interface[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList]
+	generic.Applier[*v1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
 	ClusterTrustBundleExpansion
 }
 

@@ -41,15 +41,15 @@ type NamespaceInterface interface {
 	Create(ctx context.Context, namespace *v1.Namespace, opts metav1.CreateOptions) (*v1.Namespace, error)
 	Update(ctx context.Context, namespace *v1.Namespace, opts metav1.UpdateOptions) (*v1.Namespace, error)
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, namespace *v1.Namespace, opts metav1.UpdateOptions) (*v1.Namespace, error)
+	generic.StatusUpdater[*v1.Namespace]
 	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
 	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.Namespace, error)
 	List(ctx context.Context, opts metav1.ListOptions) (*v1.NamespaceList, error)
 	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
 	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.Namespace, err error)
-	Apply(ctx context.Context, namespace *corev1.NamespaceApplyConfiguration, opts metav1.ApplyOptions) (result *v1.Namespace, err error)
+	generic.Applier[*v1.Namespace, *corev1.NamespaceApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, namespace *corev1.NamespaceApplyConfiguration, opts metav1.ApplyOptions) (result *v1.Namespace, err error)
+	generic.StatusApplier[*v1.Namespace, *corev1.NamespaceApplyConfiguration]
 	NamespaceExpansion
 }
 

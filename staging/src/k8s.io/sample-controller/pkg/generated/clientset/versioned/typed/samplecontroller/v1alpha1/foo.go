@@ -19,11 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	generic "k8s.io/client-go/generic"
 	v1alpha1 "k8s.io/sample-controller/pkg/apis/samplecontroller/v1alpha1"
 	scheme "k8s.io/sample-controller/pkg/generated/clientset/versioned/scheme"
@@ -37,16 +32,9 @@ type FoosGetter interface {
 
 // FooInterface has methods to work with Foo resources.
 type FooInterface interface {
-	Create(ctx context.Context, foo *v1alpha1.Foo, opts v1.CreateOptions) (*v1alpha1.Foo, error)
-	Update(ctx context.Context, foo *v1alpha1.Foo, opts v1.UpdateOptions) (*v1alpha1.Foo, error)
+	generic.Interface[*v1alpha1.Foo, *v1alpha1.FooList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, foo *v1alpha1.Foo, opts v1.UpdateOptions) (*v1alpha1.Foo, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.Foo, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.FooList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Foo, err error)
+	generic.StatusUpdater[*v1alpha1.Foo]
 	FooExpansion
 }
 

@@ -27,7 +27,6 @@ import (
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	appsv1 "k8s.io/client-go/applyconfigurations/apps/v1"
 	applyconfigurationsautoscalingv1 "k8s.io/client-go/applyconfigurations/autoscaling/v1"
 	generic "k8s.io/client-go/generic"
@@ -42,19 +41,12 @@ type StatefulSetsGetter interface {
 
 // StatefulSetInterface has methods to work with StatefulSet resources.
 type StatefulSetInterface interface {
-	Create(ctx context.Context, statefulSet *v1.StatefulSet, opts metav1.CreateOptions) (*v1.StatefulSet, error)
-	Update(ctx context.Context, statefulSet *v1.StatefulSet, opts metav1.UpdateOptions) (*v1.StatefulSet, error)
+	generic.Interface[*v1.StatefulSet, *v1.StatefulSetList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, statefulSet *v1.StatefulSet, opts metav1.UpdateOptions) (*v1.StatefulSet, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.StatefulSet, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.StatefulSetList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.StatefulSet, err error)
-	Apply(ctx context.Context, statefulSet *appsv1.StatefulSetApplyConfiguration, opts metav1.ApplyOptions) (result *v1.StatefulSet, err error)
+	generic.StatusUpdater[*v1.StatefulSet]
+	generic.Applier[*v1.StatefulSet, *appsv1.StatefulSetApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, statefulSet *appsv1.StatefulSetApplyConfiguration, opts metav1.ApplyOptions) (result *v1.StatefulSet, err error)
+	generic.StatusApplier[*v1.StatefulSet, *appsv1.StatefulSetApplyConfiguration]
 	GetScale(ctx context.Context, statefulSetName string, options metav1.GetOptions) (*autoscalingv1.Scale, error)
 	UpdateScale(ctx context.Context, statefulSetName string, scale *autoscalingv1.Scale, opts metav1.UpdateOptions) (*autoscalingv1.Scale, error)
 	ApplyScale(ctx context.Context, statefulSetName string, scale *applyconfigurationsautoscalingv1.ScaleApplyConfiguration, opts metav1.ApplyOptions) (*autoscalingv1.Scale, error)

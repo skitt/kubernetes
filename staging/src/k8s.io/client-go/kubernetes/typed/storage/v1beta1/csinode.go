@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/storage/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	storagev1beta1 "k8s.io/client-go/applyconfigurations/storage/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type CSINodesGetter interface {
 
 // CSINodeInterface has methods to work with CSINode resources.
 type CSINodeInterface interface {
-	Create(ctx context.Context, cSINode *v1beta1.CSINode, opts v1.CreateOptions) (*v1beta1.CSINode, error)
-	Update(ctx context.Context, cSINode *v1beta1.CSINode, opts v1.UpdateOptions) (*v1beta1.CSINode, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.CSINode, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.CSINodeList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.CSINode, err error)
-	Apply(ctx context.Context, cSINode *storagev1beta1.CSINodeApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.CSINode, err error)
+	generic.Interface[*v1beta1.CSINode, *v1beta1.CSINodeList]
+	generic.Applier[*v1beta1.CSINode, *storagev1beta1.CSINodeApplyConfiguration]
 	CSINodeExpansion
 }
 

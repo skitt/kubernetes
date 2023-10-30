@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/certificates/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	certificatesv1beta1 "k8s.io/client-go/applyconfigurations/certificates/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type CertificateSigningRequestsGetter interface {
 
 // CertificateSigningRequestInterface has methods to work with CertificateSigningRequest resources.
 type CertificateSigningRequestInterface interface {
-	Create(ctx context.Context, certificateSigningRequest *v1beta1.CertificateSigningRequest, opts v1.CreateOptions) (*v1beta1.CertificateSigningRequest, error)
-	Update(ctx context.Context, certificateSigningRequest *v1beta1.CertificateSigningRequest, opts v1.UpdateOptions) (*v1beta1.CertificateSigningRequest, error)
+	generic.Interface[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, certificateSigningRequest *v1beta1.CertificateSigningRequest, opts v1.UpdateOptions) (*v1beta1.CertificateSigningRequest, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.CertificateSigningRequest, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.CertificateSigningRequestList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.CertificateSigningRequest, err error)
-	Apply(ctx context.Context, certificateSigningRequest *certificatesv1beta1.CertificateSigningRequestApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.CertificateSigningRequest, err error)
+	generic.StatusUpdater[*v1beta1.CertificateSigningRequest]
+	generic.Applier[*v1beta1.CertificateSigningRequest, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, certificateSigningRequest *certificatesv1beta1.CertificateSigningRequestApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.CertificateSigningRequest, err error)
+	generic.StatusApplier[*v1beta1.CertificateSigningRequest, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration]
 	CertificateSigningRequestExpansion
 }
 

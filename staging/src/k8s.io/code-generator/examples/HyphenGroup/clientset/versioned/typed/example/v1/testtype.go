@@ -19,11 +19,6 @@ limitations under the License.
 package v1
 
 import (
-	"context"
-
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	generic "k8s.io/client-go/generic"
 	v1 "k8s.io/code-generator/examples/HyphenGroup/apis/example/v1"
 	examplev1 "k8s.io/code-generator/examples/HyphenGroup/applyconfiguration/example/v1"
@@ -38,19 +33,12 @@ type TestTypesGetter interface {
 
 // TestTypeInterface has methods to work with TestType resources.
 type TestTypeInterface interface {
-	Create(ctx context.Context, testType *v1.TestType, opts metav1.CreateOptions) (*v1.TestType, error)
-	Update(ctx context.Context, testType *v1.TestType, opts metav1.UpdateOptions) (*v1.TestType, error)
+	generic.Interface[*v1.TestType, *v1.TestTypeList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, testType *v1.TestType, opts metav1.UpdateOptions) (*v1.TestType, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.TestType, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.TestTypeList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.TestType, err error)
-	Apply(ctx context.Context, testType *examplev1.TestTypeApplyConfiguration, opts metav1.ApplyOptions) (result *v1.TestType, err error)
+	generic.StatusUpdater[*v1.TestType]
+	generic.Applier[*v1.TestType, *examplev1.TestTypeApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, testType *examplev1.TestTypeApplyConfiguration, opts metav1.ApplyOptions) (result *v1.TestType, err error)
+	generic.StatusApplier[*v1.TestType, *examplev1.TestTypeApplyConfiguration]
 	TestTypeExpansion
 }
 

@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/admissionregistration/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	admissionregistrationv1beta1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type MutatingWebhookConfigurationsGetter interface {
 
 // MutatingWebhookConfigurationInterface has methods to work with MutatingWebhookConfiguration resources.
 type MutatingWebhookConfigurationInterface interface {
-	Create(ctx context.Context, mutatingWebhookConfiguration *v1beta1.MutatingWebhookConfiguration, opts v1.CreateOptions) (*v1beta1.MutatingWebhookConfiguration, error)
-	Update(ctx context.Context, mutatingWebhookConfiguration *v1beta1.MutatingWebhookConfiguration, opts v1.UpdateOptions) (*v1beta1.MutatingWebhookConfiguration, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.MutatingWebhookConfiguration, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.MutatingWebhookConfigurationList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.MutatingWebhookConfiguration, err error)
-	Apply(ctx context.Context, mutatingWebhookConfiguration *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.MutatingWebhookConfiguration, err error)
+	generic.Interface[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList]
+	generic.Applier[*v1beta1.MutatingWebhookConfiguration, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration]
 	MutatingWebhookConfigurationExpansion
 }
 

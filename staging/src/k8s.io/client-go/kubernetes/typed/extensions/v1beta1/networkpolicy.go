@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/extensions/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	extensionsv1beta1 "k8s.io/client-go/applyconfigurations/extensions/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type NetworkPoliciesGetter interface {
 
 // NetworkPolicyInterface has methods to work with NetworkPolicy resources.
 type NetworkPolicyInterface interface {
-	Create(ctx context.Context, networkPolicy *v1beta1.NetworkPolicy, opts v1.CreateOptions) (*v1beta1.NetworkPolicy, error)
-	Update(ctx context.Context, networkPolicy *v1beta1.NetworkPolicy, opts v1.UpdateOptions) (*v1beta1.NetworkPolicy, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.NetworkPolicy, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.NetworkPolicyList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.NetworkPolicy, err error)
-	Apply(ctx context.Context, networkPolicy *extensionsv1beta1.NetworkPolicyApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.NetworkPolicy, err error)
+	generic.Interface[*v1beta1.NetworkPolicy, *v1beta1.NetworkPolicyList]
+	generic.Applier[*v1beta1.NetworkPolicy, *extensionsv1beta1.NetworkPolicyApplyConfiguration]
 	NetworkPolicyExpansion
 }
 

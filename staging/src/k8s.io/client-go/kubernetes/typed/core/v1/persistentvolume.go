@@ -19,12 +19,7 @@ limitations under the License.
 package v1
 
 import (
-	"context"
-
 	v1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type PersistentVolumesGetter interface {
 
 // PersistentVolumeInterface has methods to work with PersistentVolume resources.
 type PersistentVolumeInterface interface {
-	Create(ctx context.Context, persistentVolume *v1.PersistentVolume, opts metav1.CreateOptions) (*v1.PersistentVolume, error)
-	Update(ctx context.Context, persistentVolume *v1.PersistentVolume, opts metav1.UpdateOptions) (*v1.PersistentVolume, error)
+	generic.Interface[*v1.PersistentVolume, *v1.PersistentVolumeList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, persistentVolume *v1.PersistentVolume, opts metav1.UpdateOptions) (*v1.PersistentVolume, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.PersistentVolume, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.PersistentVolumeList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.PersistentVolume, err error)
-	Apply(ctx context.Context, persistentVolume *corev1.PersistentVolumeApplyConfiguration, opts metav1.ApplyOptions) (result *v1.PersistentVolume, err error)
+	generic.StatusUpdater[*v1.PersistentVolume]
+	generic.Applier[*v1.PersistentVolume, *corev1.PersistentVolumeApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, persistentVolume *corev1.PersistentVolumeApplyConfiguration, opts metav1.ApplyOptions) (result *v1.PersistentVolume, err error)
+	generic.StatusApplier[*v1.PersistentVolume, *corev1.PersistentVolumeApplyConfiguration]
 	PersistentVolumeExpansion
 }
 

@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta2
 
 import (
-	"context"
-
 	v1beta2 "k8s.io/api/apps/v1beta2"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	appsv1beta2 "k8s.io/client-go/applyconfigurations/apps/v1beta2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type ReplicaSetsGetter interface {
 
 // ReplicaSetInterface has methods to work with ReplicaSet resources.
 type ReplicaSetInterface interface {
-	Create(ctx context.Context, replicaSet *v1beta2.ReplicaSet, opts v1.CreateOptions) (*v1beta2.ReplicaSet, error)
-	Update(ctx context.Context, replicaSet *v1beta2.ReplicaSet, opts v1.UpdateOptions) (*v1beta2.ReplicaSet, error)
+	generic.Interface[*v1beta2.ReplicaSet, *v1beta2.ReplicaSetList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, replicaSet *v1beta2.ReplicaSet, opts v1.UpdateOptions) (*v1beta2.ReplicaSet, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta2.ReplicaSet, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta2.ReplicaSetList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta2.ReplicaSet, err error)
-	Apply(ctx context.Context, replicaSet *appsv1beta2.ReplicaSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta2.ReplicaSet, err error)
+	generic.StatusUpdater[*v1beta2.ReplicaSet]
+	generic.Applier[*v1beta2.ReplicaSet, *appsv1beta2.ReplicaSetApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, replicaSet *appsv1beta2.ReplicaSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta2.ReplicaSet, err error)
+	generic.StatusApplier[*v1beta2.ReplicaSet, *appsv1beta2.ReplicaSetApplyConfiguration]
 	ReplicaSetExpansion
 }
 

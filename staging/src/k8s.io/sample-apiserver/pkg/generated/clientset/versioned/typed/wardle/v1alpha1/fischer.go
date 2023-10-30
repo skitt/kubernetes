@@ -19,11 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	generic "k8s.io/client-go/generic"
 	v1alpha1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
 	wardlev1alpha1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1alpha1"
@@ -38,15 +33,8 @@ type FischersGetter interface {
 
 // FischerInterface has methods to work with Fischer resources.
 type FischerInterface interface {
-	Create(ctx context.Context, fischer *v1alpha1.Fischer, opts v1.CreateOptions) (*v1alpha1.Fischer, error)
-	Update(ctx context.Context, fischer *v1alpha1.Fischer, opts v1.UpdateOptions) (*v1alpha1.Fischer, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.Fischer, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.FischerList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Fischer, err error)
-	Apply(ctx context.Context, fischer *wardlev1alpha1.FischerApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Fischer, err error)
+	generic.Interface[*v1alpha1.Fischer, *v1alpha1.FischerList]
+	generic.Applier[*v1alpha1.Fischer, *wardlev1alpha1.FischerApplyConfiguration]
 	FischerExpansion
 }
 

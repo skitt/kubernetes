@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/policy/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	policyv1beta1 "k8s.io/client-go/applyconfigurations/policy/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type PodDisruptionBudgetsGetter interface {
 
 // PodDisruptionBudgetInterface has methods to work with PodDisruptionBudget resources.
 type PodDisruptionBudgetInterface interface {
-	Create(ctx context.Context, podDisruptionBudget *v1beta1.PodDisruptionBudget, opts v1.CreateOptions) (*v1beta1.PodDisruptionBudget, error)
-	Update(ctx context.Context, podDisruptionBudget *v1beta1.PodDisruptionBudget, opts v1.UpdateOptions) (*v1beta1.PodDisruptionBudget, error)
+	generic.Interface[*v1beta1.PodDisruptionBudget, *v1beta1.PodDisruptionBudgetList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, podDisruptionBudget *v1beta1.PodDisruptionBudget, opts v1.UpdateOptions) (*v1beta1.PodDisruptionBudget, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.PodDisruptionBudget, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.PodDisruptionBudgetList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.PodDisruptionBudget, err error)
-	Apply(ctx context.Context, podDisruptionBudget *policyv1beta1.PodDisruptionBudgetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.PodDisruptionBudget, err error)
+	generic.StatusUpdater[*v1beta1.PodDisruptionBudget]
+	generic.Applier[*v1beta1.PodDisruptionBudget, *policyv1beta1.PodDisruptionBudgetApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, podDisruptionBudget *policyv1beta1.PodDisruptionBudgetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.PodDisruptionBudget, err error)
+	generic.StatusApplier[*v1beta1.PodDisruptionBudget, *policyv1beta1.PodDisruptionBudgetApplyConfiguration]
 	PodDisruptionBudgetExpansion
 }
 

@@ -26,7 +26,6 @@ import (
 	v1beta2 "k8s.io/api/apps/v1beta2"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	appsv1beta2 "k8s.io/client-go/applyconfigurations/apps/v1beta2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -40,19 +39,12 @@ type StatefulSetsGetter interface {
 
 // StatefulSetInterface has methods to work with StatefulSet resources.
 type StatefulSetInterface interface {
-	Create(ctx context.Context, statefulSet *v1beta2.StatefulSet, opts v1.CreateOptions) (*v1beta2.StatefulSet, error)
-	Update(ctx context.Context, statefulSet *v1beta2.StatefulSet, opts v1.UpdateOptions) (*v1beta2.StatefulSet, error)
+	generic.Interface[*v1beta2.StatefulSet, *v1beta2.StatefulSetList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, statefulSet *v1beta2.StatefulSet, opts v1.UpdateOptions) (*v1beta2.StatefulSet, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta2.StatefulSet, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta2.StatefulSetList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta2.StatefulSet, err error)
-	Apply(ctx context.Context, statefulSet *appsv1beta2.StatefulSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta2.StatefulSet, err error)
+	generic.StatusUpdater[*v1beta2.StatefulSet]
+	generic.Applier[*v1beta2.StatefulSet, *appsv1beta2.StatefulSetApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, statefulSet *appsv1beta2.StatefulSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta2.StatefulSet, err error)
+	generic.StatusApplier[*v1beta2.StatefulSet, *appsv1beta2.StatefulSetApplyConfiguration]
 	GetScale(ctx context.Context, statefulSetName string, options v1.GetOptions) (*v1beta2.Scale, error)
 	UpdateScale(ctx context.Context, statefulSetName string, scale *v1beta2.Scale, opts v1.UpdateOptions) (*v1beta2.Scale, error)
 	ApplyScale(ctx context.Context, statefulSetName string, scale *appsv1beta2.ScaleApplyConfiguration, opts v1.ApplyOptions) (*v1beta2.Scale, error)

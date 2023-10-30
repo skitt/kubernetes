@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/storage/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	storagev1beta1 "k8s.io/client-go/applyconfigurations/storage/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type StorageClassesGetter interface {
 
 // StorageClassInterface has methods to work with StorageClass resources.
 type StorageClassInterface interface {
-	Create(ctx context.Context, storageClass *v1beta1.StorageClass, opts v1.CreateOptions) (*v1beta1.StorageClass, error)
-	Update(ctx context.Context, storageClass *v1beta1.StorageClass, opts v1.UpdateOptions) (*v1beta1.StorageClass, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.StorageClass, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.StorageClassList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.StorageClass, err error)
-	Apply(ctx context.Context, storageClass *storagev1beta1.StorageClassApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.StorageClass, err error)
+	generic.Interface[*v1beta1.StorageClass, *v1beta1.StorageClassList]
+	generic.Applier[*v1beta1.StorageClass, *storagev1beta1.StorageClassApplyConfiguration]
 	StorageClassExpansion
 }
 

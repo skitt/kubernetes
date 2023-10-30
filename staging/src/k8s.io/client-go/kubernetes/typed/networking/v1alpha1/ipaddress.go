@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
 	v1alpha1 "k8s.io/api/networking/v1alpha1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	networkingv1alpha1 "k8s.io/client-go/applyconfigurations/networking/v1alpha1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type IPAddressesGetter interface {
 
 // IPAddressInterface has methods to work with IPAddress resources.
 type IPAddressInterface interface {
-	Create(ctx context.Context, iPAddress *v1alpha1.IPAddress, opts v1.CreateOptions) (*v1alpha1.IPAddress, error)
-	Update(ctx context.Context, iPAddress *v1alpha1.IPAddress, opts v1.UpdateOptions) (*v1alpha1.IPAddress, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.IPAddress, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.IPAddressList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.IPAddress, err error)
-	Apply(ctx context.Context, iPAddress *networkingv1alpha1.IPAddressApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.IPAddress, err error)
+	generic.Interface[*v1alpha1.IPAddress, *v1alpha1.IPAddressList]
+	generic.Applier[*v1alpha1.IPAddress, *networkingv1alpha1.IPAddressApplyConfiguration]
 	IPAddressExpansion
 }
 

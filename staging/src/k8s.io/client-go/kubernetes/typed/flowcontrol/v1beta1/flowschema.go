@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/flowcontrol/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	flowcontrolv1beta1 "k8s.io/client-go/applyconfigurations/flowcontrol/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type FlowSchemasGetter interface {
 
 // FlowSchemaInterface has methods to work with FlowSchema resources.
 type FlowSchemaInterface interface {
-	Create(ctx context.Context, flowSchema *v1beta1.FlowSchema, opts v1.CreateOptions) (*v1beta1.FlowSchema, error)
-	Update(ctx context.Context, flowSchema *v1beta1.FlowSchema, opts v1.UpdateOptions) (*v1beta1.FlowSchema, error)
+	generic.Interface[*v1beta1.FlowSchema, *v1beta1.FlowSchemaList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, flowSchema *v1beta1.FlowSchema, opts v1.UpdateOptions) (*v1beta1.FlowSchema, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.FlowSchema, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.FlowSchemaList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.FlowSchema, err error)
-	Apply(ctx context.Context, flowSchema *flowcontrolv1beta1.FlowSchemaApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.FlowSchema, err error)
+	generic.StatusUpdater[*v1beta1.FlowSchema]
+	generic.Applier[*v1beta1.FlowSchema, *flowcontrolv1beta1.FlowSchemaApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, flowSchema *flowcontrolv1beta1.FlowSchemaApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.FlowSchema, err error)
+	generic.StatusApplier[*v1beta1.FlowSchema, *flowcontrolv1beta1.FlowSchemaApplyConfiguration]
 	FlowSchemaExpansion
 }
 

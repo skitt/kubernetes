@@ -19,12 +19,7 @@ limitations under the License.
 package v1
 
 import (
-	"context"
-
 	v1 "k8s.io/api/rbac/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	rbacv1 "k8s.io/client-go/applyconfigurations/rbac/v1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type RoleBindingsGetter interface {
 
 // RoleBindingInterface has methods to work with RoleBinding resources.
 type RoleBindingInterface interface {
-	Create(ctx context.Context, roleBinding *v1.RoleBinding, opts metav1.CreateOptions) (*v1.RoleBinding, error)
-	Update(ctx context.Context, roleBinding *v1.RoleBinding, opts metav1.UpdateOptions) (*v1.RoleBinding, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.RoleBinding, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.RoleBindingList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.RoleBinding, err error)
-	Apply(ctx context.Context, roleBinding *rbacv1.RoleBindingApplyConfiguration, opts metav1.ApplyOptions) (result *v1.RoleBinding, err error)
+	generic.Interface[*v1.RoleBinding, *v1.RoleBindingList]
+	generic.Applier[*v1.RoleBinding, *rbacv1.RoleBindingApplyConfiguration]
 	RoleBindingExpansion
 }
 

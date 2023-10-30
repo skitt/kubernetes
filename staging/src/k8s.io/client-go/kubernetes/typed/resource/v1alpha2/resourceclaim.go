@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
-
 	v1alpha2 "k8s.io/api/resource/v1alpha2"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	resourcev1alpha2 "k8s.io/client-go/applyconfigurations/resource/v1alpha2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type ResourceClaimsGetter interface {
 
 // ResourceClaimInterface has methods to work with ResourceClaim resources.
 type ResourceClaimInterface interface {
-	Create(ctx context.Context, resourceClaim *v1alpha2.ResourceClaim, opts v1.CreateOptions) (*v1alpha2.ResourceClaim, error)
-	Update(ctx context.Context, resourceClaim *v1alpha2.ResourceClaim, opts v1.UpdateOptions) (*v1alpha2.ResourceClaim, error)
+	generic.Interface[*v1alpha2.ResourceClaim, *v1alpha2.ResourceClaimList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, resourceClaim *v1alpha2.ResourceClaim, opts v1.UpdateOptions) (*v1alpha2.ResourceClaim, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.ResourceClaim, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.ResourceClaimList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.ResourceClaim, err error)
-	Apply(ctx context.Context, resourceClaim *resourcev1alpha2.ResourceClaimApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha2.ResourceClaim, err error)
+	generic.StatusUpdater[*v1alpha2.ResourceClaim]
+	generic.Applier[*v1alpha2.ResourceClaim, *resourcev1alpha2.ResourceClaimApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, resourceClaim *resourcev1alpha2.ResourceClaimApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha2.ResourceClaim, err error)
+	generic.StatusApplier[*v1alpha2.ResourceClaim, *resourcev1alpha2.ResourceClaimApplyConfiguration]
 	ResourceClaimExpansion
 }
 

@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/discovery/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	discoveryv1beta1 "k8s.io/client-go/applyconfigurations/discovery/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type EndpointSlicesGetter interface {
 
 // EndpointSliceInterface has methods to work with EndpointSlice resources.
 type EndpointSliceInterface interface {
-	Create(ctx context.Context, endpointSlice *v1beta1.EndpointSlice, opts v1.CreateOptions) (*v1beta1.EndpointSlice, error)
-	Update(ctx context.Context, endpointSlice *v1beta1.EndpointSlice, opts v1.UpdateOptions) (*v1beta1.EndpointSlice, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.EndpointSlice, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.EndpointSliceList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.EndpointSlice, err error)
-	Apply(ctx context.Context, endpointSlice *discoveryv1beta1.EndpointSliceApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.EndpointSlice, err error)
+	generic.Interface[*v1beta1.EndpointSlice, *v1beta1.EndpointSliceList]
+	generic.Applier[*v1beta1.EndpointSlice, *discoveryv1beta1.EndpointSliceApplyConfiguration]
 	EndpointSliceExpansion
 }
 

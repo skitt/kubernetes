@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
-
 	v1alpha2 "k8s.io/api/resource/v1alpha2"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	resourcev1alpha2 "k8s.io/client-go/applyconfigurations/resource/v1alpha2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type ResourceClaimTemplatesGetter interface {
 
 // ResourceClaimTemplateInterface has methods to work with ResourceClaimTemplate resources.
 type ResourceClaimTemplateInterface interface {
-	Create(ctx context.Context, resourceClaimTemplate *v1alpha2.ResourceClaimTemplate, opts v1.CreateOptions) (*v1alpha2.ResourceClaimTemplate, error)
-	Update(ctx context.Context, resourceClaimTemplate *v1alpha2.ResourceClaimTemplate, opts v1.UpdateOptions) (*v1alpha2.ResourceClaimTemplate, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.ResourceClaimTemplate, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.ResourceClaimTemplateList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.ResourceClaimTemplate, err error)
-	Apply(ctx context.Context, resourceClaimTemplate *resourcev1alpha2.ResourceClaimTemplateApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha2.ResourceClaimTemplate, err error)
+	generic.Interface[*v1alpha2.ResourceClaimTemplate, *v1alpha2.ResourceClaimTemplateList]
+	generic.Applier[*v1alpha2.ResourceClaimTemplate, *resourcev1alpha2.ResourceClaimTemplateApplyConfiguration]
 	ResourceClaimTemplateExpansion
 }
 

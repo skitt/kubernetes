@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
-
 	v1alpha2 "k8s.io/api/resource/v1alpha2"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	resourcev1alpha2 "k8s.io/client-go/applyconfigurations/resource/v1alpha2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type ResourceClassesGetter interface {
 
 // ResourceClassInterface has methods to work with ResourceClass resources.
 type ResourceClassInterface interface {
-	Create(ctx context.Context, resourceClass *v1alpha2.ResourceClass, opts v1.CreateOptions) (*v1alpha2.ResourceClass, error)
-	Update(ctx context.Context, resourceClass *v1alpha2.ResourceClass, opts v1.UpdateOptions) (*v1alpha2.ResourceClass, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.ResourceClass, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.ResourceClassList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.ResourceClass, err error)
-	Apply(ctx context.Context, resourceClass *resourcev1alpha2.ResourceClassApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha2.ResourceClass, err error)
+	generic.Interface[*v1alpha2.ResourceClass, *v1alpha2.ResourceClassList]
+	generic.Applier[*v1alpha2.ResourceClass, *resourcev1alpha2.ResourceClassApplyConfiguration]
 	ResourceClassExpansion
 }
 

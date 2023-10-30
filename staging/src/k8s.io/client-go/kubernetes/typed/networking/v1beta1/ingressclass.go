@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/networking/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	networkingv1beta1 "k8s.io/client-go/applyconfigurations/networking/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type IngressClassesGetter interface {
 
 // IngressClassInterface has methods to work with IngressClass resources.
 type IngressClassInterface interface {
-	Create(ctx context.Context, ingressClass *v1beta1.IngressClass, opts v1.CreateOptions) (*v1beta1.IngressClass, error)
-	Update(ctx context.Context, ingressClass *v1beta1.IngressClass, opts v1.UpdateOptions) (*v1beta1.IngressClass, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.IngressClass, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.IngressClassList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.IngressClass, err error)
-	Apply(ctx context.Context, ingressClass *networkingv1beta1.IngressClassApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.IngressClass, err error)
+	generic.Interface[*v1beta1.IngressClass, *v1beta1.IngressClassList]
+	generic.Applier[*v1beta1.IngressClass, *networkingv1beta1.IngressClassApplyConfiguration]
 	IngressClassExpansion
 }
 

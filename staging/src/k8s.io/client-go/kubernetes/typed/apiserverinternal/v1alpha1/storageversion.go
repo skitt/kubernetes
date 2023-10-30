@@ -19,12 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
-
 	v1alpha1 "k8s.io/api/apiserverinternal/v1alpha1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	apiserverinternalv1alpha1 "k8s.io/client-go/applyconfigurations/apiserverinternal/v1alpha1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type StorageVersionsGetter interface {
 
 // StorageVersionInterface has methods to work with StorageVersion resources.
 type StorageVersionInterface interface {
-	Create(ctx context.Context, storageVersion *v1alpha1.StorageVersion, opts v1.CreateOptions) (*v1alpha1.StorageVersion, error)
-	Update(ctx context.Context, storageVersion *v1alpha1.StorageVersion, opts v1.UpdateOptions) (*v1alpha1.StorageVersion, error)
+	generic.Interface[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, storageVersion *v1alpha1.StorageVersion, opts v1.UpdateOptions) (*v1alpha1.StorageVersion, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.StorageVersion, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.StorageVersionList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.StorageVersion, err error)
-	Apply(ctx context.Context, storageVersion *apiserverinternalv1alpha1.StorageVersionApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.StorageVersion, err error)
+	generic.StatusUpdater[*v1alpha1.StorageVersion]
+	generic.Applier[*v1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, storageVersion *apiserverinternalv1alpha1.StorageVersionApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.StorageVersion, err error)
+	generic.StatusApplier[*v1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration]
 	StorageVersionExpansion
 }
 

@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
-
 	v1beta1 "k8s.io/api/rbac/v1beta1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	rbacv1beta1 "k8s.io/client-go/applyconfigurations/rbac/v1beta1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type ClusterRoleBindingsGetter interface {
 
 // ClusterRoleBindingInterface has methods to work with ClusterRoleBinding resources.
 type ClusterRoleBindingInterface interface {
-	Create(ctx context.Context, clusterRoleBinding *v1beta1.ClusterRoleBinding, opts v1.CreateOptions) (*v1beta1.ClusterRoleBinding, error)
-	Update(ctx context.Context, clusterRoleBinding *v1beta1.ClusterRoleBinding, opts v1.UpdateOptions) (*v1beta1.ClusterRoleBinding, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.ClusterRoleBinding, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.ClusterRoleBindingList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.ClusterRoleBinding, err error)
-	Apply(ctx context.Context, clusterRoleBinding *rbacv1beta1.ClusterRoleBindingApplyConfiguration, opts v1.ApplyOptions) (result *v1beta1.ClusterRoleBinding, err error)
+	generic.Interface[*v1beta1.ClusterRoleBinding, *v1beta1.ClusterRoleBindingList]
+	generic.Applier[*v1beta1.ClusterRoleBinding, *rbacv1beta1.ClusterRoleBindingApplyConfiguration]
 	ClusterRoleBindingExpansion
 }
 

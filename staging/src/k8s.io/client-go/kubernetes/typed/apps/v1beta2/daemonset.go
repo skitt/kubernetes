@@ -19,12 +19,7 @@ limitations under the License.
 package v1beta2
 
 import (
-	"context"
-
 	v1beta2 "k8s.io/api/apps/v1beta2"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	appsv1beta2 "k8s.io/client-go/applyconfigurations/apps/v1beta2"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type DaemonSetsGetter interface {
 
 // DaemonSetInterface has methods to work with DaemonSet resources.
 type DaemonSetInterface interface {
-	Create(ctx context.Context, daemonSet *v1beta2.DaemonSet, opts v1.CreateOptions) (*v1beta2.DaemonSet, error)
-	Update(ctx context.Context, daemonSet *v1beta2.DaemonSet, opts v1.UpdateOptions) (*v1beta2.DaemonSet, error)
+	generic.Interface[*v1beta2.DaemonSet, *v1beta2.DaemonSetList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, daemonSet *v1beta2.DaemonSet, opts v1.UpdateOptions) (*v1beta2.DaemonSet, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta2.DaemonSet, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta2.DaemonSetList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta2.DaemonSet, err error)
-	Apply(ctx context.Context, daemonSet *appsv1beta2.DaemonSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta2.DaemonSet, err error)
+	generic.StatusUpdater[*v1beta2.DaemonSet]
+	generic.Applier[*v1beta2.DaemonSet, *appsv1beta2.DaemonSetApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, daemonSet *appsv1beta2.DaemonSetApplyConfiguration, opts v1.ApplyOptions) (result *v1beta2.DaemonSet, err error)
+	generic.StatusApplier[*v1beta2.DaemonSet, *appsv1beta2.DaemonSetApplyConfiguration]
 	DaemonSetExpansion
 }
 

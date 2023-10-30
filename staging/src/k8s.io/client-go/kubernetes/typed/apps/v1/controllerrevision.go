@@ -19,12 +19,7 @@ limitations under the License.
 package v1
 
 import (
-	"context"
-
 	v1 "k8s.io/api/apps/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	appsv1 "k8s.io/client-go/applyconfigurations/apps/v1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,15 +33,8 @@ type ControllerRevisionsGetter interface {
 
 // ControllerRevisionInterface has methods to work with ControllerRevision resources.
 type ControllerRevisionInterface interface {
-	Create(ctx context.Context, controllerRevision *v1.ControllerRevision, opts metav1.CreateOptions) (*v1.ControllerRevision, error)
-	Update(ctx context.Context, controllerRevision *v1.ControllerRevision, opts metav1.UpdateOptions) (*v1.ControllerRevision, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.ControllerRevision, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.ControllerRevisionList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.ControllerRevision, err error)
-	Apply(ctx context.Context, controllerRevision *appsv1.ControllerRevisionApplyConfiguration, opts metav1.ApplyOptions) (result *v1.ControllerRevision, err error)
+	generic.Interface[*v1.ControllerRevision, *v1.ControllerRevisionList]
+	generic.Applier[*v1.ControllerRevision, *appsv1.ControllerRevisionApplyConfiguration]
 	ControllerRevisionExpansion
 }
 

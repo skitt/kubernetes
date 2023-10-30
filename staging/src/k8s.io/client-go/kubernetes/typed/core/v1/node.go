@@ -19,12 +19,7 @@ limitations under the License.
 package v1
 
 import (
-	"context"
-
 	v1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
 	generic "k8s.io/client-go/generic"
 	scheme "k8s.io/client-go/kubernetes/scheme"
@@ -38,19 +33,12 @@ type NodesGetter interface {
 
 // NodeInterface has methods to work with Node resources.
 type NodeInterface interface {
-	Create(ctx context.Context, node *v1.Node, opts metav1.CreateOptions) (*v1.Node, error)
-	Update(ctx context.Context, node *v1.Node, opts metav1.UpdateOptions) (*v1.Node, error)
+	generic.Interface[*v1.Node, *v1.NodeList]
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, node *v1.Node, opts metav1.UpdateOptions) (*v1.Node, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.Node, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.NodeList, error)
-	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.Node, err error)
-	Apply(ctx context.Context, node *corev1.NodeApplyConfiguration, opts metav1.ApplyOptions) (result *v1.Node, err error)
+	generic.StatusUpdater[*v1.Node]
+	generic.Applier[*v1.Node, *corev1.NodeApplyConfiguration]
 	// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
-	ApplyStatus(ctx context.Context, node *corev1.NodeApplyConfiguration, opts metav1.ApplyOptions) (result *v1.Node, err error)
+	generic.StatusApplier[*v1.Node, *corev1.NodeApplyConfiguration]
 	NodeExpansion
 }
 
