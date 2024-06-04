@@ -32,7 +32,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/mock/gomock"
 	"gopkg.in/square/go-jose.v2"
 )
 
@@ -98,17 +97,14 @@ func BuildAndRunTestServer(t *testing.T, caPath, caKeyPath, issuerOverride strin
 	}
 	httpServer.StartTLS()
 
-	mockCtrl := gomock.NewController(t)
-
 	t.Cleanup(func() {
-		mockCtrl.Finish()
 		httpServer.Close()
 	})
 
 	oidcServer := &TestServer{
 		httpServer:   httpServer,
-		tokenHandler: NewMockTokenHandler(mockCtrl),
-		jwksHandler:  NewMockJWKsHandler(mockCtrl),
+		tokenHandler: NewMockTokenHandler(t),
+		jwksHandler:  NewMockJWKsHandler(t),
 	}
 
 	issuer := httpServer.URL
