@@ -52,7 +52,7 @@ func newLocalSubjectAccessReviews(c *AuthorizationV1beta1Client, namespace strin
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*authorizationv1beta1.LocalSubjectAccessReview](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

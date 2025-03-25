@@ -63,7 +63,7 @@ func newMutatingWebhookConfigurations(c *AdmissionregistrationV1Client) *mutatin
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*admissionregistrationv1.MutatingWebhookConfiguration](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -63,7 +63,7 @@ func newEndpointSlices(c *DiscoveryV1beta1Client, namespace string) *endpointSli
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*discoveryv1beta1.EndpointSlice](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

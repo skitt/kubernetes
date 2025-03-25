@@ -63,7 +63,7 @@ func newCSINodes(c *StorageV1beta1Client) *cSINodes {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*storagev1beta1.CSINode](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

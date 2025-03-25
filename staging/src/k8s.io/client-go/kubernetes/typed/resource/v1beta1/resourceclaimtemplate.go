@@ -63,7 +63,7 @@ func newResourceClaimTemplates(c *ResourceV1beta1Client, namespace string) *reso
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*resourcev1beta1.ResourceClaimTemplate](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

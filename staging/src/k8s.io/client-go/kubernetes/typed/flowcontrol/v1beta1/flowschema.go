@@ -67,7 +67,7 @@ func newFlowSchemas(c *FlowcontrolV1beta1Client) *flowSchemas {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*flowcontrolv1beta1.FlowSchema](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

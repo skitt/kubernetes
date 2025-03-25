@@ -63,7 +63,7 @@ func newEndpoints(c *CoreV1Client, namespace string) *endpoints {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*corev1.Endpoints](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

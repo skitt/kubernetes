@@ -63,7 +63,7 @@ func newNetworkPolicies(c *ExtensionsV1beta1Client, namespace string) *networkPo
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*extensionsv1beta1.NetworkPolicy](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

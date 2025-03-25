@@ -63,7 +63,7 @@ func newLeaseCandidates(c *CoordinationV1beta1Client, namespace string) *leaseCa
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*coordinationv1beta1.LeaseCandidate](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

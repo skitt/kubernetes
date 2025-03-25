@@ -66,7 +66,7 @@ func newNamespaces(c *CoreV1Client) *namespaces {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*corev1.Namespace](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

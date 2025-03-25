@@ -67,7 +67,7 @@ func newStorageVersions(c *InternalV1alpha1Client) *storageVersions {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*apiserverinternalv1alpha1.StorageVersion](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

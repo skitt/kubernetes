@@ -67,7 +67,7 @@ func newResourceQuotas(c *CoreV1Client, namespace string) *resourceQuotas {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*corev1.ResourceQuota](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -70,7 +70,7 @@ func newPods(c *CoreV1Client, namespace string) *pods {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*corev1.Pod](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

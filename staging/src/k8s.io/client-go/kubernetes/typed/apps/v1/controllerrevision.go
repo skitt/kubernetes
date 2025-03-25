@@ -63,7 +63,7 @@ func newControllerRevisions(c *AppsV1Client, namespace string) *controllerRevisi
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*appsv1.ControllerRevision](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

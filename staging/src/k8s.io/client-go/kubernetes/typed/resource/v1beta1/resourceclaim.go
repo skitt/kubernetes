@@ -67,7 +67,7 @@ func newResourceClaims(c *ResourceV1beta1Client, namespace string) *resourceClai
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*resourcev1beta1.ResourceClaim](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

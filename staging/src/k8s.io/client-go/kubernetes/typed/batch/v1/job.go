@@ -67,7 +67,7 @@ func newJobs(c *BatchV1Client, namespace string) *jobs {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*batchv1.Job](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

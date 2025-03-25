@@ -67,7 +67,7 @@ func newDeployments(c *AppsV1beta1Client, namespace string) *deployments {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*appsv1beta1.Deployment](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -73,7 +73,7 @@ func newStatefulSets(c *AppsV1beta2Client, namespace string) *statefulSets {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*appsv1beta2.StatefulSet](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }
