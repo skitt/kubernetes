@@ -27,13 +27,13 @@ import (
 
 // fakeRuntimeClasses implements RuntimeClassInterface
 type fakeRuntimeClasses struct {
-	*gentype2.FakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration, v1.RuntimeClass, v1.RuntimeClassList]
 	Fake *FakeNodeV1
 }
 
 func newFakeRuntimeClasses(fake *FakeNodeV1) typednodev1.RuntimeClassInterface {
 	return &fakeRuntimeClasses{
-		gentype2.NewFakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration, v1.RuntimeClass, v1.RuntimeClassList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("runtimeclasses"),

@@ -41,13 +41,13 @@ type SubjectAccessReviewInterface interface {
 
 // subjectAccessReviews implements SubjectAccessReviewInterface
 type subjectAccessReviews struct {
-	*gentype2.Client[*authorizationv1.SubjectAccessReview]
+	*gentype2.Client[*authorizationv1.SubjectAccessReview, authorizationv1.SubjectAccessReview]
 }
 
 // newSubjectAccessReviews returns a SubjectAccessReviews
 func newSubjectAccessReviews(c *AuthorizationV1Client) *subjectAccessReviews {
 	return &subjectAccessReviews{
-		gentype2.NewClient[*authorizationv1.SubjectAccessReview](
+		gentype2.NewClient[*authorizationv1.SubjectAccessReview, authorizationv1.SubjectAccessReview](
 			"subjectaccessreviews",
 			c.RESTClient(),
 			scheme.ParameterCodec,

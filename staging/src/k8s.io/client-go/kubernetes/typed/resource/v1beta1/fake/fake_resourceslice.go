@@ -27,13 +27,13 @@ import (
 
 // fakeResourceSlices implements ResourceSliceInterface
 type fakeResourceSlices struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.ResourceSlice, *v1beta1.ResourceSliceList, *resourcev1beta1.ResourceSliceApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ResourceSlice, *v1beta1.ResourceSliceList, *resourcev1beta1.ResourceSliceApplyConfiguration, v1beta1.ResourceSlice, v1beta1.ResourceSliceList]
 	Fake *FakeResourceV1beta1
 }
 
 func newFakeResourceSlices(fake *FakeResourceV1beta1) typedresourcev1beta1.ResourceSliceInterface {
 	return &fakeResourceSlices{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.ResourceSlice, *v1beta1.ResourceSliceList, *resourcev1beta1.ResourceSliceApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ResourceSlice, *v1beta1.ResourceSliceList, *resourcev1beta1.ResourceSliceApplyConfiguration, v1beta1.ResourceSlice, v1beta1.ResourceSliceList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("resourceslices"),

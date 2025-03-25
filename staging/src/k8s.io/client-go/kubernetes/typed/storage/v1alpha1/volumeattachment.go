@@ -56,13 +56,13 @@ type VolumeAttachmentInterface interface {
 
 // volumeAttachments implements VolumeAttachmentInterface
 type volumeAttachments struct {
-	*gentype2.ClientWithListAndApply[*storagev1alpha1.VolumeAttachment, *storagev1alpha1.VolumeAttachmentList, *applyconfigurationsstoragev1alpha1.VolumeAttachmentApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1alpha1.VolumeAttachment, *storagev1alpha1.VolumeAttachmentList, *applyconfigurationsstoragev1alpha1.VolumeAttachmentApplyConfiguration, storagev1alpha1.VolumeAttachment, storagev1alpha1.VolumeAttachmentList]
 }
 
 // newVolumeAttachments returns a VolumeAttachments
 func newVolumeAttachments(c *StorageV1alpha1Client) *volumeAttachments {
 	return &volumeAttachments{
-		gentype2.NewClientWithListAndApply[*storagev1alpha1.VolumeAttachment, *storagev1alpha1.VolumeAttachmentList, *applyconfigurationsstoragev1alpha1.VolumeAttachmentApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1alpha1.VolumeAttachment, *storagev1alpha1.VolumeAttachmentList, *applyconfigurationsstoragev1alpha1.VolumeAttachmentApplyConfiguration, storagev1alpha1.VolumeAttachment, storagev1alpha1.VolumeAttachmentList](
 			"volumeattachments",
 			c.RESTClient(),
 			scheme.ParameterCodec,

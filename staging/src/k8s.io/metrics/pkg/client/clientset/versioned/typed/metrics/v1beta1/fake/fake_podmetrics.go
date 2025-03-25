@@ -26,13 +26,13 @@ import (
 
 // fakePodMetricses implements PodMetricsInterface
 type fakePodMetricses struct {
-	*gentype2.FakeClientWithList[*v1beta1.PodMetrics, *v1beta1.PodMetricsList]
+	*gentype2.FakeClientWithList[*v1beta1.PodMetrics, *v1beta1.PodMetricsList, v1beta1.PodMetrics, v1beta1.PodMetricsList]
 	Fake *FakeMetricsV1beta1
 }
 
 func newFakePodMetricses(fake *FakeMetricsV1beta1, namespace string) metricsv1beta1.PodMetricsInterface {
 	return &fakePodMetricses{
-		gentype2.NewFakeClientWithList[*v1beta1.PodMetrics, *v1beta1.PodMetricsList](
+		gentype2.NewFakeClientWithList[*v1beta1.PodMetrics, *v1beta1.PodMetricsList, v1beta1.PodMetrics, v1beta1.PodMetricsList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("pods"),

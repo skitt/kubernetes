@@ -37,13 +37,13 @@ type EvictionInterface interface {
 
 // evictions implements EvictionInterface
 type evictions struct {
-	*gentype2.Client[*policyv1.Eviction]
+	*gentype2.Client[*policyv1.Eviction, policyv1.Eviction]
 }
 
 // newEvictions returns a Evictions
 func newEvictions(c *PolicyV1Client, namespace string) *evictions {
 	return &evictions{
-		gentype2.NewClient[*policyv1.Eviction](
+		gentype2.NewClient[*policyv1.Eviction, policyv1.Eviction](
 			"evictions",
 			c.RESTClient(),
 			scheme.ParameterCodec,

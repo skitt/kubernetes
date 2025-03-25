@@ -52,13 +52,13 @@ type RuntimeClassInterface interface {
 
 // runtimeClasses implements RuntimeClassInterface
 type runtimeClasses struct {
-	*gentype2.ClientWithListAndApply[*nodev1beta1.RuntimeClass, *nodev1beta1.RuntimeClassList, *applyconfigurationsnodev1beta1.RuntimeClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*nodev1beta1.RuntimeClass, *nodev1beta1.RuntimeClassList, *applyconfigurationsnodev1beta1.RuntimeClassApplyConfiguration, nodev1beta1.RuntimeClass, nodev1beta1.RuntimeClassList]
 }
 
 // newRuntimeClasses returns a RuntimeClasses
 func newRuntimeClasses(c *NodeV1beta1Client) *runtimeClasses {
 	return &runtimeClasses{
-		gentype2.NewClientWithListAndApply[*nodev1beta1.RuntimeClass, *nodev1beta1.RuntimeClassList, *applyconfigurationsnodev1beta1.RuntimeClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*nodev1beta1.RuntimeClass, *nodev1beta1.RuntimeClassList, *applyconfigurationsnodev1beta1.RuntimeClassApplyConfiguration, nodev1beta1.RuntimeClass, nodev1beta1.RuntimeClassList](
 			"runtimeclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

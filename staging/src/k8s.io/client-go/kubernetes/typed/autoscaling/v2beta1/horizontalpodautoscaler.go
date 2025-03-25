@@ -56,13 +56,13 @@ type HorizontalPodAutoscalerInterface interface {
 
 // horizontalPodAutoscalers implements HorizontalPodAutoscalerInterface
 type horizontalPodAutoscalers struct {
-	*gentype2.ClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration, autoscalingv2beta1.HorizontalPodAutoscaler, autoscalingv2beta1.HorizontalPodAutoscalerList]
 }
 
 // newHorizontalPodAutoscalers returns a HorizontalPodAutoscalers
 func newHorizontalPodAutoscalers(c *AutoscalingV2beta1Client, namespace string) *horizontalPodAutoscalers {
 	return &horizontalPodAutoscalers{
-		gentype2.NewClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration, autoscalingv2beta1.HorizontalPodAutoscaler, autoscalingv2beta1.HorizontalPodAutoscalerList](
 			"horizontalpodautoscalers",
 			c.RESTClient(),
 			scheme.ParameterCodec,

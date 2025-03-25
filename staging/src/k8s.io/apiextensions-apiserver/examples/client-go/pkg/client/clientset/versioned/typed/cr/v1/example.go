@@ -52,13 +52,13 @@ type ExampleInterface interface {
 
 // examples implements ExampleInterface
 type examples struct {
-	*gentype2.ClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration, crv1.Example, crv1.ExampleList]
 }
 
 // newExamples returns a Examples
 func newExamples(c *CrV1Client, namespace string) *examples {
 	return &examples{
-		gentype2.NewClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration, crv1.Example, crv1.ExampleList](
 			"examples",
 			c.RESTClient(),
 			scheme.ParameterCodec,

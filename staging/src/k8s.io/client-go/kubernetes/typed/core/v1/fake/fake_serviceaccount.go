@@ -32,13 +32,13 @@ import (
 
 // fakeServiceAccounts implements ServiceAccountInterface
 type fakeServiceAccounts struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ServiceAccount, *v1.ServiceAccountList, *corev1.ServiceAccountApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ServiceAccount, *v1.ServiceAccountList, *corev1.ServiceAccountApplyConfiguration, v1.ServiceAccount, v1.ServiceAccountList]
 	Fake *FakeCoreV1
 }
 
 func newFakeServiceAccounts(fake *FakeCoreV1, namespace string) typedcorev1.ServiceAccountInterface {
 	return &fakeServiceAccounts{
-		gentype2.NewFakeClientWithListAndApply[*v1.ServiceAccount, *v1.ServiceAccountList, *corev1.ServiceAccountApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ServiceAccount, *v1.ServiceAccountList, *corev1.ServiceAccountApplyConfiguration, v1.ServiceAccount, v1.ServiceAccountList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("serviceaccounts"),

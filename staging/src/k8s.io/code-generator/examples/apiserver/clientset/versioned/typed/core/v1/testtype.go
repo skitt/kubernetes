@@ -52,13 +52,13 @@ type TestTypeInterface interface {
 
 // testTypes implements TestTypeInterface
 type testTypes struct {
-	*gentype2.ClientWithList[*corev1.TestType, *corev1.TestTypeList]
+	*gentype2.ClientWithList[*corev1.TestType, *corev1.TestTypeList, corev1.TestType, corev1.TestTypeList]
 }
 
 // newTestTypes returns a TestTypes
 func newTestTypes(c *CoreV1Client, namespace string) *testTypes {
 	return &testTypes{
-		gentype2.NewClientWithList[*corev1.TestType, *corev1.TestTypeList](
+		gentype2.NewClientWithList[*corev1.TestType, *corev1.TestTypeList, corev1.TestType, corev1.TestTypeList](
 			"testtypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

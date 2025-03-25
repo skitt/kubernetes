@@ -27,13 +27,13 @@ import (
 
 // fakeIngresses implements IngressInterface
 type fakeIngresses struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration, v1.Ingress, v1.IngressList]
 	Fake *FakeNetworkingV1
 }
 
 func newFakeIngresses(fake *FakeNetworkingV1, namespace string) typednetworkingv1.IngressInterface {
 	return &fakeIngresses{
-		gentype2.NewFakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration, v1.Ingress, v1.IngressList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("ingresses"),

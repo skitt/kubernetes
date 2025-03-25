@@ -27,13 +27,13 @@ import (
 
 // fakeDeviceTaintRules implements DeviceTaintRuleInterface
 type fakeDeviceTaintRules struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration, v1alpha3.DeviceTaintRule, v1alpha3.DeviceTaintRuleList]
 	Fake *FakeResourceV1alpha3
 }
 
 func newFakeDeviceTaintRules(fake *FakeResourceV1alpha3) typedresourcev1alpha3.DeviceTaintRuleInterface {
 	return &fakeDeviceTaintRules{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration, v1alpha3.DeviceTaintRule, v1alpha3.DeviceTaintRuleList](
 			fake.Fake,
 			"",
 			v1alpha3.SchemeGroupVersion.WithResource("devicetaintrules"),

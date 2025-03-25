@@ -56,13 +56,13 @@ type ResourceClaimInterface interface {
 
 // resourceClaims implements ResourceClaimInterface
 type resourceClaims struct {
-	*gentype2.ClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration, resourcev1beta1.ResourceClaim, resourcev1beta1.ResourceClaimList]
 }
 
 // newResourceClaims returns a ResourceClaims
 func newResourceClaims(c *ResourceV1beta1Client, namespace string) *resourceClaims {
 	return &resourceClaims{
-		gentype2.NewClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration, resourcev1beta1.ResourceClaim, resourcev1beta1.ResourceClaimList](
 			"resourceclaims",
 			c.RESTClient(),
 			scheme.ParameterCodec,

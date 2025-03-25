@@ -27,13 +27,13 @@ import (
 
 // fakeEndpointSlices implements EndpointSliceInterface
 type fakeEndpointSlices struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.EndpointSlice, *v1beta1.EndpointSliceList, *discoveryv1beta1.EndpointSliceApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.EndpointSlice, *v1beta1.EndpointSliceList, *discoveryv1beta1.EndpointSliceApplyConfiguration, v1beta1.EndpointSlice, v1beta1.EndpointSliceList]
 	Fake *FakeDiscoveryV1beta1
 }
 
 func newFakeEndpointSlices(fake *FakeDiscoveryV1beta1, namespace string) typeddiscoveryv1beta1.EndpointSliceInterface {
 	return &fakeEndpointSlices{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.EndpointSlice, *v1beta1.EndpointSliceList, *discoveryv1beta1.EndpointSliceApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.EndpointSlice, *v1beta1.EndpointSliceList, *discoveryv1beta1.EndpointSliceApplyConfiguration, v1beta1.EndpointSlice, v1beta1.EndpointSliceList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("endpointslices"),

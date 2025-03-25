@@ -52,13 +52,13 @@ type LimitRangeInterface interface {
 
 // limitRanges implements LimitRangeInterface
 type limitRanges struct {
-	*gentype2.ClientWithListAndApply[*corev1.LimitRange, *corev1.LimitRangeList, *applyconfigurationscorev1.LimitRangeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.LimitRange, *corev1.LimitRangeList, *applyconfigurationscorev1.LimitRangeApplyConfiguration, corev1.LimitRange, corev1.LimitRangeList]
 }
 
 // newLimitRanges returns a LimitRanges
 func newLimitRanges(c *CoreV1Client, namespace string) *limitRanges {
 	return &limitRanges{
-		gentype2.NewClientWithListAndApply[*corev1.LimitRange, *corev1.LimitRangeList, *applyconfigurationscorev1.LimitRangeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.LimitRange, *corev1.LimitRangeList, *applyconfigurationscorev1.LimitRangeApplyConfiguration, corev1.LimitRange, corev1.LimitRangeList](
 			"limitranges",
 			c.RESTClient(),
 			scheme.ParameterCodec,

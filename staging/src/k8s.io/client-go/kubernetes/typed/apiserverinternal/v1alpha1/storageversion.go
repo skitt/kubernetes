@@ -56,13 +56,13 @@ type StorageVersionInterface interface {
 
 // storageVersions implements StorageVersionInterface
 type storageVersions struct {
-	*gentype2.ClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration, apiserverinternalv1alpha1.StorageVersion, apiserverinternalv1alpha1.StorageVersionList]
 }
 
 // newStorageVersions returns a StorageVersions
 func newStorageVersions(c *InternalV1alpha1Client) *storageVersions {
 	return &storageVersions{
-		gentype2.NewClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration, apiserverinternalv1alpha1.StorageVersion, apiserverinternalv1alpha1.StorageVersionList](
 			"storageversions",
 			c.RESTClient(),
 			scheme.ParameterCodec,

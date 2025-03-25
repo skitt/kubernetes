@@ -27,13 +27,13 @@ import (
 
 // fakeMutatingWebhookConfigurations implements MutatingWebhookConfigurationInterface
 type fakeMutatingWebhookConfigurations struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration, v1beta1.MutatingWebhookConfiguration, v1beta1.MutatingWebhookConfigurationList]
 	Fake *FakeAdmissionregistrationV1beta1
 }
 
 func newFakeMutatingWebhookConfigurations(fake *FakeAdmissionregistrationV1beta1) typedadmissionregistrationv1beta1.MutatingWebhookConfigurationInterface {
 	return &fakeMutatingWebhookConfigurations{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration, v1beta1.MutatingWebhookConfiguration, v1beta1.MutatingWebhookConfigurationList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("mutatingwebhookconfigurations"),

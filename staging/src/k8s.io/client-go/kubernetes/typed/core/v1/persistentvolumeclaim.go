@@ -56,13 +56,13 @@ type PersistentVolumeClaimInterface interface {
 
 // persistentVolumeClaims implements PersistentVolumeClaimInterface
 type persistentVolumeClaims struct {
-	*gentype2.ClientWithListAndApply[*corev1.PersistentVolumeClaim, *corev1.PersistentVolumeClaimList, *applyconfigurationscorev1.PersistentVolumeClaimApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.PersistentVolumeClaim, *corev1.PersistentVolumeClaimList, *applyconfigurationscorev1.PersistentVolumeClaimApplyConfiguration, corev1.PersistentVolumeClaim, corev1.PersistentVolumeClaimList]
 }
 
 // newPersistentVolumeClaims returns a PersistentVolumeClaims
 func newPersistentVolumeClaims(c *CoreV1Client, namespace string) *persistentVolumeClaims {
 	return &persistentVolumeClaims{
-		gentype2.NewClientWithListAndApply[*corev1.PersistentVolumeClaim, *corev1.PersistentVolumeClaimList, *applyconfigurationscorev1.PersistentVolumeClaimApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.PersistentVolumeClaim, *corev1.PersistentVolumeClaimList, *applyconfigurationscorev1.PersistentVolumeClaimApplyConfiguration, corev1.PersistentVolumeClaim, corev1.PersistentVolumeClaimList](
 			"persistentvolumeclaims",
 			c.RESTClient(),
 			scheme.ParameterCodec,

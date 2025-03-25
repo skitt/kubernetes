@@ -27,13 +27,13 @@ import (
 
 // fakeEndpoints implements EndpointsInterface
 type fakeEndpoints struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Endpoints, *v1.EndpointsList, *corev1.EndpointsApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Endpoints, *v1.EndpointsList, *corev1.EndpointsApplyConfiguration, v1.Endpoints, v1.EndpointsList]
 	Fake *FakeCoreV1
 }
 
 func newFakeEndpoints(fake *FakeCoreV1, namespace string) typedcorev1.EndpointsInterface {
 	return &fakeEndpoints{
-		gentype2.NewFakeClientWithListAndApply[*v1.Endpoints, *v1.EndpointsList, *corev1.EndpointsApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Endpoints, *v1.EndpointsList, *corev1.EndpointsApplyConfiguration, v1.Endpoints, v1.EndpointsList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("endpoints"),

@@ -27,13 +27,13 @@ import (
 
 // fakeRoles implements RoleInterface
 type fakeRoles struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.Role, *v1beta1.RoleList, *rbacv1beta1.RoleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.Role, *v1beta1.RoleList, *rbacv1beta1.RoleApplyConfiguration, v1beta1.Role, v1beta1.RoleList]
 	Fake *FakeRbacV1beta1
 }
 
 func newFakeRoles(fake *FakeRbacV1beta1, namespace string) typedrbacv1beta1.RoleInterface {
 	return &fakeRoles{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.Role, *v1beta1.RoleList, *rbacv1beta1.RoleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.Role, *v1beta1.RoleList, *rbacv1beta1.RoleApplyConfiguration, v1beta1.Role, v1beta1.RoleList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("roles"),

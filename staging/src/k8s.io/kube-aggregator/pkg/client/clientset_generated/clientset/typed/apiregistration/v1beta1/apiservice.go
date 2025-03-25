@@ -52,13 +52,13 @@ type APIServiceInterface interface {
 
 // aPIServices implements APIServiceInterface
 type aPIServices struct {
-	*gentype2.ClientWithList[*apiregistrationv1beta1.APIService, *apiregistrationv1beta1.APIServiceList]
+	*gentype2.ClientWithList[*apiregistrationv1beta1.APIService, *apiregistrationv1beta1.APIServiceList, apiregistrationv1beta1.APIService, apiregistrationv1beta1.APIServiceList]
 }
 
 // newAPIServices returns a APIServices
 func newAPIServices(c *ApiregistrationV1beta1Client) *aPIServices {
 	return &aPIServices{
-		gentype2.NewClientWithList[*apiregistrationv1beta1.APIService, *apiregistrationv1beta1.APIServiceList](
+		gentype2.NewClientWithList[*apiregistrationv1beta1.APIService, *apiregistrationv1beta1.APIServiceList, apiregistrationv1beta1.APIService, apiregistrationv1beta1.APIServiceList](
 			"apiservices",
 			c.RESTClient(),
 			scheme.ParameterCodec,

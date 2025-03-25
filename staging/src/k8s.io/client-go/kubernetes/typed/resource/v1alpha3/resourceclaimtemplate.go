@@ -52,13 +52,13 @@ type ResourceClaimTemplateInterface interface {
 
 // resourceClaimTemplates implements ResourceClaimTemplateInterface
 type resourceClaimTemplates struct {
-	*gentype2.ClientWithListAndApply[*resourcev1alpha3.ResourceClaimTemplate, *resourcev1alpha3.ResourceClaimTemplateList, *applyconfigurationsresourcev1alpha3.ResourceClaimTemplateApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1alpha3.ResourceClaimTemplate, *resourcev1alpha3.ResourceClaimTemplateList, *applyconfigurationsresourcev1alpha3.ResourceClaimTemplateApplyConfiguration, resourcev1alpha3.ResourceClaimTemplate, resourcev1alpha3.ResourceClaimTemplateList]
 }
 
 // newResourceClaimTemplates returns a ResourceClaimTemplates
 func newResourceClaimTemplates(c *ResourceV1alpha3Client, namespace string) *resourceClaimTemplates {
 	return &resourceClaimTemplates{
-		gentype2.NewClientWithListAndApply[*resourcev1alpha3.ResourceClaimTemplate, *resourcev1alpha3.ResourceClaimTemplateList, *applyconfigurationsresourcev1alpha3.ResourceClaimTemplateApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1alpha3.ResourceClaimTemplate, *resourcev1alpha3.ResourceClaimTemplateList, *applyconfigurationsresourcev1alpha3.ResourceClaimTemplateApplyConfiguration, resourcev1alpha3.ResourceClaimTemplate, resourcev1alpha3.ResourceClaimTemplateList](
 			"resourceclaimtemplates",
 			c.RESTClient(),
 			scheme.ParameterCodec,

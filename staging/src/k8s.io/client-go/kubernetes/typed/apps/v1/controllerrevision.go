@@ -52,13 +52,13 @@ type ControllerRevisionInterface interface {
 
 // controllerRevisions implements ControllerRevisionInterface
 type controllerRevisions struct {
-	*gentype2.ClientWithListAndApply[*appsv1.ControllerRevision, *appsv1.ControllerRevisionList, *applyconfigurationsappsv1.ControllerRevisionApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1.ControllerRevision, *appsv1.ControllerRevisionList, *applyconfigurationsappsv1.ControllerRevisionApplyConfiguration, appsv1.ControllerRevision, appsv1.ControllerRevisionList]
 }
 
 // newControllerRevisions returns a ControllerRevisions
 func newControllerRevisions(c *AppsV1Client, namespace string) *controllerRevisions {
 	return &controllerRevisions{
-		gentype2.NewClientWithListAndApply[*appsv1.ControllerRevision, *appsv1.ControllerRevisionList, *applyconfigurationsappsv1.ControllerRevisionApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1.ControllerRevision, *appsv1.ControllerRevisionList, *applyconfigurationsappsv1.ControllerRevisionApplyConfiguration, appsv1.ControllerRevision, appsv1.ControllerRevisionList](
 			"controllerrevisions",
 			c.RESTClient(),
 			scheme.ParameterCodec,

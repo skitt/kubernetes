@@ -26,13 +26,13 @@ import (
 
 // fakeEvictions implements EvictionInterface
 type fakeEvictions struct {
-	*gentype2.FakeClient[*v1beta1.Eviction]
+	*gentype2.FakeClient[*v1beta1.Eviction, v1beta1.Eviction]
 	Fake *FakePolicyV1beta1
 }
 
 func newFakeEvictions(fake *FakePolicyV1beta1, namespace string) policyv1beta1.EvictionInterface {
 	return &fakeEvictions{
-		gentype2.NewFakeClient[*v1beta1.Eviction](
+		gentype2.NewFakeClient[*v1beta1.Eviction, v1beta1.Eviction](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("evictions"),

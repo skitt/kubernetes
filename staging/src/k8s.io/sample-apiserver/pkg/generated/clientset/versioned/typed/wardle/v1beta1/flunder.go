@@ -56,13 +56,13 @@ type FlunderInterface interface {
 
 // flunders implements FlunderInterface
 type flunders struct {
-	*gentype2.ClientWithListAndApply[*wardlev1beta1.Flunder, *wardlev1beta1.FlunderList, *applyconfigurationwardlev1beta1.FlunderApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*wardlev1beta1.Flunder, *wardlev1beta1.FlunderList, *applyconfigurationwardlev1beta1.FlunderApplyConfiguration, wardlev1beta1.Flunder, wardlev1beta1.FlunderList]
 }
 
 // newFlunders returns a Flunders
 func newFlunders(c *WardleV1beta1Client, namespace string) *flunders {
 	return &flunders{
-		gentype2.NewClientWithListAndApply[*wardlev1beta1.Flunder, *wardlev1beta1.FlunderList, *applyconfigurationwardlev1beta1.FlunderApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*wardlev1beta1.Flunder, *wardlev1beta1.FlunderList, *applyconfigurationwardlev1beta1.FlunderApplyConfiguration, wardlev1beta1.Flunder, wardlev1beta1.FlunderList](
 			"flunders",
 			c.RESTClient(),
 			scheme.ParameterCodec,

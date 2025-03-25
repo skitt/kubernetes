@@ -55,13 +55,13 @@ type ServiceInterface interface {
 
 // services implements ServiceInterface
 type services struct {
-	*gentype2.ClientWithListAndApply[*corev1.Service, *corev1.ServiceList, *applyconfigurationscorev1.ServiceApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Service, *corev1.ServiceList, *applyconfigurationscorev1.ServiceApplyConfiguration, corev1.Service, corev1.ServiceList]
 }
 
 // newServices returns a Services
 func newServices(c *CoreV1Client, namespace string) *services {
 	return &services{
-		gentype2.NewClientWithListAndApply[*corev1.Service, *corev1.ServiceList, *applyconfigurationscorev1.ServiceApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Service, *corev1.ServiceList, *applyconfigurationscorev1.ServiceApplyConfiguration, corev1.Service, corev1.ServiceList](
 			"services",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -27,13 +27,13 @@ import (
 
 // fakeCronJobs implements CronJobInterface
 type fakeCronJobs struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.CronJob, *v1beta1.CronJobList, *batchv1beta1.CronJobApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CronJob, *v1beta1.CronJobList, *batchv1beta1.CronJobApplyConfiguration, v1beta1.CronJob, v1beta1.CronJobList]
 	Fake *FakeBatchV1beta1
 }
 
 func newFakeCronJobs(fake *FakeBatchV1beta1, namespace string) typedbatchv1beta1.CronJobInterface {
 	return &fakeCronJobs{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.CronJob, *v1beta1.CronJobList, *batchv1beta1.CronJobApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CronJob, *v1beta1.CronJobList, *batchv1beta1.CronJobApplyConfiguration, v1beta1.CronJob, v1beta1.CronJobList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("cronjobs"),

@@ -52,13 +52,13 @@ type CSINodeInterface interface {
 
 // cSINodes implements CSINodeInterface
 type cSINodes struct {
-	*gentype2.ClientWithListAndApply[*storagev1beta1.CSINode, *storagev1beta1.CSINodeList, *applyconfigurationsstoragev1beta1.CSINodeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1beta1.CSINode, *storagev1beta1.CSINodeList, *applyconfigurationsstoragev1beta1.CSINodeApplyConfiguration, storagev1beta1.CSINode, storagev1beta1.CSINodeList]
 }
 
 // newCSINodes returns a CSINodes
 func newCSINodes(c *StorageV1beta1Client) *cSINodes {
 	return &cSINodes{
-		gentype2.NewClientWithListAndApply[*storagev1beta1.CSINode, *storagev1beta1.CSINodeList, *applyconfigurationsstoragev1beta1.CSINodeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1beta1.CSINode, *storagev1beta1.CSINodeList, *applyconfigurationsstoragev1beta1.CSINodeApplyConfiguration, storagev1beta1.CSINode, storagev1beta1.CSINodeList](
 			"csinodes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

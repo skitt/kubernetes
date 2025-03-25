@@ -27,13 +27,13 @@ import (
 
 // fakeNetworkPolicies implements NetworkPolicyInterface
 type fakeNetworkPolicies struct {
-	*gentype2.FakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration, v1.NetworkPolicy, v1.NetworkPolicyList]
 	Fake *FakeNetworkingV1
 }
 
 func newFakeNetworkPolicies(fake *FakeNetworkingV1, namespace string) typednetworkingv1.NetworkPolicyInterface {
 	return &fakeNetworkPolicies{
-		gentype2.NewFakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration, v1.NetworkPolicy, v1.NetworkPolicyList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("networkpolicies"),

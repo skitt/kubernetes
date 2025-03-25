@@ -52,13 +52,13 @@ type ResourceSliceInterface interface {
 
 // resourceSlices implements ResourceSliceInterface
 type resourceSlices struct {
-	*gentype2.ClientWithListAndApply[*resourcev1alpha3.ResourceSlice, *resourcev1alpha3.ResourceSliceList, *applyconfigurationsresourcev1alpha3.ResourceSliceApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1alpha3.ResourceSlice, *resourcev1alpha3.ResourceSliceList, *applyconfigurationsresourcev1alpha3.ResourceSliceApplyConfiguration, resourcev1alpha3.ResourceSlice, resourcev1alpha3.ResourceSliceList]
 }
 
 // newResourceSlices returns a ResourceSlices
 func newResourceSlices(c *ResourceV1alpha3Client) *resourceSlices {
 	return &resourceSlices{
-		gentype2.NewClientWithListAndApply[*resourcev1alpha3.ResourceSlice, *resourcev1alpha3.ResourceSliceList, *applyconfigurationsresourcev1alpha3.ResourceSliceApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1alpha3.ResourceSlice, *resourcev1alpha3.ResourceSliceList, *applyconfigurationsresourcev1alpha3.ResourceSliceApplyConfiguration, resourcev1alpha3.ResourceSlice, resourcev1alpha3.ResourceSliceList](
 			"resourceslices",
 			c.RESTClient(),
 			scheme.ParameterCodec,

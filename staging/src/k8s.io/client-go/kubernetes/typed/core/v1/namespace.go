@@ -55,13 +55,13 @@ type NamespaceInterface interface {
 
 // namespaces implements NamespaceInterface
 type namespaces struct {
-	*gentype2.ClientWithListAndApply[*corev1.Namespace, *corev1.NamespaceList, *applyconfigurationscorev1.NamespaceApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Namespace, *corev1.NamespaceList, *applyconfigurationscorev1.NamespaceApplyConfiguration, corev1.Namespace, corev1.NamespaceList]
 }
 
 // newNamespaces returns a Namespaces
 func newNamespaces(c *CoreV1Client) *namespaces {
 	return &namespaces{
-		gentype2.NewClientWithListAndApply[*corev1.Namespace, *corev1.NamespaceList, *applyconfigurationscorev1.NamespaceApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Namespace, *corev1.NamespaceList, *applyconfigurationscorev1.NamespaceApplyConfiguration, corev1.Namespace, corev1.NamespaceList](
 			"namespaces",
 			c.RESTClient(),
 			scheme.ParameterCodec,

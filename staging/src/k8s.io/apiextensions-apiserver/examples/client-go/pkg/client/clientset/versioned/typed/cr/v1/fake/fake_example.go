@@ -27,13 +27,13 @@ import (
 
 // fakeExamples implements ExampleInterface
 type fakeExamples struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration, v1.Example, v1.ExampleList]
 	Fake *FakeCrV1
 }
 
 func newFakeExamples(fake *FakeCrV1, namespace string) typedcrv1.ExampleInterface {
 	return &fakeExamples{
-		gentype2.NewFakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration, v1.Example, v1.ExampleList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("examples"),

@@ -60,13 +60,13 @@ type ReplicationControllerInterface interface {
 
 // replicationControllers implements ReplicationControllerInterface
 type replicationControllers struct {
-	*gentype2.ClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration, corev1.ReplicationController, corev1.ReplicationControllerList]
 }
 
 // newReplicationControllers returns a ReplicationControllers
 func newReplicationControllers(c *CoreV1Client, namespace string) *replicationControllers {
 	return &replicationControllers{
-		gentype2.NewClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration, corev1.ReplicationController, corev1.ReplicationControllerList](
 			"replicationcontrollers",
 			c.RESTClient(),
 			scheme.ParameterCodec,

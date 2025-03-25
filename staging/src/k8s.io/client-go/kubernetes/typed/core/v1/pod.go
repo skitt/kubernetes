@@ -59,13 +59,13 @@ type PodInterface interface {
 
 // pods implements PodInterface
 type pods struct {
-	*gentype2.ClientWithListAndApply[*corev1.Pod, *corev1.PodList, *applyconfigurationscorev1.PodApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Pod, *corev1.PodList, *applyconfigurationscorev1.PodApplyConfiguration, corev1.Pod, corev1.PodList]
 }
 
 // newPods returns a Pods
 func newPods(c *CoreV1Client, namespace string) *pods {
 	return &pods{
-		gentype2.NewClientWithListAndApply[*corev1.Pod, *corev1.PodList, *applyconfigurationscorev1.PodApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Pod, *corev1.PodList, *applyconfigurationscorev1.PodApplyConfiguration, corev1.Pod, corev1.PodList](
 			"pods",
 			c.RESTClient(),
 			scheme.ParameterCodec,

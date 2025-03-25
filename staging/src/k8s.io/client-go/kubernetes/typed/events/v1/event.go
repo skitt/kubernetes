@@ -52,13 +52,13 @@ type EventInterface interface {
 
 // events implements EventInterface
 type events struct {
-	*gentype2.ClientWithListAndApply[*eventsv1.Event, *eventsv1.EventList, *applyconfigurationseventsv1.EventApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*eventsv1.Event, *eventsv1.EventList, *applyconfigurationseventsv1.EventApplyConfiguration, eventsv1.Event, eventsv1.EventList]
 }
 
 // newEvents returns a Events
 func newEvents(c *EventsV1Client, namespace string) *events {
 	return &events{
-		gentype2.NewClientWithListAndApply[*eventsv1.Event, *eventsv1.EventList, *applyconfigurationseventsv1.EventApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*eventsv1.Event, *eventsv1.EventList, *applyconfigurationseventsv1.EventApplyConfiguration, eventsv1.Event, eventsv1.EventList](
 			"events",
 			c.RESTClient(),
 			scheme.ParameterCodec,

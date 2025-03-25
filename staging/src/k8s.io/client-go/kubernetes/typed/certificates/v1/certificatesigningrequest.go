@@ -58,13 +58,13 @@ type CertificateSigningRequestInterface interface {
 
 // certificateSigningRequests implements CertificateSigningRequestInterface
 type certificateSigningRequests struct {
-	*gentype2.ClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration, certificatesv1.CertificateSigningRequest, certificatesv1.CertificateSigningRequestList]
 }
 
 // newCertificateSigningRequests returns a CertificateSigningRequests
 func newCertificateSigningRequests(c *CertificatesV1Client) *certificateSigningRequests {
 	return &certificateSigningRequests{
-		gentype2.NewClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration, certificatesv1.CertificateSigningRequest, certificatesv1.CertificateSigningRequestList](
 			"certificatesigningrequests",
 			c.RESTClient(),
 			scheme.ParameterCodec,

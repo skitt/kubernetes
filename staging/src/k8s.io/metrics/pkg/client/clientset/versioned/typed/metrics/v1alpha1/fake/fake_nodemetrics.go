@@ -26,13 +26,13 @@ import (
 
 // fakeNodeMetricses implements NodeMetricsInterface
 type fakeNodeMetricses struct {
-	*gentype2.FakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList]
+	*gentype2.FakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList, v1alpha1.NodeMetrics, v1alpha1.NodeMetricsList]
 	Fake *FakeMetricsV1alpha1
 }
 
 func newFakeNodeMetricses(fake *FakeMetricsV1alpha1) metricsv1alpha1.NodeMetricsInterface {
 	return &fakeNodeMetricses{
-		gentype2.NewFakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList](
+		gentype2.NewFakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList, v1alpha1.NodeMetrics, v1alpha1.NodeMetricsList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("nodes"),

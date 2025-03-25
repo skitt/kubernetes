@@ -27,13 +27,13 @@ import (
 
 // fakeVolumeAttachments implements VolumeAttachmentInterface
 type fakeVolumeAttachments struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.VolumeAttachment, *v1alpha1.VolumeAttachmentList, *storagev1alpha1.VolumeAttachmentApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.VolumeAttachment, *v1alpha1.VolumeAttachmentList, *storagev1alpha1.VolumeAttachmentApplyConfiguration, v1alpha1.VolumeAttachment, v1alpha1.VolumeAttachmentList]
 	Fake *FakeStorageV1alpha1
 }
 
 func newFakeVolumeAttachments(fake *FakeStorageV1alpha1) typedstoragev1alpha1.VolumeAttachmentInterface {
 	return &fakeVolumeAttachments{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.VolumeAttachment, *v1alpha1.VolumeAttachmentList, *storagev1alpha1.VolumeAttachmentApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.VolumeAttachment, *v1alpha1.VolumeAttachmentList, *storagev1alpha1.VolumeAttachmentApplyConfiguration, v1alpha1.VolumeAttachment, v1alpha1.VolumeAttachmentList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("volumeattachments"),

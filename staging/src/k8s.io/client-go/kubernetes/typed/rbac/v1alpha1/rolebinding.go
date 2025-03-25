@@ -52,13 +52,13 @@ type RoleBindingInterface interface {
 
 // roleBindings implements RoleBindingInterface
 type roleBindings struct {
-	*gentype2.ClientWithListAndApply[*rbacv1alpha1.RoleBinding, *rbacv1alpha1.RoleBindingList, *applyconfigurationsrbacv1alpha1.RoleBindingApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*rbacv1alpha1.RoleBinding, *rbacv1alpha1.RoleBindingList, *applyconfigurationsrbacv1alpha1.RoleBindingApplyConfiguration, rbacv1alpha1.RoleBinding, rbacv1alpha1.RoleBindingList]
 }
 
 // newRoleBindings returns a RoleBindings
 func newRoleBindings(c *RbacV1alpha1Client, namespace string) *roleBindings {
 	return &roleBindings{
-		gentype2.NewClientWithListAndApply[*rbacv1alpha1.RoleBinding, *rbacv1alpha1.RoleBindingList, *applyconfigurationsrbacv1alpha1.RoleBindingApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*rbacv1alpha1.RoleBinding, *rbacv1alpha1.RoleBindingList, *applyconfigurationsrbacv1alpha1.RoleBindingApplyConfiguration, rbacv1alpha1.RoleBinding, rbacv1alpha1.RoleBindingList](
 			"rolebindings",
 			c.RESTClient(),
 			scheme.ParameterCodec,

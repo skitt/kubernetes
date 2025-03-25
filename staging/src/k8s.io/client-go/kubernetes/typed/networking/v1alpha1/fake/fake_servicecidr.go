@@ -27,13 +27,13 @@ import (
 
 // fakeServiceCIDRs implements ServiceCIDRInterface
 type fakeServiceCIDRs struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.ServiceCIDR, *v1alpha1.ServiceCIDRList, *networkingv1alpha1.ServiceCIDRApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.ServiceCIDR, *v1alpha1.ServiceCIDRList, *networkingv1alpha1.ServiceCIDRApplyConfiguration, v1alpha1.ServiceCIDR, v1alpha1.ServiceCIDRList]
 	Fake *FakeNetworkingV1alpha1
 }
 
 func newFakeServiceCIDRs(fake *FakeNetworkingV1alpha1) typednetworkingv1alpha1.ServiceCIDRInterface {
 	return &fakeServiceCIDRs{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ServiceCIDR, *v1alpha1.ServiceCIDRList, *networkingv1alpha1.ServiceCIDRApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ServiceCIDR, *v1alpha1.ServiceCIDRList, *networkingv1alpha1.ServiceCIDRApplyConfiguration, v1alpha1.ServiceCIDR, v1alpha1.ServiceCIDRList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("servicecidrs"),

@@ -27,13 +27,13 @@ import (
 
 // fakePersistentVolumes implements PersistentVolumeInterface
 type fakePersistentVolumes struct {
-	*gentype2.FakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration, v1.PersistentVolume, v1.PersistentVolumeList]
 	Fake *FakeCoreV1
 }
 
 func newFakePersistentVolumes(fake *FakeCoreV1) typedcorev1.PersistentVolumeInterface {
 	return &fakePersistentVolumes{
-		gentype2.NewFakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration, v1.PersistentVolume, v1.PersistentVolumeList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("persistentvolumes"),

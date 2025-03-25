@@ -56,13 +56,13 @@ type CustomResourceDefinitionInterface interface {
 
 // customResourceDefinitions implements CustomResourceDefinitionInterface
 type customResourceDefinitions struct {
-	*gentype2.ClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration, apiextensionsv1beta1.CustomResourceDefinition, apiextensionsv1beta1.CustomResourceDefinitionList]
 }
 
 // newCustomResourceDefinitions returns a CustomResourceDefinitions
 func newCustomResourceDefinitions(c *ApiextensionsV1beta1Client) *customResourceDefinitions {
 	return &customResourceDefinitions{
-		gentype2.NewClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration, apiextensionsv1beta1.CustomResourceDefinition, apiextensionsv1beta1.CustomResourceDefinitionList](
 			"customresourcedefinitions",
 			c.RESTClient(),
 			scheme.ParameterCodec,

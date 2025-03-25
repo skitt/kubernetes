@@ -52,13 +52,13 @@ type VolumeAttributesClassInterface interface {
 
 // volumeAttributesClasses implements VolumeAttributesClassInterface
 type volumeAttributesClasses struct {
-	*gentype2.ClientWithListAndApply[*storagev1beta1.VolumeAttributesClass, *storagev1beta1.VolumeAttributesClassList, *applyconfigurationsstoragev1beta1.VolumeAttributesClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1beta1.VolumeAttributesClass, *storagev1beta1.VolumeAttributesClassList, *applyconfigurationsstoragev1beta1.VolumeAttributesClassApplyConfiguration, storagev1beta1.VolumeAttributesClass, storagev1beta1.VolumeAttributesClassList]
 }
 
 // newVolumeAttributesClasses returns a VolumeAttributesClasses
 func newVolumeAttributesClasses(c *StorageV1beta1Client) *volumeAttributesClasses {
 	return &volumeAttributesClasses{
-		gentype2.NewClientWithListAndApply[*storagev1beta1.VolumeAttributesClass, *storagev1beta1.VolumeAttributesClassList, *applyconfigurationsstoragev1beta1.VolumeAttributesClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1beta1.VolumeAttributesClass, *storagev1beta1.VolumeAttributesClassList, *applyconfigurationsstoragev1beta1.VolumeAttributesClassApplyConfiguration, storagev1beta1.VolumeAttributesClass, storagev1beta1.VolumeAttributesClassList](
 			"volumeattributesclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -27,13 +27,13 @@ import (
 
 // fakeCSIDrivers implements CSIDriverInterface
 type fakeCSIDrivers struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.CSIDriver, *v1beta1.CSIDriverList, *storagev1beta1.CSIDriverApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CSIDriver, *v1beta1.CSIDriverList, *storagev1beta1.CSIDriverApplyConfiguration, v1beta1.CSIDriver, v1beta1.CSIDriverList]
 	Fake *FakeStorageV1beta1
 }
 
 func newFakeCSIDrivers(fake *FakeStorageV1beta1) typedstoragev1beta1.CSIDriverInterface {
 	return &fakeCSIDrivers{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.CSIDriver, *v1beta1.CSIDriverList, *storagev1beta1.CSIDriverApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CSIDriver, *v1beta1.CSIDriverList, *storagev1beta1.CSIDriverApplyConfiguration, v1beta1.CSIDriver, v1beta1.CSIDriverList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("csidrivers"),

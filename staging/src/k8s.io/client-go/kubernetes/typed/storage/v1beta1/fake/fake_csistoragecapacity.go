@@ -27,13 +27,13 @@ import (
 
 // fakeCSIStorageCapacities implements CSIStorageCapacityInterface
 type fakeCSIStorageCapacities struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.CSIStorageCapacity, *v1beta1.CSIStorageCapacityList, *storagev1beta1.CSIStorageCapacityApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CSIStorageCapacity, *v1beta1.CSIStorageCapacityList, *storagev1beta1.CSIStorageCapacityApplyConfiguration, v1beta1.CSIStorageCapacity, v1beta1.CSIStorageCapacityList]
 	Fake *FakeStorageV1beta1
 }
 
 func newFakeCSIStorageCapacities(fake *FakeStorageV1beta1, namespace string) typedstoragev1beta1.CSIStorageCapacityInterface {
 	return &fakeCSIStorageCapacities{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.CSIStorageCapacity, *v1beta1.CSIStorageCapacityList, *storagev1beta1.CSIStorageCapacityApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CSIStorageCapacity, *v1beta1.CSIStorageCapacityList, *storagev1beta1.CSIStorageCapacityApplyConfiguration, v1beta1.CSIStorageCapacity, v1beta1.CSIStorageCapacityList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("csistoragecapacities"),

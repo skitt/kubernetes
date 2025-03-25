@@ -27,13 +27,13 @@ import (
 
 // fakePodDisruptionBudgets implements PodDisruptionBudgetInterface
 type fakePodDisruptionBudgets struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.PodDisruptionBudget, *v1beta1.PodDisruptionBudgetList, *policyv1beta1.PodDisruptionBudgetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.PodDisruptionBudget, *v1beta1.PodDisruptionBudgetList, *policyv1beta1.PodDisruptionBudgetApplyConfiguration, v1beta1.PodDisruptionBudget, v1beta1.PodDisruptionBudgetList]
 	Fake *FakePolicyV1beta1
 }
 
 func newFakePodDisruptionBudgets(fake *FakePolicyV1beta1, namespace string) typedpolicyv1beta1.PodDisruptionBudgetInterface {
 	return &fakePodDisruptionBudgets{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.PodDisruptionBudget, *v1beta1.PodDisruptionBudgetList, *policyv1beta1.PodDisruptionBudgetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.PodDisruptionBudget, *v1beta1.PodDisruptionBudgetList, *policyv1beta1.PodDisruptionBudgetApplyConfiguration, v1beta1.PodDisruptionBudget, v1beta1.PodDisruptionBudgetList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("poddisruptionbudgets"),

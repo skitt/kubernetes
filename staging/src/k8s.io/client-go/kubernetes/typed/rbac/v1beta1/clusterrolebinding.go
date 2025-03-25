@@ -52,13 +52,13 @@ type ClusterRoleBindingInterface interface {
 
 // clusterRoleBindings implements ClusterRoleBindingInterface
 type clusterRoleBindings struct {
-	*gentype2.ClientWithListAndApply[*rbacv1beta1.ClusterRoleBinding, *rbacv1beta1.ClusterRoleBindingList, *applyconfigurationsrbacv1beta1.ClusterRoleBindingApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*rbacv1beta1.ClusterRoleBinding, *rbacv1beta1.ClusterRoleBindingList, *applyconfigurationsrbacv1beta1.ClusterRoleBindingApplyConfiguration, rbacv1beta1.ClusterRoleBinding, rbacv1beta1.ClusterRoleBindingList]
 }
 
 // newClusterRoleBindings returns a ClusterRoleBindings
 func newClusterRoleBindings(c *RbacV1beta1Client) *clusterRoleBindings {
 	return &clusterRoleBindings{
-		gentype2.NewClientWithListAndApply[*rbacv1beta1.ClusterRoleBinding, *rbacv1beta1.ClusterRoleBindingList, *applyconfigurationsrbacv1beta1.ClusterRoleBindingApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*rbacv1beta1.ClusterRoleBinding, *rbacv1beta1.ClusterRoleBindingList, *applyconfigurationsrbacv1beta1.ClusterRoleBindingApplyConfiguration, rbacv1beta1.ClusterRoleBinding, rbacv1beta1.ClusterRoleBindingList](
 			"clusterrolebindings",
 			c.RESTClient(),
 			scheme.ParameterCodec,

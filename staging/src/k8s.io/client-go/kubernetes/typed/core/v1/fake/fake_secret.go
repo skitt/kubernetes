@@ -27,13 +27,13 @@ import (
 
 // fakeSecrets implements SecretInterface
 type fakeSecrets struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Secret, *v1.SecretList, *corev1.SecretApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Secret, *v1.SecretList, *corev1.SecretApplyConfiguration, v1.Secret, v1.SecretList]
 	Fake *FakeCoreV1
 }
 
 func newFakeSecrets(fake *FakeCoreV1, namespace string) typedcorev1.SecretInterface {
 	return &fakeSecrets{
-		gentype2.NewFakeClientWithListAndApply[*v1.Secret, *v1.SecretList, *corev1.SecretApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Secret, *v1.SecretList, *corev1.SecretApplyConfiguration, v1.Secret, v1.SecretList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("secrets"),

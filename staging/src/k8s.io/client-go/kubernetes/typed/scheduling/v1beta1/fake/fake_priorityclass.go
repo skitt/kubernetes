@@ -27,13 +27,13 @@ import (
 
 // fakePriorityClasses implements PriorityClassInterface
 type fakePriorityClasses struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.PriorityClass, *v1beta1.PriorityClassList, *schedulingv1beta1.PriorityClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.PriorityClass, *v1beta1.PriorityClassList, *schedulingv1beta1.PriorityClassApplyConfiguration, v1beta1.PriorityClass, v1beta1.PriorityClassList]
 	Fake *FakeSchedulingV1beta1
 }
 
 func newFakePriorityClasses(fake *FakeSchedulingV1beta1) typedschedulingv1beta1.PriorityClassInterface {
 	return &fakePriorityClasses{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.PriorityClass, *v1beta1.PriorityClassList, *schedulingv1beta1.PriorityClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.PriorityClass, *v1beta1.PriorityClassList, *schedulingv1beta1.PriorityClassApplyConfiguration, v1beta1.PriorityClass, v1beta1.PriorityClassList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("priorityclasses"),

@@ -27,13 +27,13 @@ import (
 
 // fakeStorageVersions implements StorageVersionInterface
 type fakeStorageVersions struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration, v1alpha1.StorageVersion, v1alpha1.StorageVersionList]
 	Fake *FakeInternalV1alpha1
 }
 
 func newFakeStorageVersions(fake *FakeInternalV1alpha1) typedapiserverinternalv1alpha1.StorageVersionInterface {
 	return &fakeStorageVersions{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration, v1alpha1.StorageVersion, v1alpha1.StorageVersionList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("storageversions"),

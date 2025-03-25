@@ -27,13 +27,13 @@ import (
 
 // fakeVolumeAttributesClasses implements VolumeAttributesClassInterface
 type fakeVolumeAttributesClasses struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration, v1beta1.VolumeAttributesClass, v1beta1.VolumeAttributesClassList]
 	Fake *FakeStorageV1beta1
 }
 
 func newFakeVolumeAttributesClasses(fake *FakeStorageV1beta1) typedstoragev1beta1.VolumeAttributesClassInterface {
 	return &fakeVolumeAttributesClasses{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration, v1beta1.VolumeAttributesClass, v1beta1.VolumeAttributesClassList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("volumeattributesclasses"),

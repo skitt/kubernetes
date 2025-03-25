@@ -27,13 +27,13 @@ import (
 
 // fakePriorityLevelConfigurations implements PriorityLevelConfigurationInterface
 type fakePriorityLevelConfigurations struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta3.PriorityLevelConfiguration, *v1beta3.PriorityLevelConfigurationList, *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta3.PriorityLevelConfiguration, *v1beta3.PriorityLevelConfigurationList, *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration, v1beta3.PriorityLevelConfiguration, v1beta3.PriorityLevelConfigurationList]
 	Fake *FakeFlowcontrolV1beta3
 }
 
 func newFakePriorityLevelConfigurations(fake *FakeFlowcontrolV1beta3) typedflowcontrolv1beta3.PriorityLevelConfigurationInterface {
 	return &fakePriorityLevelConfigurations{
-		gentype2.NewFakeClientWithListAndApply[*v1beta3.PriorityLevelConfiguration, *v1beta3.PriorityLevelConfigurationList, *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta3.PriorityLevelConfiguration, *v1beta3.PriorityLevelConfigurationList, *flowcontrolv1beta3.PriorityLevelConfigurationApplyConfiguration, v1beta3.PriorityLevelConfiguration, v1beta3.PriorityLevelConfigurationList](
 			fake.Fake,
 			"",
 			v1beta3.SchemeGroupVersion.WithResource("prioritylevelconfigurations"),

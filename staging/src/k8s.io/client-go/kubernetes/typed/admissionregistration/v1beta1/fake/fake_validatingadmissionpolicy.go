@@ -27,13 +27,13 @@ import (
 
 // fakeValidatingAdmissionPolicies implements ValidatingAdmissionPolicyInterface
 type fakeValidatingAdmissionPolicies struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicy, *v1beta1.ValidatingAdmissionPolicyList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicy, *v1beta1.ValidatingAdmissionPolicyList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyApplyConfiguration, v1beta1.ValidatingAdmissionPolicy, v1beta1.ValidatingAdmissionPolicyList]
 	Fake *FakeAdmissionregistrationV1beta1
 }
 
 func newFakeValidatingAdmissionPolicies(fake *FakeAdmissionregistrationV1beta1) typedadmissionregistrationv1beta1.ValidatingAdmissionPolicyInterface {
 	return &fakeValidatingAdmissionPolicies{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicy, *v1beta1.ValidatingAdmissionPolicyList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicy, *v1beta1.ValidatingAdmissionPolicyList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyApplyConfiguration, v1beta1.ValidatingAdmissionPolicy, v1beta1.ValidatingAdmissionPolicyList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("validatingadmissionpolicies"),

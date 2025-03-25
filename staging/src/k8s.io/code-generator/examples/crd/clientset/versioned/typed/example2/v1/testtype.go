@@ -56,13 +56,13 @@ type TestTypeInterface interface {
 
 // testTypes implements TestTypeInterface
 type testTypes struct {
-	*gentype2.ClientWithListAndApply[*example2v1.TestType, *example2v1.TestTypeList, *applyconfigurationexample2v1.TestTypeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*example2v1.TestType, *example2v1.TestTypeList, *applyconfigurationexample2v1.TestTypeApplyConfiguration, example2v1.TestType, example2v1.TestTypeList]
 }
 
 // newTestTypes returns a TestTypes
 func newTestTypes(c *SecondExampleV1Client, namespace string) *testTypes {
 	return &testTypes{
-		gentype2.NewClientWithListAndApply[*example2v1.TestType, *example2v1.TestTypeList, *applyconfigurationexample2v1.TestTypeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*example2v1.TestType, *example2v1.TestTypeList, *applyconfigurationexample2v1.TestTypeApplyConfiguration, example2v1.TestType, example2v1.TestTypeList](
 			"testtypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

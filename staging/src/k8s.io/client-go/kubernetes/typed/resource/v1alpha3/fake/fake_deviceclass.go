@@ -27,13 +27,13 @@ import (
 
 // fakeDeviceClasses implements DeviceClassInterface
 type fakeDeviceClasses struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration, v1alpha3.DeviceClass, v1alpha3.DeviceClassList]
 	Fake *FakeResourceV1alpha3
 }
 
 func newFakeDeviceClasses(fake *FakeResourceV1alpha3) typedresourcev1alpha3.DeviceClassInterface {
 	return &fakeDeviceClasses{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration, v1alpha3.DeviceClass, v1alpha3.DeviceClassList](
 			fake.Fake,
 			"",
 			v1alpha3.SchemeGroupVersion.WithResource("deviceclasses"),

@@ -56,13 +56,13 @@ type PodDisruptionBudgetInterface interface {
 
 // podDisruptionBudgets implements PodDisruptionBudgetInterface
 type podDisruptionBudgets struct {
-	*gentype2.ClientWithListAndApply[*policyv1.PodDisruptionBudget, *policyv1.PodDisruptionBudgetList, *applyconfigurationspolicyv1.PodDisruptionBudgetApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*policyv1.PodDisruptionBudget, *policyv1.PodDisruptionBudgetList, *applyconfigurationspolicyv1.PodDisruptionBudgetApplyConfiguration, policyv1.PodDisruptionBudget, policyv1.PodDisruptionBudgetList]
 }
 
 // newPodDisruptionBudgets returns a PodDisruptionBudgets
 func newPodDisruptionBudgets(c *PolicyV1Client, namespace string) *podDisruptionBudgets {
 	return &podDisruptionBudgets{
-		gentype2.NewClientWithListAndApply[*policyv1.PodDisruptionBudget, *policyv1.PodDisruptionBudgetList, *applyconfigurationspolicyv1.PodDisruptionBudgetApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*policyv1.PodDisruptionBudget, *policyv1.PodDisruptionBudgetList, *applyconfigurationspolicyv1.PodDisruptionBudgetApplyConfiguration, policyv1.PodDisruptionBudget, policyv1.PodDisruptionBudgetList](
 			"poddisruptionbudgets",
 			c.RESTClient(),
 			scheme.ParameterCodec,

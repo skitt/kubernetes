@@ -27,13 +27,13 @@ import (
 
 // fakeClusterTrustBundles implements ClusterTrustBundleInterface
 type fakeClusterTrustBundles struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration, v1alpha1.ClusterTrustBundle, v1alpha1.ClusterTrustBundleList]
 	Fake *FakeCertificatesV1alpha1
 }
 
 func newFakeClusterTrustBundles(fake *FakeCertificatesV1alpha1) typedcertificatesv1alpha1.ClusterTrustBundleInterface {
 	return &fakeClusterTrustBundles{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration, v1alpha1.ClusterTrustBundle, v1alpha1.ClusterTrustBundleList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("clustertrustbundles"),

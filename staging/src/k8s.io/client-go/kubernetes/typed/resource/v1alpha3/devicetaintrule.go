@@ -52,13 +52,13 @@ type DeviceTaintRuleInterface interface {
 
 // deviceTaintRules implements DeviceTaintRuleInterface
 type deviceTaintRules struct {
-	*gentype2.ClientWithListAndApply[*resourcev1alpha3.DeviceTaintRule, *resourcev1alpha3.DeviceTaintRuleList, *applyconfigurationsresourcev1alpha3.DeviceTaintRuleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1alpha3.DeviceTaintRule, *resourcev1alpha3.DeviceTaintRuleList, *applyconfigurationsresourcev1alpha3.DeviceTaintRuleApplyConfiguration, resourcev1alpha3.DeviceTaintRule, resourcev1alpha3.DeviceTaintRuleList]
 }
 
 // newDeviceTaintRules returns a DeviceTaintRules
 func newDeviceTaintRules(c *ResourceV1alpha3Client) *deviceTaintRules {
 	return &deviceTaintRules{
-		gentype2.NewClientWithListAndApply[*resourcev1alpha3.DeviceTaintRule, *resourcev1alpha3.DeviceTaintRuleList, *applyconfigurationsresourcev1alpha3.DeviceTaintRuleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1alpha3.DeviceTaintRule, *resourcev1alpha3.DeviceTaintRuleList, *applyconfigurationsresourcev1alpha3.DeviceTaintRuleApplyConfiguration, resourcev1alpha3.DeviceTaintRule, resourcev1alpha3.DeviceTaintRuleList](
 			"devicetaintrules",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -56,13 +56,13 @@ type DaemonSetInterface interface {
 
 // daemonSets implements DaemonSetInterface
 type daemonSets struct {
-	*gentype2.ClientWithListAndApply[*appsv1.DaemonSet, *appsv1.DaemonSetList, *applyconfigurationsappsv1.DaemonSetApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1.DaemonSet, *appsv1.DaemonSetList, *applyconfigurationsappsv1.DaemonSetApplyConfiguration, appsv1.DaemonSet, appsv1.DaemonSetList]
 }
 
 // newDaemonSets returns a DaemonSets
 func newDaemonSets(c *AppsV1Client, namespace string) *daemonSets {
 	return &daemonSets{
-		gentype2.NewClientWithListAndApply[*appsv1.DaemonSet, *appsv1.DaemonSetList, *applyconfigurationsappsv1.DaemonSetApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1.DaemonSet, *appsv1.DaemonSetList, *applyconfigurationsappsv1.DaemonSetApplyConfiguration, appsv1.DaemonSet, appsv1.DaemonSetList](
 			"daemonsets",
 			c.RESTClient(),
 			scheme.ParameterCodec,

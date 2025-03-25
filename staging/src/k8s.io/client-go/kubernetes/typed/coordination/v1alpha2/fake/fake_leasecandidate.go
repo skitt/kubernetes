@@ -27,13 +27,13 @@ import (
 
 // fakeLeaseCandidates implements LeaseCandidateInterface
 type fakeLeaseCandidates struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha2.LeaseCandidate, *v1alpha2.LeaseCandidateList, *coordinationv1alpha2.LeaseCandidateApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha2.LeaseCandidate, *v1alpha2.LeaseCandidateList, *coordinationv1alpha2.LeaseCandidateApplyConfiguration, v1alpha2.LeaseCandidate, v1alpha2.LeaseCandidateList]
 	Fake *FakeCoordinationV1alpha2
 }
 
 func newFakeLeaseCandidates(fake *FakeCoordinationV1alpha2, namespace string) typedcoordinationv1alpha2.LeaseCandidateInterface {
 	return &fakeLeaseCandidates{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha2.LeaseCandidate, *v1alpha2.LeaseCandidateList, *coordinationv1alpha2.LeaseCandidateApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha2.LeaseCandidate, *v1alpha2.LeaseCandidateList, *coordinationv1alpha2.LeaseCandidateApplyConfiguration, v1alpha2.LeaseCandidate, v1alpha2.LeaseCandidateList](
 			fake.Fake,
 			namespace,
 			v1alpha2.SchemeGroupVersion.WithResource("leasecandidates"),

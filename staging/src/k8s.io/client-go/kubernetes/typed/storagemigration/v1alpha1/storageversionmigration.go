@@ -56,13 +56,13 @@ type StorageVersionMigrationInterface interface {
 
 // storageVersionMigrations implements StorageVersionMigrationInterface
 type storageVersionMigrations struct {
-	*gentype2.ClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration, storagemigrationv1alpha1.StorageVersionMigration, storagemigrationv1alpha1.StorageVersionMigrationList]
 }
 
 // newStorageVersionMigrations returns a StorageVersionMigrations
 func newStorageVersionMigrations(c *StoragemigrationV1alpha1Client) *storageVersionMigrations {
 	return &storageVersionMigrations{
-		gentype2.NewClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration, storagemigrationv1alpha1.StorageVersionMigration, storagemigrationv1alpha1.StorageVersionMigrationList](
 			"storageversionmigrations",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -27,13 +27,13 @@ import (
 
 // fakeRoleBindings implements RoleBindingInterface
 type fakeRoleBindings struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration, v1beta1.RoleBinding, v1beta1.RoleBindingList]
 	Fake *FakeRbacV1beta1
 }
 
 func newFakeRoleBindings(fake *FakeRbacV1beta1, namespace string) typedrbacv1beta1.RoleBindingInterface {
 	return &fakeRoleBindings{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration, v1beta1.RoleBinding, v1beta1.RoleBindingList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("rolebindings"),

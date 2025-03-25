@@ -27,13 +27,13 @@ import (
 
 // fakeCSINodes implements CSINodeInterface
 type fakeCSINodes struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.CSINode, *v1beta1.CSINodeList, *storagev1beta1.CSINodeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CSINode, *v1beta1.CSINodeList, *storagev1beta1.CSINodeApplyConfiguration, v1beta1.CSINode, v1beta1.CSINodeList]
 	Fake *FakeStorageV1beta1
 }
 
 func newFakeCSINodes(fake *FakeStorageV1beta1) typedstoragev1beta1.CSINodeInterface {
 	return &fakeCSINodes{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.CSINode, *v1beta1.CSINodeList, *storagev1beta1.CSINodeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CSINode, *v1beta1.CSINodeList, *storagev1beta1.CSINodeApplyConfiguration, v1beta1.CSINode, v1beta1.CSINodeList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("csinodes"),

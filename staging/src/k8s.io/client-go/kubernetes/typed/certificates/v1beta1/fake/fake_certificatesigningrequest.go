@@ -27,13 +27,13 @@ import (
 
 // fakeCertificateSigningRequests implements CertificateSigningRequestInterface
 type fakeCertificateSigningRequests struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration, v1beta1.CertificateSigningRequest, v1beta1.CertificateSigningRequestList]
 	Fake *FakeCertificatesV1beta1
 }
 
 func newFakeCertificateSigningRequests(fake *FakeCertificatesV1beta1) typedcertificatesv1beta1.CertificateSigningRequestInterface {
 	return &fakeCertificateSigningRequests{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration, v1beta1.CertificateSigningRequest, v1beta1.CertificateSigningRequestList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("certificatesigningrequests"),

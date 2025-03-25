@@ -62,13 +62,13 @@ type ReplicaSetInterface interface {
 
 // replicaSets implements ReplicaSetInterface
 type replicaSets struct {
-	*gentype2.ClientWithListAndApply[*extensionsv1beta1.ReplicaSet, *extensionsv1beta1.ReplicaSetList, *applyconfigurationsextensionsv1beta1.ReplicaSetApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*extensionsv1beta1.ReplicaSet, *extensionsv1beta1.ReplicaSetList, *applyconfigurationsextensionsv1beta1.ReplicaSetApplyConfiguration, extensionsv1beta1.ReplicaSet, extensionsv1beta1.ReplicaSetList]
 }
 
 // newReplicaSets returns a ReplicaSets
 func newReplicaSets(c *ExtensionsV1beta1Client, namespace string) *replicaSets {
 	return &replicaSets{
-		gentype2.NewClientWithListAndApply[*extensionsv1beta1.ReplicaSet, *extensionsv1beta1.ReplicaSetList, *applyconfigurationsextensionsv1beta1.ReplicaSetApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*extensionsv1beta1.ReplicaSet, *extensionsv1beta1.ReplicaSetList, *applyconfigurationsextensionsv1beta1.ReplicaSetApplyConfiguration, extensionsv1beta1.ReplicaSet, extensionsv1beta1.ReplicaSetList](
 			"replicasets",
 			c.RESTClient(),
 			scheme.ParameterCodec,

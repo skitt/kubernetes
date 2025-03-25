@@ -27,13 +27,13 @@ import (
 
 // fakeCustomResourceDefinitions implements CustomResourceDefinitionInterface
 type fakeCustomResourceDefinitions struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration, v1beta1.CustomResourceDefinition, v1beta1.CustomResourceDefinitionList]
 	Fake *FakeApiextensionsV1beta1
 }
 
 func newFakeCustomResourceDefinitions(fake *FakeApiextensionsV1beta1) typedapiextensionsv1beta1.CustomResourceDefinitionInterface {
 	return &fakeCustomResourceDefinitions{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration, v1beta1.CustomResourceDefinition, v1beta1.CustomResourceDefinitionList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("customresourcedefinitions"),

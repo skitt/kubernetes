@@ -56,13 +56,13 @@ type FlowSchemaInterface interface {
 
 // flowSchemas implements FlowSchemaInterface
 type flowSchemas struct {
-	*gentype2.ClientWithListAndApply[*flowcontrolv1.FlowSchema, *flowcontrolv1.FlowSchemaList, *applyconfigurationsflowcontrolv1.FlowSchemaApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*flowcontrolv1.FlowSchema, *flowcontrolv1.FlowSchemaList, *applyconfigurationsflowcontrolv1.FlowSchemaApplyConfiguration, flowcontrolv1.FlowSchema, flowcontrolv1.FlowSchemaList]
 }
 
 // newFlowSchemas returns a FlowSchemas
 func newFlowSchemas(c *FlowcontrolV1Client) *flowSchemas {
 	return &flowSchemas{
-		gentype2.NewClientWithListAndApply[*flowcontrolv1.FlowSchema, *flowcontrolv1.FlowSchemaList, *applyconfigurationsflowcontrolv1.FlowSchemaApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*flowcontrolv1.FlowSchema, *flowcontrolv1.FlowSchemaList, *applyconfigurationsflowcontrolv1.FlowSchemaApplyConfiguration, flowcontrolv1.FlowSchema, flowcontrolv1.FlowSchemaList](
 			"flowschemas",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -27,13 +27,13 @@ import (
 
 // fakeMutatingAdmissionPolicies implements MutatingAdmissionPolicyInterface
 type fakeMutatingAdmissionPolicies struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicy, *v1alpha1.MutatingAdmissionPolicyList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicy, *v1alpha1.MutatingAdmissionPolicyList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration, v1alpha1.MutatingAdmissionPolicy, v1alpha1.MutatingAdmissionPolicyList]
 	Fake *FakeAdmissionregistrationV1alpha1
 }
 
 func newFakeMutatingAdmissionPolicies(fake *FakeAdmissionregistrationV1alpha1) typedadmissionregistrationv1alpha1.MutatingAdmissionPolicyInterface {
 	return &fakeMutatingAdmissionPolicies{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicy, *v1alpha1.MutatingAdmissionPolicyList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicy, *v1alpha1.MutatingAdmissionPolicyList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration, v1alpha1.MutatingAdmissionPolicy, v1alpha1.MutatingAdmissionPolicyList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("mutatingadmissionpolicies"),

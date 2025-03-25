@@ -27,13 +27,13 @@ import (
 
 // fakeConfigMaps implements ConfigMapInterface
 type fakeConfigMaps struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ConfigMap, *v1.ConfigMapList, *corev1.ConfigMapApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ConfigMap, *v1.ConfigMapList, *corev1.ConfigMapApplyConfiguration, v1.ConfigMap, v1.ConfigMapList]
 	Fake *FakeCoreV1
 }
 
 func newFakeConfigMaps(fake *FakeCoreV1, namespace string) typedcorev1.ConfigMapInterface {
 	return &fakeConfigMaps{
-		gentype2.NewFakeClientWithListAndApply[*v1.ConfigMap, *v1.ConfigMapList, *corev1.ConfigMapApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ConfigMap, *v1.ConfigMapList, *corev1.ConfigMapApplyConfiguration, v1.ConfigMap, v1.ConfigMapList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("configmaps"),

@@ -52,13 +52,13 @@ type PriorityClassInterface interface {
 
 // priorityClasses implements PriorityClassInterface
 type priorityClasses struct {
-	*gentype2.ClientWithListAndApply[*schedulingv1alpha1.PriorityClass, *schedulingv1alpha1.PriorityClassList, *applyconfigurationsschedulingv1alpha1.PriorityClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*schedulingv1alpha1.PriorityClass, *schedulingv1alpha1.PriorityClassList, *applyconfigurationsschedulingv1alpha1.PriorityClassApplyConfiguration, schedulingv1alpha1.PriorityClass, schedulingv1alpha1.PriorityClassList]
 }
 
 // newPriorityClasses returns a PriorityClasses
 func newPriorityClasses(c *SchedulingV1alpha1Client) *priorityClasses {
 	return &priorityClasses{
-		gentype2.NewClientWithListAndApply[*schedulingv1alpha1.PriorityClass, *schedulingv1alpha1.PriorityClassList, *applyconfigurationsschedulingv1alpha1.PriorityClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*schedulingv1alpha1.PriorityClass, *schedulingv1alpha1.PriorityClassList, *applyconfigurationsschedulingv1alpha1.PriorityClassApplyConfiguration, schedulingv1alpha1.PriorityClass, schedulingv1alpha1.PriorityClassList](
 			"priorityclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

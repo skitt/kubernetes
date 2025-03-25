@@ -44,13 +44,13 @@ type NodeMetricsInterface interface {
 
 // nodeMetricses implements NodeMetricsInterface
 type nodeMetricses struct {
-	*gentype2.ClientWithList[*metricsv1alpha1.NodeMetrics, *metricsv1alpha1.NodeMetricsList]
+	*gentype2.ClientWithList[*metricsv1alpha1.NodeMetrics, *metricsv1alpha1.NodeMetricsList, metricsv1alpha1.NodeMetrics, metricsv1alpha1.NodeMetricsList]
 }
 
 // newNodeMetricses returns a NodeMetricses
 func newNodeMetricses(c *MetricsV1alpha1Client) *nodeMetricses {
 	return &nodeMetricses{
-		gentype2.NewClientWithList[*metricsv1alpha1.NodeMetrics, *metricsv1alpha1.NodeMetricsList](
+		gentype2.NewClientWithList[*metricsv1alpha1.NodeMetrics, *metricsv1alpha1.NodeMetricsList, metricsv1alpha1.NodeMetrics, metricsv1alpha1.NodeMetricsList](
 			"nodes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

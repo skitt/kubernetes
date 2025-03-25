@@ -27,13 +27,13 @@ import (
 
 // fakeEvents implements EventInterface
 type fakeEvents struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.Event, *v1beta1.EventList, *eventsv1beta1.EventApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.Event, *v1beta1.EventList, *eventsv1beta1.EventApplyConfiguration, v1beta1.Event, v1beta1.EventList]
 	Fake *FakeEventsV1beta1
 }
 
 func newFakeEvents(fake *FakeEventsV1beta1, namespace string) typedeventsv1beta1.EventInterface {
 	return &fakeEvents{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.Event, *v1beta1.EventList, *eventsv1beta1.EventApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.Event, *v1beta1.EventList, *eventsv1beta1.EventApplyConfiguration, v1beta1.Event, v1beta1.EventList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("events"),

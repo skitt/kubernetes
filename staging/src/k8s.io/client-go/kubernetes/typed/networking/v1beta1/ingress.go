@@ -56,13 +56,13 @@ type IngressInterface interface {
 
 // ingresses implements IngressInterface
 type ingresses struct {
-	*gentype2.ClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration, networkingv1beta1.Ingress, networkingv1beta1.IngressList]
 }
 
 // newIngresses returns a Ingresses
 func newIngresses(c *NetworkingV1beta1Client, namespace string) *ingresses {
 	return &ingresses{
-		gentype2.NewClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration, networkingv1beta1.Ingress, networkingv1beta1.IngressList](
 			"ingresses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -52,13 +52,13 @@ type FooInterface interface {
 
 // foos implements FooInterface
 type foos struct {
-	*gentype2.ClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList]
+	*gentype2.ClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList, samplecontrollerv1alpha1.Foo, samplecontrollerv1alpha1.FooList]
 }
 
 // newFoos returns a Foos
 func newFoos(c *SamplecontrollerV1alpha1Client, namespace string) *foos {
 	return &foos{
-		gentype2.NewClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList](
+		gentype2.NewClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList, samplecontrollerv1alpha1.Foo, samplecontrollerv1alpha1.FooList](
 			"foos",
 			c.RESTClient(),
 			scheme.ParameterCodec,

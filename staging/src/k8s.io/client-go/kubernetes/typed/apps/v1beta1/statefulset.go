@@ -56,13 +56,13 @@ type StatefulSetInterface interface {
 
 // statefulSets implements StatefulSetInterface
 type statefulSets struct {
-	*gentype2.ClientWithListAndApply[*appsv1beta1.StatefulSet, *appsv1beta1.StatefulSetList, *applyconfigurationsappsv1beta1.StatefulSetApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1beta1.StatefulSet, *appsv1beta1.StatefulSetList, *applyconfigurationsappsv1beta1.StatefulSetApplyConfiguration, appsv1beta1.StatefulSet, appsv1beta1.StatefulSetList]
 }
 
 // newStatefulSets returns a StatefulSets
 func newStatefulSets(c *AppsV1beta1Client, namespace string) *statefulSets {
 	return &statefulSets{
-		gentype2.NewClientWithListAndApply[*appsv1beta1.StatefulSet, *appsv1beta1.StatefulSetList, *applyconfigurationsappsv1beta1.StatefulSetApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1beta1.StatefulSet, *appsv1beta1.StatefulSetList, *applyconfigurationsappsv1beta1.StatefulSetApplyConfiguration, appsv1beta1.StatefulSet, appsv1beta1.StatefulSetList](
 			"statefulsets",
 			c.RESTClient(),
 			scheme.ParameterCodec,

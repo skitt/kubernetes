@@ -27,13 +27,13 @@ import (
 
 // fakeControllerRevisions implements ControllerRevisionInterface
 type fakeControllerRevisions struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta2.ControllerRevision, *v1beta2.ControllerRevisionList, *appsv1beta2.ControllerRevisionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta2.ControllerRevision, *v1beta2.ControllerRevisionList, *appsv1beta2.ControllerRevisionApplyConfiguration, v1beta2.ControllerRevision, v1beta2.ControllerRevisionList]
 	Fake *FakeAppsV1beta2
 }
 
 func newFakeControllerRevisions(fake *FakeAppsV1beta2, namespace string) typedappsv1beta2.ControllerRevisionInterface {
 	return &fakeControllerRevisions{
-		gentype2.NewFakeClientWithListAndApply[*v1beta2.ControllerRevision, *v1beta2.ControllerRevisionList, *appsv1beta2.ControllerRevisionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta2.ControllerRevision, *v1beta2.ControllerRevisionList, *appsv1beta2.ControllerRevisionApplyConfiguration, v1beta2.ControllerRevision, v1beta2.ControllerRevisionList](
 			fake.Fake,
 			namespace,
 			v1beta2.SchemeGroupVersion.WithResource("controllerrevisions"),

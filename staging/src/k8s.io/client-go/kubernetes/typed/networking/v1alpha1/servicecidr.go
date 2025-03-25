@@ -56,13 +56,13 @@ type ServiceCIDRInterface interface {
 
 // serviceCIDRs implements ServiceCIDRInterface
 type serviceCIDRs struct {
-	*gentype2.ClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration, networkingv1alpha1.ServiceCIDR, networkingv1alpha1.ServiceCIDRList]
 }
 
 // newServiceCIDRs returns a ServiceCIDRs
 func newServiceCIDRs(c *NetworkingV1alpha1Client) *serviceCIDRs {
 	return &serviceCIDRs{
-		gentype2.NewClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration, networkingv1alpha1.ServiceCIDR, networkingv1alpha1.ServiceCIDRList](
 			"servicecidrs",
 			c.RESTClient(),
 			scheme.ParameterCodec,

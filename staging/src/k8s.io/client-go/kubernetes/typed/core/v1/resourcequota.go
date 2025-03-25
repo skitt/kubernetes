@@ -56,13 +56,13 @@ type ResourceQuotaInterface interface {
 
 // resourceQuotas implements ResourceQuotaInterface
 type resourceQuotas struct {
-	*gentype2.ClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration, corev1.ResourceQuota, corev1.ResourceQuotaList]
 }
 
 // newResourceQuotas returns a ResourceQuotas
 func newResourceQuotas(c *CoreV1Client, namespace string) *resourceQuotas {
 	return &resourceQuotas{
-		gentype2.NewClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration, corev1.ResourceQuota, corev1.ResourceQuotaList](
 			"resourcequotas",
 			c.RESTClient(),
 			scheme.ParameterCodec,

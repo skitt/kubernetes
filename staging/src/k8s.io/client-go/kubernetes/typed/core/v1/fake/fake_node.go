@@ -27,13 +27,13 @@ import (
 
 // fakeNodes implements NodeInterface
 type fakeNodes struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Node, *v1.NodeList, *corev1.NodeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Node, *v1.NodeList, *corev1.NodeApplyConfiguration, v1.Node, v1.NodeList]
 	Fake *FakeCoreV1
 }
 
 func newFakeNodes(fake *FakeCoreV1) typedcorev1.NodeInterface {
 	return &fakeNodes{
-		gentype2.NewFakeClientWithListAndApply[*v1.Node, *v1.NodeList, *corev1.NodeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Node, *v1.NodeList, *corev1.NodeApplyConfiguration, v1.Node, v1.NodeList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("nodes"),

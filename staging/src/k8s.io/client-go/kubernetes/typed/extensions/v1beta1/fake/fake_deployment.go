@@ -34,13 +34,13 @@ import (
 
 // fakeDeployments implements DeploymentInterface
 type fakeDeployments struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration, v1beta1.Deployment, v1beta1.DeploymentList]
 	Fake *FakeExtensionsV1beta1
 }
 
 func newFakeDeployments(fake *FakeExtensionsV1beta1, namespace string) typedextensionsv1beta1.DeploymentInterface {
 	return &fakeDeployments{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration, v1beta1.Deployment, v1beta1.DeploymentList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("deployments"),

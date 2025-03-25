@@ -27,13 +27,13 @@ import (
 
 // fakeFischers implements FischerInterface
 type fakeFischers struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.Fischer, *v1alpha1.FischerList, *wardlev1alpha1.FischerApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.Fischer, *v1alpha1.FischerList, *wardlev1alpha1.FischerApplyConfiguration, v1alpha1.Fischer, v1alpha1.FischerList]
 	Fake *FakeWardleV1alpha1
 }
 
 func newFakeFischers(fake *FakeWardleV1alpha1) typedwardlev1alpha1.FischerInterface {
 	return &fakeFischers{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.Fischer, *v1alpha1.FischerList, *wardlev1alpha1.FischerApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.Fischer, *v1alpha1.FischerList, *wardlev1alpha1.FischerApplyConfiguration, v1alpha1.Fischer, v1alpha1.FischerList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("fischers"),

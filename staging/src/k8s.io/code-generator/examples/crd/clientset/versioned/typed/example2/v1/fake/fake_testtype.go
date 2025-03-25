@@ -27,13 +27,13 @@ import (
 
 // fakeTestTypes implements TestTypeInterface
 type fakeTestTypes struct {
-	*gentype2.FakeClientWithListAndApply[*v1.TestType, *v1.TestTypeList, *example2v1.TestTypeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.TestType, *v1.TestTypeList, *example2v1.TestTypeApplyConfiguration, v1.TestType, v1.TestTypeList]
 	Fake *FakeSecondExampleV1
 }
 
 func newFakeTestTypes(fake *FakeSecondExampleV1, namespace string) typedexample2v1.TestTypeInterface {
 	return &fakeTestTypes{
-		gentype2.NewFakeClientWithListAndApply[*v1.TestType, *v1.TestTypeList, *example2v1.TestTypeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.TestType, *v1.TestTypeList, *example2v1.TestTypeApplyConfiguration, v1.TestType, v1.TestTypeList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("testtypes"),

@@ -27,13 +27,13 @@ import (
 
 // fakeResourceClaims implements ResourceClaimInterface
 type fakeResourceClaims struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration, v1beta1.ResourceClaim, v1beta1.ResourceClaimList]
 	Fake *FakeResourceV1beta1
 }
 
 func newFakeResourceClaims(fake *FakeResourceV1beta1, namespace string) typedresourcev1beta1.ResourceClaimInterface {
 	return &fakeResourceClaims{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration, v1beta1.ResourceClaim, v1beta1.ResourceClaimList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("resourceclaims"),
