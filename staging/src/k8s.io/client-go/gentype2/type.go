@@ -51,14 +51,19 @@ type namedObject interface {
 	GetName() *string
 }
 
-// Client represents a client, optionally namespaced, with no support for lists or apply declarative configurations.
-type Client[PT objectWithMeta[T], T any] struct {
+// untypedClient represents an untyped client, optionally namespaced.
+type untypedClient struct {
 	resource       string
 	client         rest.Interface
 	namespace      string // "" for non-namespaced clients
 	parameterCodec runtime.ParameterCodec
 
 	prefersProtobuf bool
+}
+
+// Client represents a client, optionally namespaced, with no support for lists or apply declarative configurations.
+type Client[PT objectWithMeta[T], T any] struct {
+	untypedClient
 }
 
 // ClientWithList represents a client with support for lists.
@@ -89,26 +94,28 @@ type alsoApplier[PT objectWithMeta[T], C namedObject, T any] struct {
 	client *Client[PT, T]
 }
 
-type Option[PT objectWithMeta[T], T any] func(*Client[PT, T])
+type Option func(*untypedClient)
 
-func PrefersProtobuf[PT objectWithMeta[T], T any]() Option[PT, T] {
-	return func(c *Client[PT, T]) { c.prefersProtobuf = true }
+func PrefersProtobuf() Option {
+	return func(c *untypedClient) { c.prefersProtobuf = true }
 }
 
 // NewClient constructs a client, namespaced or not, with no support for lists or apply.
 // Non-namespaced clients are constructed by passing an empty namespace ("").
 func NewClient[PT objectWithMeta[T], T any](
 	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
-	options ...Option[PT, T],
+	options ...Option,
 ) *Client[PT, T] {
 	c := &Client[PT, T]{
-		resource:       resource,
-		client:         client,
-		parameterCodec: parameterCodec,
-		namespace:      namespace,
+		untypedClient{
+			resource:       resource,
+			client:         client,
+			parameterCodec: parameterCodec,
+			namespace:      namespace,
+		},
 	}
 	for _, option := range options {
-		option(c)
+		option(&c.untypedClient)
 	}
 	return c
 }
@@ -116,7 +123,7 @@ func NewClient[PT objectWithMeta[T], T any](
 // NewClientWithList constructs a namespaced client with support for lists.
 func NewClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any](
 	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
-	options ...Option[PT, T],
+	options ...Option,
 ) *ClientWithList[PT, PL, T, L] {
 	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, options...)
 	return &ClientWithList[PT, PL, T, L]{
@@ -128,7 +135,7 @@ func NewClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any](
 // NewClientWithApply constructs a namespaced client with support for apply declarative configurations.
 func NewClientWithApply[PT objectWithMeta[T], C namedObject, T any](
 	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
-	options ...Option[PT, T],
+	options ...Option,
 ) *ClientWithApply[PT, C, T] {
 	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, options...)
 	return &ClientWithApply[PT, C, T]{
@@ -140,7 +147,7 @@ func NewClientWithApply[PT objectWithMeta[T], C namedObject, T any](
 // NewClientWithListAndApply constructs a client with support for lists and applying declarative configurations.
 func NewClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedObject, T any, L any](
 	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
-	options ...Option[PT, T],
+	options ...Option,
 ) *ClientWithListAndApply[PT, PL, C, T, L] {
 	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, options...)
 	return &ClientWithListAndApply[PT, PL, C, T, L]{

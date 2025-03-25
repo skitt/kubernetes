@@ -192,6 +192,7 @@ func (g *genClientForType) GenerateType(c *generator.Context, t *types.Type, w i
 		"NewClientWithApply":                                c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClientWithApply"}),
 		"NewClientWithList":                                 c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClientWithList"}),
 		"NewClientWithListAndApply":                         c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClientWithListAndApply"}),
+		"PrefersProtobuf":                                   c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "PrefersProtobuf"}),
 	}
 
 	if generateApply {
@@ -483,7 +484,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -497,7 +498,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -511,7 +512,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -525,7 +526,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -539,7 +540,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -553,7 +554,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -567,7 +568,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
@@ -581,7 +582,7 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$$.PrefersProtobuf|raw$(),$end$
 			),
 		}
 	}
