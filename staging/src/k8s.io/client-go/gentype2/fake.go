@@ -61,8 +61,8 @@ type FakeClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C nam
 type alsoFakeLister[PT objectWithMeta[T], PL runtimeObject[L], T any, L any] struct {
 	client       *FakeClient[PT, T]
 	copyListMeta func(PL, PL)
-	getItems     func(PL) []PT
-	setItems     func(PL, []PT)
+	getItems     func(PL) []T
+	setItems     func(PL, []T)
 }
 
 type alsoFakeApplier[PT objectWithMeta[T], C namedObject, T any] struct {
@@ -80,7 +80,7 @@ func NewFakeClient[PT objectWithMeta[T], T any](
 // NewFakeClientWithList constructs a namespaced client with support for lists.
 func NewFakeClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any](
 	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind,
-	listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
+	listMetaCopier func(PL, PL), itemGetter func(PL) []T, itemSetter func(PL, []T),
 ) *FakeClientWithList[PT, PL, T, L] {
 	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind)
 	return &FakeClientWithList[PT, PL, T, L]{
@@ -103,7 +103,7 @@ func NewFakeClientWithApply[PT objectWithMeta[T], C namedObject, T any](
 // NewFakeClientWithListAndApply constructs a client with support for lists and applying declarative configurations.
 func NewFakeClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedObject, T any, L any](
 	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind,
-	listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
+	listMetaCopier func(PL, PL), itemGetter func(PL) []T, itemSetter func(PL, []T),
 ) *FakeClientWithListAndApply[PT, PL, C, T, L] {
 	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind)
 	return &FakeClientWithListAndApply[PT, PL, C, T, L]{
@@ -125,28 +125,6 @@ func (c *FakeClient[PT, T]) Get(ctx context.Context, name string, options metav1
 	return obj.(PT), err
 }
 
-func ToPointerSlice[T any](src []T) []*T {
-	if src == nil {
-		return nil
-	}
-	result := make([]*T, len(src))
-	for i := range src {
-		result[i] = &src[i]
-	}
-	return result
-}
-
-func FromPointerSlice[T any](src []*T) []T {
-	if src == nil {
-		return nil
-	}
-	result := make([]T, len(src))
-	for i := range src {
-		result[i] = *src[i]
-	}
-	return result
-}
-
 // List takes label and field selectors, and returns the list of resources that match those selectors.
 func (l *alsoFakeLister[PT, PL, T, L]) List(ctx context.Context, opts metav1.ListOptions) (PL, error) {
 	emptyResult := PL(new(L))
@@ -163,7 +141,7 @@ func (l *alsoFakeLister[PT, PL, T, L]) List(ctx context.Context, opts metav1.Lis
 	}
 	list := PL(new(L))
 	l.copyListMeta(list, obj.(PL))
-	var items []PT
+	var items []T
 	for _, item := range l.getItems(obj.(PL)) {
 		itemMeta, err := meta.Accessor(item)
 		if err != nil {

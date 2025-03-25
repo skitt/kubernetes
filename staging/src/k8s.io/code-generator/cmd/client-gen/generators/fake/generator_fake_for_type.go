@@ -333,8 +333,8 @@ var newStruct = []string{
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
 				$.SchemeGroupVersion|raw$.WithKind("$.type|singularKind$"),
 				func(dst, src *$.type|raw$List) {dst.ListMeta = src.ListMeta},
-				func(list *$.type|raw$List) []*$.type|raw$ {return gentype2.ToPointerSlice(list.Items)},
-				func(list *$.type|raw$List, items []*$.type|raw$) {list.Items = gentype2.FromPointerSlice(items)},
+				func(list *$.type|raw$List) []$.type|raw$ {return list.Items},
+				func(list *$.type|raw$List, items []$.type|raw$) {list.Items = items},
 			),
 			fake,
 		}
@@ -349,8 +349,8 @@ var newStruct = []string{
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
 				$.SchemeGroupVersion|raw$.WithKind("$.type|singularKind$"),
 				func(dst, src *$.type|raw$List) {dst.ListMeta = src.ListMeta},
-				func(list *$.type|raw$List) []*$.type|raw$ {return gentype2.ToPointerSlice(list.Items)},
-				func(list *$.type|raw$List, items []*$.type|raw$) {list.Items = gentype2.FromPointerSlice(items)},
+				func(list *$.type|raw$List) []$.type|raw$ {return list.Items},
+				func(list *$.type|raw$List, items []$.type|raw$) {list.Items = items},
 			),
 			fake,
 		}
