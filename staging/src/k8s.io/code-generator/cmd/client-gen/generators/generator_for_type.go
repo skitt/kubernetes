@@ -184,14 +184,14 @@ func (g *genClientForType) GenerateType(c *generator.Context, t *types.Type, w i
 		"CheckWatchListFromCacheDataConsistencyIfRequested": c.Universe.Function(types.Name{Package: "k8s.io/client-go/util/consistencydetector", Name: "CheckWatchListFromCacheDataConsistencyIfRequested"}),
 		"PrepareWatchListOptionsFromListOptions":            c.Universe.Function(types.Name{Package: "k8s.io/client-go/util/watchlist", Name: "PrepareWatchListOptionsFromListOptions"}),
 		"applyNewRequest":                                   c.Universe.Function(types.Name{Package: "k8s.io/client-go/util/apply", Name: "NewRequest"}),
-		"Client":                                            c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype", Name: "Client"}),
-		"ClientWithList":                                    c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype", Name: "ClientWithList"}),
-		"ClientWithApply":                                   c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype", Name: "ClientWithApply"}),
-		"ClientWithListAndApply":                            c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype", Name: "ClientWithListAndApply"}),
-		"NewClient":                                         c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype", Name: "NewClient"}),
-		"NewClientWithApply":                                c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype", Name: "NewClientWithApply"}),
-		"NewClientWithList":                                 c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype", Name: "NewClientWithList"}),
-		"NewClientWithListAndApply":                         c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype", Name: "NewClientWithListAndApply"}),
+		"Client":                                            c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype2", Name: "Client"}),
+		"ClientWithList":                                    c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype2", Name: "ClientWithList"}),
+		"ClientWithApply":                                   c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype2", Name: "ClientWithApply"}),
+		"ClientWithListAndApply":                            c.Universe.Type(types.Name{Package: "k8s.io/client-go/gentype2", Name: "ClientWithListAndApply"}),
+		"NewClient":                                         c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClient"}),
+		"NewClientWithApply":                                c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClientWithApply"}),
+		"NewClientWithList":                                 c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClientWithList"}),
+		"NewClientWithListAndApply":                         c.Universe.Function(types.Name{Package: "k8s.io/client-go/gentype2", Name: "NewClientWithListAndApply"}),
 	}
 
 	if generateApply {
@@ -484,7 +484,7 @@ var newStruct = []string{
 				$.schemeParameterCodec|raw$,
 				namespace,
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -499,7 +499,7 @@ var newStruct = []string{
 				$.schemeParameterCodec|raw$,
 				namespace,
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -515,7 +515,7 @@ var newStruct = []string{
 				namespace,
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -531,7 +531,7 @@ var newStruct = []string{
 				namespace,
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -546,7 +546,7 @@ var newStruct = []string{
 				$.schemeParameterCodec|raw$,
 				"",
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -561,7 +561,7 @@ var newStruct = []string{
 				$.schemeParameterCodec|raw$,
 				"",
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -577,7 +577,7 @@ var newStruct = []string{
 				"",
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
@@ -593,7 +593,7 @@ var newStruct = []string{
 				"",
 				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
-				$if .prefersProtobuf$gentype.PrefersProtobuf[*$.resultType|raw$](),$end$
+				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
 	}
