@@ -56,7 +56,6 @@ type Client[PT objectWithMeta[T], T any] struct {
 	resource       string
 	client         rest.Interface
 	namespace      string // "" for non-namespaced clients
-	newObject      func() PT
 	parameterCodec runtime.ParameterCodec
 
 	prefersProtobuf bool
@@ -83,8 +82,7 @@ type ClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedOb
 
 // Helper types for composition
 type alsoLister[PT objectWithMeta[T], PL runtimeObject[L], T any, L any] struct {
-	client  *Client[PT, T]
-	newList func() PL
+	client *Client[PT, T]
 }
 
 type alsoApplier[PT objectWithMeta[T], C namedObject, T any] struct {
@@ -100,7 +98,7 @@ func PrefersProtobuf[PT objectWithMeta[T], T any]() Option[PT, T] {
 // NewClient constructs a client, namespaced or not, with no support for lists or apply.
 // Non-namespaced clients are constructed by passing an empty namespace ("").
 func NewClient[PT objectWithMeta[T], T any](
-	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string, emptyObjectCreator func() PT,
+	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
 	options ...Option[PT, T],
 ) *Client[PT, T] {
 	c := &Client[PT, T]{
@@ -108,7 +106,6 @@ func NewClient[PT objectWithMeta[T], T any](
 		client:         client,
 		parameterCodec: parameterCodec,
 		namespace:      namespace,
-		newObject:      emptyObjectCreator,
 	}
 	for _, option := range options {
 		option(c)
@@ -118,22 +115,22 @@ func NewClient[PT objectWithMeta[T], T any](
 
 // NewClientWithList constructs a namespaced client with support for lists.
 func NewClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any](
-	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string, emptyObjectCreator func() PT,
-	emptyListCreator func() PL, options ...Option[PT, T],
+	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
+	options ...Option[PT, T],
 ) *ClientWithList[PT, PL, T, L] {
-	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, emptyObjectCreator, options...)
+	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, options...)
 	return &ClientWithList[PT, PL, T, L]{
 		typeClient,
-		alsoLister[PT, PL, T, L]{typeClient, emptyListCreator},
+		alsoLister[PT, PL, T, L]{typeClient},
 	}
 }
 
 // NewClientWithApply constructs a namespaced client with support for apply declarative configurations.
 func NewClientWithApply[PT objectWithMeta[T], C namedObject, T any](
-	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string, emptyObjectCreator func() PT,
+	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
 	options ...Option[PT, T],
 ) *ClientWithApply[PT, C, T] {
-	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, emptyObjectCreator, options...)
+	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, options...)
 	return &ClientWithApply[PT, C, T]{
 		typeClient,
 		alsoApplier[PT, C, T]{typeClient},
@@ -142,13 +139,13 @@ func NewClientWithApply[PT objectWithMeta[T], C namedObject, T any](
 
 // NewClientWithListAndApply constructs a client with support for lists and applying declarative configurations.
 func NewClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedObject, T any, L any](
-	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string, emptyObjectCreator func() PT,
-	emptyListCreator func() PL, options ...Option[PT, T],
+	resource string, client rest.Interface, parameterCodec runtime.ParameterCodec, namespace string,
+	options ...Option[PT, T],
 ) *ClientWithListAndApply[PT, PL, C, T, L] {
-	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, emptyObjectCreator, options...)
+	typeClient := NewClient[PT](resource, client, parameterCodec, namespace, options...)
 	return &ClientWithListAndApply[PT, PL, C, T, L]{
 		typeClient,
-		alsoLister[PT, PL, T, L]{typeClient, emptyListCreator},
+		alsoLister[PT, PL, T, L]{typeClient},
 		alsoApplier[PT, C, T]{typeClient},
 	}
 }
@@ -165,7 +162,7 @@ func (c *Client[PT, T]) GetNamespace() string {
 
 // Get takes name of the resource, and returns the corresponding object, and an error if there is any.
 func (c *Client[PT, T]) Get(ctx context.Context, name string, options metav1.GetOptions) (PT, error) {
-	result := c.newObject()
+	result := PT(new(T))
 	err := c.client.Get().
 		UseProtobufAsDefaultIfPreferred(c.prefersProtobuf).
 		NamespaceIfScoped(c.namespace, c.namespace != "").
@@ -197,7 +194,7 @@ func (l *alsoLister[PT, PL, T, L]) List(ctx context.Context, opts metav1.ListOpt
 }
 
 func (l *alsoLister[PT, PL, T, L]) list(ctx context.Context, opts metav1.ListOptions) (PL, error) {
-	list := l.newList()
+	list := PL(new(L))
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -219,7 +216,7 @@ func (l *alsoLister[PT, PL, T, L]) watchList(ctx context.Context, opts metav1.Li
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
 	}
-	result = l.newList()
+	result = PL(new(L))
 	err = l.client.client.Get().
 		UseProtobufAsDefaultIfPreferred(l.client.prefersProtobuf).
 		NamespaceIfScoped(l.client.namespace, l.client.namespace != "").
@@ -249,7 +246,7 @@ func (c *Client[PT, T]) Watch(ctx context.Context, opts metav1.ListOptions) (wat
 
 // Create takes the representation of a resource and creates it.  Returns the server's representation of the resource, and an error, if there is any.
 func (c *Client[PT, T]) Create(ctx context.Context, obj PT, opts metav1.CreateOptions) (PT, error) {
-	result := c.newObject()
+	result := PT(new(T))
 	err := c.client.Post().
 		UseProtobufAsDefaultIfPreferred(c.prefersProtobuf).
 		NamespaceIfScoped(c.namespace, c.namespace != "").
@@ -263,7 +260,7 @@ func (c *Client[PT, T]) Create(ctx context.Context, obj PT, opts metav1.CreateOp
 
 // Update takes the representation of a resource and updates it. Returns the server's representation of the resource, and an error, if there is any.
 func (c *Client[PT, T]) Update(ctx context.Context, obj PT, opts metav1.UpdateOptions) (PT, error) {
-	result := c.newObject()
+	result := PT(new(T))
 	err := c.client.Put().
 		UseProtobufAsDefaultIfPreferred(c.prefersProtobuf).
 		NamespaceIfScoped(c.namespace, c.namespace != "").
@@ -278,7 +275,7 @@ func (c *Client[PT, T]) Update(ctx context.Context, obj PT, opts metav1.UpdateOp
 
 // UpdateStatus updates the status subresource of a resource. Returns the server's representation of the resource, and an error, if there is any.
 func (c *Client[PT, T]) UpdateStatus(ctx context.Context, obj PT, opts metav1.UpdateOptions) (PT, error) {
-	result := c.newObject()
+	result := PT(new(T))
 	err := c.client.Put().
 		UseProtobufAsDefaultIfPreferred(c.prefersProtobuf).
 		NamespaceIfScoped(c.namespace, c.namespace != "").
@@ -323,7 +320,7 @@ func (l *alsoLister[PT, PL, T, L]) DeleteCollection(ctx context.Context, opts me
 
 // Patch applies the patch and returns the patched resource.
 func (c *Client[PT, T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (PT, error) {
-	result := c.newObject()
+	result := PT(new(T))
 	err := c.client.Patch(pt).
 		UseProtobufAsDefaultIfPreferred(c.prefersProtobuf).
 		NamespaceIfScoped(c.namespace, c.namespace != "").
@@ -339,7 +336,7 @@ func (c *Client[PT, T]) Patch(ctx context.Context, name string, pt types.PatchTy
 
 // Apply takes the given apply declarative configuration, applies it and returns the applied resource.
 func (a *alsoApplier[PT, C, T]) Apply(ctx context.Context, obj C, opts metav1.ApplyOptions) (PT, error) {
-	result := a.client.newObject()
+	result := PT(new(T))
 	if obj == *new(C) {
 		return new(T), fmt.Errorf("object provided to Apply must not be nil")
 	}
@@ -380,7 +377,7 @@ func (a *alsoApplier[PT, C, T]) ApplyStatus(ctx context.Context, obj C, opts met
 		return new(T), err
 	}
 
-	result := a.client.newObject()
+	result := PT(new(T))
 	err = request.
 		UseProtobufAsDefaultIfPreferred(a.client.prefersProtobuf).
 		NamespaceIfScoped(a.client.namespace, a.client.namespace != "").
