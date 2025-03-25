@@ -63,7 +63,7 @@ func newPriorityClasses(c *SchedulingV1alpha1Client) *priorityClasses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*schedulingv1alpha1.PriorityClass](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

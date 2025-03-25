@@ -63,7 +63,7 @@ func newAPIServices(c *ApiregistrationV1beta1Client) *aPIServices {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*apiregistrationv1beta1.APIService](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

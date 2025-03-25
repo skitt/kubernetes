@@ -63,7 +63,7 @@ func newLimitRanges(c *CoreV1Client, namespace string) *limitRanges {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*corev1.LimitRange](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

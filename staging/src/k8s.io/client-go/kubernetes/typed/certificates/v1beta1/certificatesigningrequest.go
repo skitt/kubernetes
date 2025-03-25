@@ -67,7 +67,7 @@ func newCertificateSigningRequests(c *CertificatesV1beta1Client) *certificateSig
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*certificatesv1beta1.CertificateSigningRequest](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

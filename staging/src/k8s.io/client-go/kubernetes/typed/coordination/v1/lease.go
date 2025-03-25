@@ -63,7 +63,7 @@ func newLeases(c *CoordinationV1Client, namespace string) *leases {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*coordinationv1.Lease](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

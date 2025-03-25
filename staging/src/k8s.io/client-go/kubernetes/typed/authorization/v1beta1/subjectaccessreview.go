@@ -52,7 +52,7 @@ func newSubjectAccessReviews(c *AuthorizationV1beta1Client) *subjectAccessReview
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*authorizationv1beta1.SubjectAccessReview](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

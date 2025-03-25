@@ -63,7 +63,7 @@ func newDeviceTaintRules(c *ResourceV1alpha3Client) *deviceTaintRules {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*resourcev1alpha3.DeviceTaintRule](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

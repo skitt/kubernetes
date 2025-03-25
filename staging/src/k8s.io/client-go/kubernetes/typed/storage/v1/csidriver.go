@@ -63,7 +63,7 @@ func newCSIDrivers(c *StorageV1Client) *cSIDrivers {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*storagev1.CSIDriver](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

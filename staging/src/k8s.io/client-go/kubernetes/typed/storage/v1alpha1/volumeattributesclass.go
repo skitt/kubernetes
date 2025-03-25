@@ -63,7 +63,7 @@ func newVolumeAttributesClasses(c *StorageV1alpha1Client) *volumeAttributesClass
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*storagev1alpha1.VolumeAttributesClass](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

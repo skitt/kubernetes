@@ -67,7 +67,7 @@ func newHorizontalPodAutoscalers(c *AutoscalingV2beta1Client, namespace string) 
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*autoscalingv2beta1.HorizontalPodAutoscaler](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

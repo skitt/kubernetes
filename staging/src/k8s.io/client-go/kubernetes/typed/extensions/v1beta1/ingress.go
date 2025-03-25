@@ -67,7 +67,7 @@ func newIngresses(c *ExtensionsV1beta1Client, namespace string) *ingresses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*extensionsv1beta1.Ingress](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

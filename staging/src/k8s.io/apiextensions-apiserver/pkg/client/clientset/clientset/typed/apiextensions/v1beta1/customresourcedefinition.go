@@ -67,7 +67,7 @@ func newCustomResourceDefinitions(c *ApiextensionsV1beta1Client) *customResource
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*apiextensionsv1beta1.CustomResourceDefinition](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

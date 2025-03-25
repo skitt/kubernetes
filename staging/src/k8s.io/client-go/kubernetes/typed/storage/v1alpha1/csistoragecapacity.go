@@ -63,7 +63,7 @@ func newCSIStorageCapacities(c *StorageV1alpha1Client, namespace string) *cSISto
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*storagev1alpha1.CSIStorageCapacity](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

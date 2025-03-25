@@ -67,7 +67,7 @@ func newValidatingAdmissionPolicies(c *AdmissionregistrationV1Client) *validatin
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*admissionregistrationv1.ValidatingAdmissionPolicy](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -63,7 +63,7 @@ func newRoles(c *RbacV1beta1Client, namespace string) *roles {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*rbacv1beta1.Role](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

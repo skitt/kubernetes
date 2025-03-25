@@ -71,7 +71,7 @@ func newReplicationControllers(c *CoreV1Client, namespace string) *replicationCo
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*corev1.ReplicationController](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

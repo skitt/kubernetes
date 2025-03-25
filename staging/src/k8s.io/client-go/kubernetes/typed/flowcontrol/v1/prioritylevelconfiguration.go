@@ -67,7 +67,7 @@ func newPriorityLevelConfigurations(c *FlowcontrolV1Client) *priorityLevelConfig
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*flowcontrolv1.PriorityLevelConfiguration](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -63,7 +63,7 @@ func newRuntimeClasses(c *NodeV1alpha1Client) *runtimeClasses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*nodev1alpha1.RuntimeClass](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

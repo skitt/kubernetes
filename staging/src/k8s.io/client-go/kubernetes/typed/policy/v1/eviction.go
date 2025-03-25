@@ -48,7 +48,7 @@ func newEvictions(c *PolicyV1Client, namespace string) *evictions {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*policyv1.Eviction](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -67,7 +67,7 @@ func newDaemonSets(c *AppsV1beta2Client, namespace string) *daemonSets {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*appsv1beta2.DaemonSet](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

@@ -66,7 +66,7 @@ func newServiceAccounts(c *CoreV1Client, namespace string) *serviceAccounts {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			gentype2.PrefersProtobuf[*corev1.ServiceAccount](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

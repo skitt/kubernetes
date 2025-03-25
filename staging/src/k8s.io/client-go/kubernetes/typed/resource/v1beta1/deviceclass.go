@@ -63,7 +63,7 @@ func newDeviceClasses(c *ResourceV1beta1Client) *deviceClasses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*resourcev1beta1.DeviceClass](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }

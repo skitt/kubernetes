@@ -63,7 +63,7 @@ func newValidatingWebhookConfigurations(c *AdmissionregistrationV1beta1Client) *
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			gentype2.PrefersProtobuf[*admissionregistrationv1beta1.ValidatingWebhookConfiguration](),
+			gentype2.PrefersProtobuf(),
 		),
 	}
 }
