@@ -69,10 +69,6 @@ func newCertificateSigningRequests(c *CertificatesV1Client) *certificateSigningR
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *certificatesv1.CertificateSigningRequest { return &certificatesv1.CertificateSigningRequest{} },
-			func() *certificatesv1.CertificateSigningRequestList {
-				return &certificatesv1.CertificateSigningRequestList{}
-			},
 			gentype2.PrefersProtobuf[*certificatesv1.CertificateSigningRequest](),
 		),
 	}

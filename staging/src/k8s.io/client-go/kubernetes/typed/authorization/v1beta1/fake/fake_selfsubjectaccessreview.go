@@ -37,7 +37,6 @@ func newFakeSelfSubjectAccessReviews(fake *FakeAuthorizationV1beta1) authorizati
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("selfsubjectaccessreviews"),
 			v1beta1.SchemeGroupVersion.WithKind("SelfSubjectAccessReview"),
-			func() *v1beta1.SelfSubjectAccessReview { return &v1beta1.SelfSubjectAccessReview{} },
 		),
 		fake,
 	}

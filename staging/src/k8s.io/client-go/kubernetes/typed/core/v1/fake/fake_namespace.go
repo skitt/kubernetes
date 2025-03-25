@@ -38,8 +38,6 @@ func newFakeNamespaces(fake *FakeCoreV1) typedcorev1.NamespaceInterface {
 			"",
 			v1.SchemeGroupVersion.WithResource("namespaces"),
 			v1.SchemeGroupVersion.WithKind("Namespace"),
-			func() *v1.Namespace { return &v1.Namespace{} },
-			func() *v1.NamespaceList { return &v1.NamespaceList{} },
 			func(dst, src *v1.NamespaceList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.NamespaceList) []*v1.Namespace { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.NamespaceList, items []*v1.Namespace) { list.Items = gentype2.FromPointerSlice(items) },

@@ -75,8 +75,6 @@ func newDeployments(c *AppsV1Client, namespace string) *deployments {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *appsv1.Deployment { return &appsv1.Deployment{} },
-			func() *appsv1.DeploymentList { return &appsv1.DeploymentList{} },
 			gentype2.PrefersProtobuf[*appsv1.Deployment](),
 		),
 	}

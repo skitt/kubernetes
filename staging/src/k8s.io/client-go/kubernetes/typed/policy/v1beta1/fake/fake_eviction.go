@@ -37,7 +37,6 @@ func newFakeEvictions(fake *FakePolicyV1beta1, namespace string) policyv1beta1.E
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("evictions"),
 			v1beta1.SchemeGroupVersion.WithKind("Eviction"),
-			func() *v1beta1.Eviction { return &v1beta1.Eviction{} },
 		),
 		fake,
 	}

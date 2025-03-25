@@ -38,8 +38,6 @@ func newFakeCustomResourceDefinitions(fake *FakeApiextensionsV1) typedapiextensi
 			"",
 			v1.SchemeGroupVersion.WithResource("customresourcedefinitions"),
 			v1.SchemeGroupVersion.WithKind("CustomResourceDefinition"),
-			func() *v1.CustomResourceDefinition { return &v1.CustomResourceDefinition{} },
-			func() *v1.CustomResourceDefinitionList { return &v1.CustomResourceDefinitionList{} },
 			func(dst, src *v1.CustomResourceDefinitionList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.CustomResourceDefinitionList) []*v1.CustomResourceDefinition {
 				return gentype2.ToPointerSlice(list.Items)

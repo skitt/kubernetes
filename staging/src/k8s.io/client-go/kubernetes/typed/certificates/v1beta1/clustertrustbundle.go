@@ -63,10 +63,6 @@ func newClusterTrustBundles(c *CertificatesV1beta1Client) *clusterTrustBundles {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *certificatesv1beta1.ClusterTrustBundle { return &certificatesv1beta1.ClusterTrustBundle{} },
-			func() *certificatesv1beta1.ClusterTrustBundleList {
-				return &certificatesv1beta1.ClusterTrustBundleList{}
-			},
 			gentype2.PrefersProtobuf[*certificatesv1beta1.ClusterTrustBundle](),
 		),
 	}

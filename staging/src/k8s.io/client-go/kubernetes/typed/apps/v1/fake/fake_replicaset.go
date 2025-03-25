@@ -47,8 +47,6 @@ func newFakeReplicaSets(fake *FakeAppsV1, namespace string) typedappsv1.ReplicaS
 			namespace,
 			v1.SchemeGroupVersion.WithResource("replicasets"),
 			v1.SchemeGroupVersion.WithKind("ReplicaSet"),
-			func() *v1.ReplicaSet { return &v1.ReplicaSet{} },
-			func() *v1.ReplicaSetList { return &v1.ReplicaSetList{} },
 			func(dst, src *v1.ReplicaSetList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ReplicaSetList) []*v1.ReplicaSet { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ReplicaSetList, items []*v1.ReplicaSet) { list.Items = gentype2.FromPointerSlice(items) },

@@ -38,8 +38,6 @@ func newFakePersistentVolumeClaims(fake *FakeCoreV1, namespace string) typedcore
 			namespace,
 			v1.SchemeGroupVersion.WithResource("persistentvolumeclaims"),
 			v1.SchemeGroupVersion.WithKind("PersistentVolumeClaim"),
-			func() *v1.PersistentVolumeClaim { return &v1.PersistentVolumeClaim{} },
-			func() *v1.PersistentVolumeClaimList { return &v1.PersistentVolumeClaimList{} },
 			func(dst, src *v1.PersistentVolumeClaimList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.PersistentVolumeClaimList) []*v1.PersistentVolumeClaim {
 				return gentype2.ToPointerSlice(list.Items)

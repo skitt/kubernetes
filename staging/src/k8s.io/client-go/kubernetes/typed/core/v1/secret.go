@@ -63,8 +63,6 @@ func newSecrets(c *CoreV1Client, namespace string) *secrets {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.Secret { return &corev1.Secret{} },
-			func() *corev1.SecretList { return &corev1.SecretList{} },
 			gentype2.PrefersProtobuf[*corev1.Secret](),
 		),
 	}

@@ -38,8 +38,6 @@ func newFakeClusterTrustBundles(fake *FakeCertificatesV1beta1) typedcertificates
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("clustertrustbundles"),
 			v1beta1.SchemeGroupVersion.WithKind("ClusterTrustBundle"),
-			func() *v1beta1.ClusterTrustBundle { return &v1beta1.ClusterTrustBundle{} },
-			func() *v1beta1.ClusterTrustBundleList { return &v1beta1.ClusterTrustBundleList{} },
 			func(dst, src *v1beta1.ClusterTrustBundleList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ClusterTrustBundleList) []*v1beta1.ClusterTrustBundle {
 				return gentype2.ToPointerSlice(list.Items)

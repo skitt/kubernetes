@@ -70,8 +70,6 @@ func newPods(c *CoreV1Client, namespace string) *pods {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.Pod { return &corev1.Pod{} },
-			func() *corev1.PodList { return &corev1.PodList{} },
 			gentype2.PrefersProtobuf[*corev1.Pod](),
 		),
 	}

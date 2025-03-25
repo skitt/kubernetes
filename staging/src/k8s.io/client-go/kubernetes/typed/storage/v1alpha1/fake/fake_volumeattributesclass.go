@@ -38,8 +38,6 @@ func newFakeVolumeAttributesClasses(fake *FakeStorageV1alpha1) typedstoragev1alp
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("volumeattributesclasses"),
 			v1alpha1.SchemeGroupVersion.WithKind("VolumeAttributesClass"),
-			func() *v1alpha1.VolumeAttributesClass { return &v1alpha1.VolumeAttributesClass{} },
-			func() *v1alpha1.VolumeAttributesClassList { return &v1alpha1.VolumeAttributesClassList{} },
 			func(dst, src *v1alpha1.VolumeAttributesClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.VolumeAttributesClassList) []*v1alpha1.VolumeAttributesClass {
 				return gentype2.ToPointerSlice(list.Items)

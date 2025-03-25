@@ -45,8 +45,6 @@ func newFakeReplicaSets(fake *FakeExtensionsV1beta1, namespace string) typedexte
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("replicasets"),
 			v1beta1.SchemeGroupVersion.WithKind("ReplicaSet"),
-			func() *v1beta1.ReplicaSet { return &v1beta1.ReplicaSet{} },
-			func() *v1beta1.ReplicaSetList { return &v1beta1.ReplicaSetList{} },
 			func(dst, src *v1beta1.ReplicaSetList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ReplicaSetList) []*v1beta1.ReplicaSet { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.ReplicaSetList, items []*v1beta1.ReplicaSet) {

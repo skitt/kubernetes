@@ -38,8 +38,6 @@ func newFakePriorityLevelConfigurations(fake *FakeFlowcontrolV1beta1) typedflowc
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("prioritylevelconfigurations"),
 			v1beta1.SchemeGroupVersion.WithKind("PriorityLevelConfiguration"),
-			func() *v1beta1.PriorityLevelConfiguration { return &v1beta1.PriorityLevelConfiguration{} },
-			func() *v1beta1.PriorityLevelConfigurationList { return &v1beta1.PriorityLevelConfigurationList{} },
 			func(dst, src *v1beta1.PriorityLevelConfigurationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.PriorityLevelConfigurationList) []*v1beta1.PriorityLevelConfiguration {
 				return gentype2.ToPointerSlice(list.Items)

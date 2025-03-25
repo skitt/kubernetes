@@ -67,8 +67,6 @@ func newFlunders(c *WardleV1beta1Client, namespace string) *flunders {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *wardlev1beta1.Flunder { return &wardlev1beta1.Flunder{} },
-			func() *wardlev1beta1.FlunderList { return &wardlev1beta1.FlunderList{} },
 		),
 	}
 }

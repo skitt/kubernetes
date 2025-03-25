@@ -38,8 +38,6 @@ func newFakeCSINodes(fake *FakeStorageV1) typedstoragev1.CSINodeInterface {
 			"",
 			v1.SchemeGroupVersion.WithResource("csinodes"),
 			v1.SchemeGroupVersion.WithKind("CSINode"),
-			func() *v1.CSINode { return &v1.CSINode{} },
-			func() *v1.CSINodeList { return &v1.CSINodeList{} },
 			func(dst, src *v1.CSINodeList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.CSINodeList) []*v1.CSINode { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.CSINodeList, items []*v1.CSINode) { list.Items = gentype2.FromPointerSlice(items) },

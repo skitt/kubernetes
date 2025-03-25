@@ -63,8 +63,6 @@ func newRoleBindings(c *RbacV1beta1Client, namespace string) *roleBindings {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *rbacv1beta1.RoleBinding { return &rbacv1beta1.RoleBinding{} },
-			func() *rbacv1beta1.RoleBindingList { return &rbacv1beta1.RoleBindingList{} },
 			gentype2.PrefersProtobuf[*rbacv1beta1.RoleBinding](),
 		),
 	}

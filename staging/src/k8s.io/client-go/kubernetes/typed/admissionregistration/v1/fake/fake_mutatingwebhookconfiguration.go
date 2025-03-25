@@ -38,8 +38,6 @@ func newFakeMutatingWebhookConfigurations(fake *FakeAdmissionregistrationV1) typ
 			"",
 			v1.SchemeGroupVersion.WithResource("mutatingwebhookconfigurations"),
 			v1.SchemeGroupVersion.WithKind("MutatingWebhookConfiguration"),
-			func() *v1.MutatingWebhookConfiguration { return &v1.MutatingWebhookConfiguration{} },
-			func() *v1.MutatingWebhookConfigurationList { return &v1.MutatingWebhookConfigurationList{} },
 			func(dst, src *v1.MutatingWebhookConfigurationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.MutatingWebhookConfigurationList) []*v1.MutatingWebhookConfiguration {
 				return gentype2.ToPointerSlice(list.Items)

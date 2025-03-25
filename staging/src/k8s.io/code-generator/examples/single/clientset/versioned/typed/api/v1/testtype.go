@@ -67,8 +67,6 @@ func newTestTypes(c *ExampleV1Client, namespace string) *testTypes {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *apiv1.TestType { return &apiv1.TestType{} },
-			func() *apiv1.TestTypeList { return &apiv1.TestTypeList{} },
 		),
 	}
 }

@@ -55,8 +55,6 @@ func newNodeMetricses(c *MetricsV1beta1Client) *nodeMetricses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *metricsv1beta1.NodeMetrics { return &metricsv1beta1.NodeMetrics{} },
-			func() *metricsv1beta1.NodeMetricsList { return &metricsv1beta1.NodeMetricsList{} },
 			gentype2.PrefersProtobuf[*metricsv1beta1.NodeMetrics](),
 		),
 	}

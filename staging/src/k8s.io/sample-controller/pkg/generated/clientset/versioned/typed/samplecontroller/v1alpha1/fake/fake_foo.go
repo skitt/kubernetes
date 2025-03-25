@@ -37,8 +37,6 @@ func newFakeFoos(fake *FakeSamplecontrollerV1alpha1, namespace string) samplecon
 			namespace,
 			v1alpha1.SchemeGroupVersion.WithResource("foos"),
 			v1alpha1.SchemeGroupVersion.WithKind("Foo"),
-			func() *v1alpha1.Foo { return &v1alpha1.Foo{} },
-			func() *v1alpha1.FooList { return &v1alpha1.FooList{} },
 			func(dst, src *v1alpha1.FooList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.FooList) []*v1alpha1.Foo { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1alpha1.FooList, items []*v1alpha1.Foo) { list.Items = gentype2.FromPointerSlice(items) },

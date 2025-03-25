@@ -38,8 +38,6 @@ func newFakeRuntimeClasses(fake *FakeNodeV1alpha1) typednodev1alpha1.RuntimeClas
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("runtimeclasses"),
 			v1alpha1.SchemeGroupVersion.WithKind("RuntimeClass"),
-			func() *v1alpha1.RuntimeClass { return &v1alpha1.RuntimeClass{} },
-			func() *v1alpha1.RuntimeClassList { return &v1alpha1.RuntimeClassList{} },
 			func(dst, src *v1alpha1.RuntimeClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.RuntimeClassList) []*v1alpha1.RuntimeClass {
 				return gentype2.ToPointerSlice(list.Items)

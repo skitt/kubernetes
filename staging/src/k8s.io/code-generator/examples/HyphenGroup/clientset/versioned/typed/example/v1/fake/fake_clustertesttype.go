@@ -43,8 +43,6 @@ func newFakeClusterTestTypes(fake *FakeExampleGroupV1) typedexamplev1.ClusterTes
 			"",
 			v1.SchemeGroupVersion.WithResource("clustertesttypes"),
 			v1.SchemeGroupVersion.WithKind("ClusterTestType"),
-			func() *v1.ClusterTestType { return &v1.ClusterTestType{} },
-			func() *v1.ClusterTestTypeList { return &v1.ClusterTestTypeList{} },
 			func(dst, src *v1.ClusterTestTypeList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ClusterTestTypeList) []*v1.ClusterTestType { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ClusterTestTypeList, items []*v1.ClusterTestType) {

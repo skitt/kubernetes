@@ -63,8 +63,6 @@ func newIPAddresses(c *NetworkingV1alpha1Client) *iPAddresses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *networkingv1alpha1.IPAddress { return &networkingv1alpha1.IPAddress{} },
-			func() *networkingv1alpha1.IPAddressList { return &networkingv1alpha1.IPAddressList{} },
 			gentype2.PrefersProtobuf[*networkingv1alpha1.IPAddress](),
 		),
 	}

@@ -38,8 +38,6 @@ func newFakeFlowSchemas(fake *FakeFlowcontrolV1beta1) typedflowcontrolv1beta1.Fl
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("flowschemas"),
 			v1beta1.SchemeGroupVersion.WithKind("FlowSchema"),
-			func() *v1beta1.FlowSchema { return &v1beta1.FlowSchema{} },
-			func() *v1beta1.FlowSchemaList { return &v1beta1.FlowSchemaList{} },
 			func(dst, src *v1beta1.FlowSchemaList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.FlowSchemaList) []*v1beta1.FlowSchema { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.FlowSchemaList, items []*v1beta1.FlowSchema) {

@@ -38,10 +38,6 @@ func newFakeValidatingAdmissionPolicyBindings(fake *FakeAdmissionregistrationV1a
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("validatingadmissionpolicybindings"),
 			v1alpha1.SchemeGroupVersion.WithKind("ValidatingAdmissionPolicyBinding"),
-			func() *v1alpha1.ValidatingAdmissionPolicyBinding { return &v1alpha1.ValidatingAdmissionPolicyBinding{} },
-			func() *v1alpha1.ValidatingAdmissionPolicyBindingList {
-				return &v1alpha1.ValidatingAdmissionPolicyBindingList{}
-			},
 			func(dst, src *v1alpha1.ValidatingAdmissionPolicyBindingList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.ValidatingAdmissionPolicyBindingList) []*v1alpha1.ValidatingAdmissionPolicyBinding {
 				return gentype2.ToPointerSlice(list.Items)

@@ -38,8 +38,6 @@ func newFakeDaemonSets(fake *FakeExtensionsV1beta1, namespace string) typedexten
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("daemonsets"),
 			v1beta1.SchemeGroupVersion.WithKind("DaemonSet"),
-			func() *v1beta1.DaemonSet { return &v1beta1.DaemonSet{} },
-			func() *v1beta1.DaemonSetList { return &v1beta1.DaemonSetList{} },
 			func(dst, src *v1beta1.DaemonSetList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.DaemonSetList) []*v1beta1.DaemonSet { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.DaemonSetList, items []*v1beta1.DaemonSet) {

@@ -38,8 +38,6 @@ func newFakeLeases(fake *FakeCoordinationV1beta1, namespace string) typedcoordin
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("leases"),
 			v1beta1.SchemeGroupVersion.WithKind("Lease"),
-			func() *v1beta1.Lease { return &v1beta1.Lease{} },
-			func() *v1beta1.LeaseList { return &v1beta1.LeaseList{} },
 			func(dst, src *v1beta1.LeaseList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.LeaseList) []*v1beta1.Lease { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.LeaseList, items []*v1beta1.Lease) { list.Items = gentype2.FromPointerSlice(items) },

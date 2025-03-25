@@ -38,8 +38,6 @@ func newFakeDeviceTaintRules(fake *FakeResourceV1alpha3) typedresourcev1alpha3.D
 			"",
 			v1alpha3.SchemeGroupVersion.WithResource("devicetaintrules"),
 			v1alpha3.SchemeGroupVersion.WithKind("DeviceTaintRule"),
-			func() *v1alpha3.DeviceTaintRule { return &v1alpha3.DeviceTaintRule{} },
-			func() *v1alpha3.DeviceTaintRuleList { return &v1alpha3.DeviceTaintRuleList{} },
 			func(dst, src *v1alpha3.DeviceTaintRuleList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha3.DeviceTaintRuleList) []*v1alpha3.DeviceTaintRule {
 				return gentype2.ToPointerSlice(list.Items)
