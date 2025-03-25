@@ -448,25 +448,25 @@ var structType = []string{
 	noList | noApply: `
 	// $.type|privatePlural$ implements $.type|public$Interface
 	type $.type|privatePlural$ struct {
-		*$.Client|raw$[*$.resultType|raw$]
+		*$.Client|raw$[*$.resultType|raw$, $.resultType|raw$]
 	}
 	`,
 	withList | noApply: `
 	// $.type|privatePlural$ implements $.type|public$Interface
 	type $.type|privatePlural$ struct {
-		*$.ClientWithList|raw$[*$.resultType|raw$, *$.resultType|raw$List]
+		*$.ClientWithList|raw$[*$.resultType|raw$, *$.resultType|raw$List, $.resultType|raw$, $.resultType|raw$List]
 	}
 	`,
 	noList | withApply: `
 	// $.type|privatePlural$ implements $.type|public$Interface
 	type $.type|privatePlural$ struct {
-		*$.ClientWithApply|raw$[*$.resultType|raw$, *$.inputApplyConfig|raw$]
+		*$.ClientWithApply|raw$[*$.resultType|raw$, *$.inputApplyConfig|raw$, $.resultType|raw$]
 	}
 	`,
 	withList | withApply: `
 	// $.type|privatePlural$ implements $.type|public$Interface
 	type $.type|privatePlural$ struct {
-		*$.ClientWithListAndApply|raw$[*$.resultType|raw$, *$.resultType|raw$List, *$.inputApplyConfig|raw$]
+		*$.ClientWithListAndApply|raw$[*$.resultType|raw$, *$.resultType|raw$List, *$.inputApplyConfig|raw$, $.resultType|raw$, $.resultType|raw$List]
 	}
 	`,
 }
@@ -478,7 +478,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client, namespace string) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClient|raw$[*$.resultType|raw$](
+			$.NewClient|raw$[*$.resultType|raw$, $.resultType|raw$](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -493,7 +493,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client, namespace string) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClientWithApply|raw$[*$.resultType|raw$, *$.inputApplyConfig|raw$](
+			$.NewClientWithApply|raw$[*$.resultType|raw$, *$.inputApplyConfig|raw$, $.resultType|raw$](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -508,7 +508,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client, namespace string) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClientWithList|raw$[*$.resultType|raw$, *$.resultType|raw$List](
+			$.NewClientWithList|raw$[*$.resultType|raw$, *$.resultType|raw$List, $.resultType|raw$, $.resultType|raw$List](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -524,7 +524,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client, namespace string) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClientWithListAndApply|raw$[*$.resultType|raw$, *$.resultType|raw$List, *$.inputApplyConfig|raw$](
+			$.NewClientWithListAndApply|raw$[*$.resultType|raw$, *$.resultType|raw$List, *$.inputApplyConfig|raw$, $.resultType|raw$, $.resultType|raw$List](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -540,7 +540,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClient|raw$[*$.resultType|raw$](
+			$.NewClient|raw$[*$.resultType|raw$, $.resultType|raw$](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -555,7 +555,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClientWithApply|raw$[*$.resultType|raw$, *$.inputApplyConfig|raw$](
+			$.NewClientWithApply|raw$[*$.resultType|raw$, *$.inputApplyConfig|raw$, $.resultType|raw$](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -570,7 +570,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClientWithList|raw$[*$.resultType|raw$, *$.resultType|raw$List](
+			$.NewClientWithList|raw$[*$.resultType|raw$, *$.resultType|raw$List, $.resultType|raw$, $.resultType|raw$List](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
@@ -586,7 +586,7 @@ var newStruct = []string{
 	// new$.type|publicPlural$ returns a $.type|publicPlural$
 	func new$.type|publicPlural$(c *$.GroupGoName$$.Version$Client) *$.type|privatePlural$ {
 		return &$.type|privatePlural${
-			$.NewClientWithListAndApply|raw$[*$.resultType|raw$, *$.resultType|raw$List, *$.inputApplyConfig|raw$](
+			$.NewClientWithListAndApply|raw$[*$.resultType|raw$, *$.resultType|raw$List, *$.inputApplyConfig|raw$, $.resultType|raw$, $.resultType|raw$List](
 				"$.type|resource$",
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,

@@ -24,7 +24,6 @@ import (
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -32,92 +31,92 @@ import (
 )
 
 // FakeClient represents a fake client
-type FakeClient[T objectWithMeta] struct {
+type FakeClient[PT objectWithMeta[T], T any] struct {
 	*testing.Fake
 	ns        string
 	resource  schema.GroupVersionResource
 	kind      schema.GroupVersionKind
-	newObject func() T
+	newObject func() PT
 }
 
 // FakeClientWithList represents a fake client with support for lists.
-type FakeClientWithList[T objectWithMeta, L runtime.Object] struct {
-	*FakeClient[T]
-	alsoFakeLister[T, L]
+type FakeClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any] struct {
+	*FakeClient[PT, T]
+	alsoFakeLister[PT, PL, T, L]
 }
 
 // FakeClientWithApply represents a fake client with support for apply declarative configurations.
-type FakeClientWithApply[T objectWithMeta, C namedObject] struct {
-	*FakeClient[T]
-	alsoFakeApplier[T, C]
+type FakeClientWithApply[PT objectWithMeta[T], C namedObject, T any] struct {
+	*FakeClient[PT, T]
+	alsoFakeApplier[PT, C, T]
 }
 
 // FakeClientWithListAndApply represents a fake client with support for lists and apply declarative configurations.
-type FakeClientWithListAndApply[T objectWithMeta, L runtime.Object, C namedObject] struct {
-	*FakeClient[T]
-	alsoFakeLister[T, L]
-	alsoFakeApplier[T, C]
+type FakeClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedObject, T any, L any] struct {
+	*FakeClient[PT, T]
+	alsoFakeLister[PT, PL, T, L]
+	alsoFakeApplier[PT, C, T]
 }
 
 // Helper types for composition
-type alsoFakeLister[T objectWithMeta, L runtime.Object] struct {
-	client       *FakeClient[T]
-	newList      func() L
-	copyListMeta func(L, L)
-	getItems     func(L) []T
-	setItems     func(L, []T)
+type alsoFakeLister[PT objectWithMeta[T], PL runtimeObject[L], T any, L any] struct {
+	client       *FakeClient[PT, T]
+	newList      func() PL
+	copyListMeta func(PL, PL)
+	getItems     func(PL) []PT
+	setItems     func(PL, []PT)
 }
 
-type alsoFakeApplier[T objectWithMeta, C namedObject] struct {
-	client *FakeClient[T]
+type alsoFakeApplier[PT objectWithMeta[T], C namedObject, T any] struct {
+	client *FakeClient[PT, T]
 }
 
 // NewFakeClient constructs a fake client, namespaced or not, with no support for lists or apply.
 // Non-namespaced clients are constructed by passing an empty namespace ("").
-func NewFakeClient[T objectWithMeta](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() T,
-) *FakeClient[T] {
-	return &FakeClient[T]{fake, namespace, resource, kind, emptyObjectCreator}
+func NewFakeClient[PT objectWithMeta[T], T any](
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
+) *FakeClient[PT, T] {
+	return &FakeClient[PT, T]{fake, namespace, resource, kind, emptyObjectCreator}
 }
 
 // NewFakeClientWithList constructs a namespaced client with support for lists.
-func NewFakeClientWithList[T objectWithMeta, L runtime.Object](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() T,
-	emptyListCreator func() L, listMetaCopier func(L, L), itemGetter func(L) []T, itemSetter func(L, []T),
-) *FakeClientWithList[T, L] {
-	fakeClient := NewFakeClient[T](fake, namespace, resource, kind, emptyObjectCreator)
-	return &FakeClientWithList[T, L]{
+func NewFakeClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any](
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
+	emptyListCreator func() PL, listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
+) *FakeClientWithList[PT, PL, T, L] {
+	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind, emptyObjectCreator)
+	return &FakeClientWithList[PT, PL, T, L]{
 		fakeClient,
-		alsoFakeLister[T, L]{fakeClient, emptyListCreator, listMetaCopier, itemGetter, itemSetter},
+		alsoFakeLister[PT, PL, T, L]{fakeClient, emptyListCreator, listMetaCopier, itemGetter, itemSetter},
 	}
 }
 
 // NewFakeClientWithApply constructs a namespaced client with support for apply declarative configurations.
-func NewFakeClientWithApply[T objectWithMeta, C namedObject](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() T,
-) *FakeClientWithApply[T, C] {
-	fakeClient := NewFakeClient[T](fake, namespace, resource, kind, emptyObjectCreator)
-	return &FakeClientWithApply[T, C]{
+func NewFakeClientWithApply[PT objectWithMeta[T], C namedObject, T any](
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
+) *FakeClientWithApply[PT, C, T] {
+	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind, emptyObjectCreator)
+	return &FakeClientWithApply[PT, C, T]{
 		fakeClient,
-		alsoFakeApplier[T, C]{fakeClient},
+		alsoFakeApplier[PT, C, T]{fakeClient},
 	}
 }
 
 // NewFakeClientWithListAndApply constructs a client with support for lists and applying declarative configurations.
-func NewFakeClientWithListAndApply[T objectWithMeta, L runtime.Object, C namedObject](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() T,
-	emptyListCreator func() L, listMetaCopier func(L, L), itemGetter func(L) []T, itemSetter func(L, []T),
-) *FakeClientWithListAndApply[T, L, C] {
-	fakeClient := NewFakeClient[T](fake, namespace, resource, kind, emptyObjectCreator)
-	return &FakeClientWithListAndApply[T, L, C]{
+func NewFakeClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedObject, T any, L any](
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
+	emptyListCreator func() PL, listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
+) *FakeClientWithListAndApply[PT, PL, C, T, L] {
+	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind, emptyObjectCreator)
+	return &FakeClientWithListAndApply[PT, PL, C, T, L]{
 		fakeClient,
-		alsoFakeLister[T, L]{fakeClient, emptyListCreator, listMetaCopier, itemGetter, itemSetter},
-		alsoFakeApplier[T, C]{fakeClient},
+		alsoFakeLister[PT, PL, T, L]{fakeClient, emptyListCreator, listMetaCopier, itemGetter, itemSetter},
+		alsoFakeApplier[PT, C, T]{fakeClient},
 	}
 }
 
 // Get takes name of a resource, and returns the corresponding object, and an error if there is any.
-func (c *FakeClient[T]) Get(ctx context.Context, name string, options metav1.GetOptions) (T, error) {
+func (c *FakeClient[PT, T]) Get(ctx context.Context, name string, options metav1.GetOptions) (PT, error) {
 	emptyResult := c.newObject()
 
 	obj, err := c.Fake.
@@ -125,7 +124,7 @@ func (c *FakeClient[T]) Get(ctx context.Context, name string, options metav1.Get
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
 func ToPointerSlice[T any](src []T) []*T {
@@ -151,7 +150,7 @@ func FromPointerSlice[T any](src []*T) []T {
 }
 
 // List takes label and field selectors, and returns the list of resources that match those selectors.
-func (l *alsoFakeLister[T, L]) List(ctx context.Context, opts metav1.ListOptions) (result L, err error) {
+func (l *alsoFakeLister[PT, PL, T, L]) List(ctx context.Context, opts metav1.ListOptions) (PL, error) {
 	emptyResult := l.newList()
 	obj, err := l.client.Fake.
 		Invokes(testing.NewListActionWithOptions(l.client.resource, l.client.kind, l.client.ns, opts), emptyResult)
@@ -162,12 +161,12 @@ func (l *alsoFakeLister[T, L]) List(ctx context.Context, opts metav1.ListOptions
 	label, _, _ := testing.ExtractFromListOptions(opts)
 	if label == nil {
 		// Everything matches
-		return obj.(L), nil
+		return obj.(PL), nil
 	}
 	list := l.newList()
-	l.copyListMeta(list, obj.(L))
-	var items []T
-	for _, item := range l.getItems(obj.(L)) {
+	l.copyListMeta(list, obj.(PL))
+	var items []PT
+	for _, item := range l.getItems(obj.(PL)) {
 		itemMeta, err := meta.Accessor(item)
 		if err != nil {
 			// No ObjectMeta, nothing can match
@@ -182,36 +181,36 @@ func (l *alsoFakeLister[T, L]) List(ctx context.Context, opts metav1.ListOptions
 }
 
 // Watch returns a watch.Interface that watches the requested resources.
-func (c *FakeClient[T]) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+func (c *FakeClient[PT, T]) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
 	opts.Watch = true
 	return c.Fake.
 		InvokesWatch(testing.NewWatchActionWithOptions(c.resource, c.ns, opts))
 }
 
 // Create takes the representation of a resource and creates it.  Returns the server's representation of the resource, and an error, if there is any.
-func (c *FakeClient[T]) Create(ctx context.Context, resource T, opts metav1.CreateOptions) (result T, err error) {
+func (c *FakeClient[PT, T]) Create(ctx context.Context, resource PT, opts metav1.CreateOptions) (PT, error) {
 	emptyResult := c.newObject()
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateActionWithOptions(c.resource, c.ns, resource, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
 // Update takes the representation of a resource and updates it. Returns the server's representation of the resource, and an error, if there is any.
-func (c *FakeClient[T]) Update(ctx context.Context, resource T, opts metav1.UpdateOptions) (result T, err error) {
+func (c *FakeClient[PT, T]) Update(ctx context.Context, resource PT, opts metav1.UpdateOptions) (PT, error) {
 	emptyResult := c.newObject()
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateActionWithOptions(c.resource, c.ns, resource, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
 // UpdateStatus updates the resource's status and returns the updated resource.
-func (c *FakeClient[T]) UpdateStatus(ctx context.Context, resource T, opts metav1.UpdateOptions) (result T, err error) {
+func (c *FakeClient[PT, T]) UpdateStatus(ctx context.Context, resource PT, opts metav1.UpdateOptions) (PT, error) {
 	emptyResult := c.newObject()
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceActionWithOptions(c.resource, "status", c.ns, resource, opts), emptyResult)
@@ -219,46 +218,46 @@ func (c *FakeClient[T]) UpdateStatus(ctx context.Context, resource T, opts metav
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
 // Delete deletes the resource matching the given name. Returns an error if one occurs.
-func (c *FakeClient[T]) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
+func (c *FakeClient[PT, T]) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteActionWithOptions(c.resource, c.ns, name, opts), c.newObject())
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (l *alsoFakeLister[T, L]) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
+func (l *alsoFakeLister[PT, PL, T, L]) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
 	_, err := l.client.Fake.
 		Invokes(testing.NewDeleteCollectionActionWithOptions(l.client.resource, l.client.ns, opts, listOpts), l.newList())
 	return err
 }
 
 // Patch applies the patch and returns the patched resource.
-func (c *FakeClient[T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result T, err error) {
+func (c *FakeClient[PT, T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (PT, error) {
 	emptyResult := c.newObject()
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceActionWithOptions(c.resource, c.ns, name, pt, data, opts, subresources...), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
 // Apply takes the given apply declarative configuration, applies it and returns the applied resource.
-func (a *alsoFakeApplier[T, C]) Apply(ctx context.Context, configuration C, opts metav1.ApplyOptions) (result T, err error) {
+func (a *alsoFakeApplier[PT, C, T]) Apply(ctx context.Context, configuration C, opts metav1.ApplyOptions) (PT, error) {
 	if configuration == *new(C) {
-		return *new(T), fmt.Errorf("configuration provided to Apply must not be nil")
+		return new(T), fmt.Errorf("configuration provided to Apply must not be nil")
 	}
 	data, err := json.Marshal(configuration)
 	if err != nil {
-		return *new(T), err
+		return new(T), err
 	}
 	name := configuration.GetName()
 	if name == nil {
-		return *new(T), fmt.Errorf("configuration.Name must be provided to Apply")
+		return new(T), fmt.Errorf("configuration.Name must be provided to Apply")
 	}
 	emptyResult := a.client.newObject()
 	obj, err := a.client.Fake.
@@ -266,21 +265,21 @@ func (a *alsoFakeApplier[T, C]) Apply(ctx context.Context, configuration C, opts
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
 // ApplyStatus applies the given apply declarative configuration to the resource's status and returns the updated resource.
-func (a *alsoFakeApplier[T, C]) ApplyStatus(ctx context.Context, configuration C, opts metav1.ApplyOptions) (result T, err error) {
+func (a *alsoFakeApplier[PT, C, T]) ApplyStatus(ctx context.Context, configuration C, opts metav1.ApplyOptions) (PT, error) {
 	if configuration == *new(C) {
-		return *new(T), fmt.Errorf("configuration provided to Apply must not be nil")
+		return new(T), fmt.Errorf("configuration provided to Apply must not be nil")
 	}
 	data, err := json.Marshal(configuration)
 	if err != nil {
-		return *new(T), err
+		return new(T), err
 	}
 	name := configuration.GetName()
 	if name == nil {
-		return *new(T), fmt.Errorf("configuration.Name must be provided to Apply")
+		return new(T), fmt.Errorf("configuration.Name must be provided to Apply")
 	}
 	emptyResult := a.client.newObject()
 	obj, err := a.client.Fake.
@@ -289,17 +288,17 @@ func (a *alsoFakeApplier[T, C]) ApplyStatus(ctx context.Context, configuration C
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(T), err
+	return obj.(PT), err
 }
 
-func (c *FakeClient[T]) Namespace() string {
+func (c *FakeClient[PT, T]) Namespace() string {
 	return c.ns
 }
 
-func (c *FakeClient[T]) Kind() schema.GroupVersionKind {
+func (c *FakeClient[PT, T]) Kind() schema.GroupVersionKind {
 	return c.kind
 }
 
-func (c *FakeClient[T]) Resource() schema.GroupVersionResource {
+func (c *FakeClient[PT, T]) Resource() schema.GroupVersionResource {
 	return c.resource
 }

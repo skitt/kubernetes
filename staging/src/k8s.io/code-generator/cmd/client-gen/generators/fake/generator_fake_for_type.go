@@ -269,28 +269,28 @@ var structType = []string{
 	noList | noApply: `
 	// fake$.type|publicPlural$ implements $.type|public$Interface
 	type fake$.type|publicPlural$ struct {
-		*$.FakeClient|raw$[*$.type|raw$]
+		*$.FakeClient|raw$[*$.type|raw$, $.type|raw$]
 		Fake *Fake$.GroupGoName$$.Version$
 	}
 	`,
 	withList | noApply: `
 	// fake$.type|publicPlural$ implements $.type|public$Interface
 	type fake$.type|publicPlural$ struct {
-		*$.FakeClientWithList|raw$[*$.type|raw$, *$.type|raw$List]
+		*$.FakeClientWithList|raw$[*$.type|raw$, *$.type|raw$List, $.type|raw$, $.type|raw$List]
 		Fake *Fake$.GroupGoName$$.Version$
 	}
 	`,
 	noList | withApply: `
 	// fake$.type|publicPlural$ implements $.type|public$Interface
 	type fake$.type|publicPlural$ struct {
-		*$.FakeClientWithApply|raw$[*$.type|raw$, *$.inputApplyConfig|raw$]
+		*$.FakeClientWithApply|raw$[*$.type|raw$, *$.inputApplyConfig|raw$, $.type|raw$]
 		Fake *Fake$.GroupGoName$$.Version$
 	}
 	`,
 	withList | withApply: `
 	// fake$.type|publicPlural$ implements $.type|public$Interface
 	type fake$.type|publicPlural$ struct {
-		*$.FakeClientWithListAndApply|raw$[*$.type|raw$, *$.type|raw$List, *$.inputApplyConfig|raw$]
+		*$.FakeClientWithListAndApply|raw$[*$.type|raw$, *$.type|raw$List, *$.inputApplyConfig|raw$, $.type|raw$, $.type|raw$List]
 		Fake *Fake$.GroupGoName$$.Version$
 	}
 	`,
@@ -301,7 +301,7 @@ var newStruct = []string{
 	noList | noApply: `
 	func newFake$.type|publicPlural$(fake *Fake$.GroupGoName$$.Version$$if .namespaced$, namespace string$end$) $.realClientInterface|raw$ {
 		return &fake$.type|publicPlural${
-			$.NewFakeClient|raw$[*$.type|raw$](
+			$.NewFakeClient|raw$[*$.type|raw$, $.type|raw$](
 				fake.Fake,
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
@@ -315,7 +315,7 @@ var newStruct = []string{
 	noList | withApply: `
 	func newFake$.type|publicPlural$(fake *Fake$.GroupGoName$$.Version$$if .namespaced$, namespace string$end$) $.realClientInterface|raw$ {
 		return &fake$.type|publicPlural${
-			$.NewFakeClientWithApply|raw$[*$.type|raw$, *$.inputApplyConfig|raw$](
+			$.NewFakeClientWithApply|raw$[*$.type|raw$, *$.inputApplyConfig|raw$, $.type|raw$](
 				fake.Fake,
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
@@ -329,7 +329,7 @@ var newStruct = []string{
 	withList | noApply: `
 	func newFake$.type|publicPlural$(fake *Fake$.GroupGoName$$.Version$$if .namespaced$, namespace string$end$) $.realClientInterface|raw$ {
 		return &fake$.type|publicPlural${
-			$.NewFakeClientWithList|raw$[*$.type|raw$, *$.type|raw$List](
+			$.NewFakeClientWithList|raw$[*$.type|raw$, *$.type|raw$List, $.type|raw$, $.type|raw$List](
 				fake.Fake,
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
@@ -347,7 +347,7 @@ var newStruct = []string{
 	withList | withApply: `
 	func newFake$.type|publicPlural$(fake *Fake$.GroupGoName$$.Version$$if .namespaced$, namespace string$end$) $.realClientInterface|raw$ {
 		return &fake$.type|publicPlural${
-			$.NewFakeClientWithListAndApply|raw$[*$.type|raw$, *$.type|raw$List, *$.inputApplyConfig|raw$](
+			$.NewFakeClientWithListAndApply|raw$[*$.type|raw$, *$.type|raw$List, *$.inputApplyConfig|raw$, $.type|raw$, $.type|raw$List](
 				fake.Fake,
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
