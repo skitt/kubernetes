@@ -27,13 +27,13 @@ import (
 
 // fakeLimitRanges implements LimitRangeInterface
 type fakeLimitRanges struct {
-	*gentype2.FakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration, v1.LimitRange, v1.LimitRangeList]
 	Fake *FakeCoreV1
 }
 
 func newFakeLimitRanges(fake *FakeCoreV1, namespace string) typedcorev1.LimitRangeInterface {
 	return &fakeLimitRanges{
-		gentype2.NewFakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration, v1.LimitRange, v1.LimitRangeList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("limitranges"),

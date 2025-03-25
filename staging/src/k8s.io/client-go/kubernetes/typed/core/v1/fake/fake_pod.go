@@ -31,13 +31,13 @@ import (
 
 // fakePods implements PodInterface
 type fakePods struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration, v1.Pod, v1.PodList]
 	Fake *FakeCoreV1
 }
 
 func newFakePods(fake *FakeCoreV1, namespace string) typedcorev1.PodInterface {
 	return &fakePods{
-		gentype2.NewFakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration, v1.Pod, v1.PodList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("pods"),

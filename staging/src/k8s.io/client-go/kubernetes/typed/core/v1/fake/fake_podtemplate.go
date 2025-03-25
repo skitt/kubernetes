@@ -27,13 +27,13 @@ import (
 
 // fakePodTemplates implements PodTemplateInterface
 type fakePodTemplates struct {
-	*gentype2.FakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration, v1.PodTemplate, v1.PodTemplateList]
 	Fake *FakeCoreV1
 }
 
 func newFakePodTemplates(fake *FakeCoreV1, namespace string) typedcorev1.PodTemplateInterface {
 	return &fakePodTemplates{
-		gentype2.NewFakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration, v1.PodTemplate, v1.PodTemplateList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("podtemplates"),

@@ -55,13 +55,13 @@ type ServiceAccountInterface interface {
 
 // serviceAccounts implements ServiceAccountInterface
 type serviceAccounts struct {
-	*gentype2.ClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration, corev1.ServiceAccount, corev1.ServiceAccountList]
 }
 
 // newServiceAccounts returns a ServiceAccounts
 func newServiceAccounts(c *CoreV1Client, namespace string) *serviceAccounts {
 	return &serviceAccounts{
-		gentype2.NewClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration, corev1.ServiceAccount, corev1.ServiceAccountList](
 			"serviceaccounts",
 			c.RESTClient(),
 			scheme.ParameterCodec,

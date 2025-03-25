@@ -27,13 +27,13 @@ import (
 
 // fakeJobs implements JobInterface
 type fakeJobs struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Job, *v1.JobList, *batchv1.JobApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Job, *v1.JobList, *batchv1.JobApplyConfiguration, v1.Job, v1.JobList]
 	Fake *FakeBatchV1
 }
 
 func newFakeJobs(fake *FakeBatchV1, namespace string) typedbatchv1.JobInterface {
 	return &fakeJobs{
-		gentype2.NewFakeClientWithListAndApply[*v1.Job, *v1.JobList, *batchv1.JobApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Job, *v1.JobList, *batchv1.JobApplyConfiguration, v1.Job, v1.JobList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("jobs"),

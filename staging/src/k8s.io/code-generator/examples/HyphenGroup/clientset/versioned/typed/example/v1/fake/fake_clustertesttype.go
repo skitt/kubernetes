@@ -32,13 +32,13 @@ import (
 
 // fakeClusterTestTypes implements ClusterTestTypeInterface
 type fakeClusterTestTypes struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ClusterTestType, *v1.ClusterTestTypeList, *examplev1.ClusterTestTypeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ClusterTestType, *v1.ClusterTestTypeList, *examplev1.ClusterTestTypeApplyConfiguration, v1.ClusterTestType, v1.ClusterTestTypeList]
 	Fake *FakeExampleGroupV1
 }
 
 func newFakeClusterTestTypes(fake *FakeExampleGroupV1) typedexamplev1.ClusterTestTypeInterface {
 	return &fakeClusterTestTypes{
-		gentype2.NewFakeClientWithListAndApply[*v1.ClusterTestType, *v1.ClusterTestTypeList, *examplev1.ClusterTestTypeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ClusterTestType, *v1.ClusterTestTypeList, *examplev1.ClusterTestTypeApplyConfiguration, v1.ClusterTestType, v1.ClusterTestTypeList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("clustertesttypes"),

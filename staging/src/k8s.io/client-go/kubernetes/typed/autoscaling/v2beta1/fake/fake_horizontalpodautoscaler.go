@@ -27,13 +27,13 @@ import (
 
 // fakeHorizontalPodAutoscalers implements HorizontalPodAutoscalerInterface
 type fakeHorizontalPodAutoscalers struct {
-	*gentype2.FakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration, v2beta1.HorizontalPodAutoscaler, v2beta1.HorizontalPodAutoscalerList]
 	Fake *FakeAutoscalingV2beta1
 }
 
 func newFakeHorizontalPodAutoscalers(fake *FakeAutoscalingV2beta1, namespace string) typedautoscalingv2beta1.HorizontalPodAutoscalerInterface {
 	return &fakeHorizontalPodAutoscalers{
-		gentype2.NewFakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration, v2beta1.HorizontalPodAutoscaler, v2beta1.HorizontalPodAutoscalerList](
 			fake.Fake,
 			namespace,
 			v2beta1.SchemeGroupVersion.WithResource("horizontalpodautoscalers"),

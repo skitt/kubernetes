@@ -27,13 +27,13 @@ import (
 
 // fakeStorageClasses implements StorageClassInterface
 type fakeStorageClasses struct {
-	*gentype2.FakeClientWithListAndApply[*v1.StorageClass, *v1.StorageClassList, *storagev1.StorageClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.StorageClass, *v1.StorageClassList, *storagev1.StorageClassApplyConfiguration, v1.StorageClass, v1.StorageClassList]
 	Fake *FakeStorageV1
 }
 
 func newFakeStorageClasses(fake *FakeStorageV1) typedstoragev1.StorageClassInterface {
 	return &fakeStorageClasses{
-		gentype2.NewFakeClientWithListAndApply[*v1.StorageClass, *v1.StorageClassList, *storagev1.StorageClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.StorageClass, *v1.StorageClassList, *storagev1.StorageClassApplyConfiguration, v1.StorageClass, v1.StorageClassList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("storageclasses"),

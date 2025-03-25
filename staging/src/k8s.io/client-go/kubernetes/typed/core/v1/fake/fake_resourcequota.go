@@ -27,13 +27,13 @@ import (
 
 // fakeResourceQuotas implements ResourceQuotaInterface
 type fakeResourceQuotas struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration, v1.ResourceQuota, v1.ResourceQuotaList]
 	Fake *FakeCoreV1
 }
 
 func newFakeResourceQuotas(fake *FakeCoreV1, namespace string) typedcorev1.ResourceQuotaInterface {
 	return &fakeResourceQuotas{
-		gentype2.NewFakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration, v1.ResourceQuota, v1.ResourceQuotaList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("resourcequotas"),

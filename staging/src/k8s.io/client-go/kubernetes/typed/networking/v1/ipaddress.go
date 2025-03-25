@@ -52,13 +52,13 @@ type IPAddressInterface interface {
 
 // iPAddresses implements IPAddressInterface
 type iPAddresses struct {
-	*gentype2.ClientWithListAndApply[*networkingv1.IPAddress, *networkingv1.IPAddressList, *applyconfigurationsnetworkingv1.IPAddressApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1.IPAddress, *networkingv1.IPAddressList, *applyconfigurationsnetworkingv1.IPAddressApplyConfiguration, networkingv1.IPAddress, networkingv1.IPAddressList]
 }
 
 // newIPAddresses returns a IPAddresses
 func newIPAddresses(c *NetworkingV1Client) *iPAddresses {
 	return &iPAddresses{
-		gentype2.NewClientWithListAndApply[*networkingv1.IPAddress, *networkingv1.IPAddressList, *applyconfigurationsnetworkingv1.IPAddressApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1.IPAddress, *networkingv1.IPAddressList, *applyconfigurationsnetworkingv1.IPAddressApplyConfiguration, networkingv1.IPAddress, networkingv1.IPAddressList](
 			"ipaddresses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

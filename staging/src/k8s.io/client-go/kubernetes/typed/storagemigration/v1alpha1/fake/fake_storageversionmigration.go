@@ -27,13 +27,13 @@ import (
 
 // fakeStorageVersionMigrations implements StorageVersionMigrationInterface
 type fakeStorageVersionMigrations struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration, v1alpha1.StorageVersionMigration, v1alpha1.StorageVersionMigrationList]
 	Fake *FakeStoragemigrationV1alpha1
 }
 
 func newFakeStorageVersionMigrations(fake *FakeStoragemigrationV1alpha1) typedstoragemigrationv1alpha1.StorageVersionMigrationInterface {
 	return &fakeStorageVersionMigrations{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration, v1alpha1.StorageVersionMigration, v1alpha1.StorageVersionMigrationList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("storageversionmigrations"),

@@ -41,13 +41,13 @@ type LocalSubjectAccessReviewInterface interface {
 
 // localSubjectAccessReviews implements LocalSubjectAccessReviewInterface
 type localSubjectAccessReviews struct {
-	*gentype2.Client[*authorizationv1beta1.LocalSubjectAccessReview]
+	*gentype2.Client[*authorizationv1beta1.LocalSubjectAccessReview, authorizationv1beta1.LocalSubjectAccessReview]
 }
 
 // newLocalSubjectAccessReviews returns a LocalSubjectAccessReviews
 func newLocalSubjectAccessReviews(c *AuthorizationV1beta1Client, namespace string) *localSubjectAccessReviews {
 	return &localSubjectAccessReviews{
-		gentype2.NewClient[*authorizationv1beta1.LocalSubjectAccessReview](
+		gentype2.NewClient[*authorizationv1beta1.LocalSubjectAccessReview, authorizationv1beta1.LocalSubjectAccessReview](
 			"localsubjectaccessreviews",
 			c.RESTClient(),
 			scheme.ParameterCodec,

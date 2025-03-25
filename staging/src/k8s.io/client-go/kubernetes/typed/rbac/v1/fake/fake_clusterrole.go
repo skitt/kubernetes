@@ -27,13 +27,13 @@ import (
 
 // fakeClusterRoles implements ClusterRoleInterface
 type fakeClusterRoles struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ClusterRole, *v1.ClusterRoleList, *rbacv1.ClusterRoleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ClusterRole, *v1.ClusterRoleList, *rbacv1.ClusterRoleApplyConfiguration, v1.ClusterRole, v1.ClusterRoleList]
 	Fake *FakeRbacV1
 }
 
 func newFakeClusterRoles(fake *FakeRbacV1) typedrbacv1.ClusterRoleInterface {
 	return &fakeClusterRoles{
-		gentype2.NewFakeClientWithListAndApply[*v1.ClusterRole, *v1.ClusterRoleList, *rbacv1.ClusterRoleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ClusterRole, *v1.ClusterRoleList, *rbacv1.ClusterRoleApplyConfiguration, v1.ClusterRole, v1.ClusterRoleList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("clusterroles"),

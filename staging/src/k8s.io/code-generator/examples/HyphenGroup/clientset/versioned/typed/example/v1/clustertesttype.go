@@ -60,13 +60,13 @@ type ClusterTestTypeInterface interface {
 
 // clusterTestTypes implements ClusterTestTypeInterface
 type clusterTestTypes struct {
-	*gentype2.ClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration, examplev1.ClusterTestType, examplev1.ClusterTestTypeList]
 }
 
 // newClusterTestTypes returns a ClusterTestTypes
 func newClusterTestTypes(c *ExampleGroupV1Client) *clusterTestTypes {
 	return &clusterTestTypes{
-		gentype2.NewClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration, examplev1.ClusterTestType, examplev1.ClusterTestTypeList](
 			"clustertesttypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

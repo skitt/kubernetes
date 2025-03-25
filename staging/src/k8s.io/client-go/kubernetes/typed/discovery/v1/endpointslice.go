@@ -52,13 +52,13 @@ type EndpointSliceInterface interface {
 
 // endpointSlices implements EndpointSliceInterface
 type endpointSlices struct {
-	*gentype2.ClientWithListAndApply[*discoveryv1.EndpointSlice, *discoveryv1.EndpointSliceList, *applyconfigurationsdiscoveryv1.EndpointSliceApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*discoveryv1.EndpointSlice, *discoveryv1.EndpointSliceList, *applyconfigurationsdiscoveryv1.EndpointSliceApplyConfiguration, discoveryv1.EndpointSlice, discoveryv1.EndpointSliceList]
 }
 
 // newEndpointSlices returns a EndpointSlices
 func newEndpointSlices(c *DiscoveryV1Client, namespace string) *endpointSlices {
 	return &endpointSlices{
-		gentype2.NewClientWithListAndApply[*discoveryv1.EndpointSlice, *discoveryv1.EndpointSliceList, *applyconfigurationsdiscoveryv1.EndpointSliceApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*discoveryv1.EndpointSlice, *discoveryv1.EndpointSliceList, *applyconfigurationsdiscoveryv1.EndpointSliceApplyConfiguration, discoveryv1.EndpointSlice, discoveryv1.EndpointSliceList](
 			"endpointslices",
 			c.RESTClient(),
 			scheme.ParameterCodec,

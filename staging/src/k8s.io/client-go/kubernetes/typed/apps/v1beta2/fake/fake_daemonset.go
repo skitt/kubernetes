@@ -27,13 +27,13 @@ import (
 
 // fakeDaemonSets implements DaemonSetInterface
 type fakeDaemonSets struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta2.DaemonSet, *v1beta2.DaemonSetList, *appsv1beta2.DaemonSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta2.DaemonSet, *v1beta2.DaemonSetList, *appsv1beta2.DaemonSetApplyConfiguration, v1beta2.DaemonSet, v1beta2.DaemonSetList]
 	Fake *FakeAppsV1beta2
 }
 
 func newFakeDaemonSets(fake *FakeAppsV1beta2, namespace string) typedappsv1beta2.DaemonSetInterface {
 	return &fakeDaemonSets{
-		gentype2.NewFakeClientWithListAndApply[*v1beta2.DaemonSet, *v1beta2.DaemonSetList, *appsv1beta2.DaemonSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta2.DaemonSet, *v1beta2.DaemonSetList, *appsv1beta2.DaemonSetApplyConfiguration, v1beta2.DaemonSet, v1beta2.DaemonSetList](
 			fake.Fake,
 			namespace,
 			v1beta2.SchemeGroupVersion.WithResource("daemonsets"),

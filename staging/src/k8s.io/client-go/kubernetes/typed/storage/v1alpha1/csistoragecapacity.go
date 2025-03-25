@@ -52,13 +52,13 @@ type CSIStorageCapacityInterface interface {
 
 // cSIStorageCapacities implements CSIStorageCapacityInterface
 type cSIStorageCapacities struct {
-	*gentype2.ClientWithListAndApply[*storagev1alpha1.CSIStorageCapacity, *storagev1alpha1.CSIStorageCapacityList, *applyconfigurationsstoragev1alpha1.CSIStorageCapacityApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1alpha1.CSIStorageCapacity, *storagev1alpha1.CSIStorageCapacityList, *applyconfigurationsstoragev1alpha1.CSIStorageCapacityApplyConfiguration, storagev1alpha1.CSIStorageCapacity, storagev1alpha1.CSIStorageCapacityList]
 }
 
 // newCSIStorageCapacities returns a CSIStorageCapacities
 func newCSIStorageCapacities(c *StorageV1alpha1Client, namespace string) *cSIStorageCapacities {
 	return &cSIStorageCapacities{
-		gentype2.NewClientWithListAndApply[*storagev1alpha1.CSIStorageCapacity, *storagev1alpha1.CSIStorageCapacityList, *applyconfigurationsstoragev1alpha1.CSIStorageCapacityApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1alpha1.CSIStorageCapacity, *storagev1alpha1.CSIStorageCapacityList, *applyconfigurationsstoragev1alpha1.CSIStorageCapacityApplyConfiguration, storagev1alpha1.CSIStorageCapacity, storagev1alpha1.CSIStorageCapacityList](
 			"csistoragecapacities",
 			c.RESTClient(),
 			scheme.ParameterCodec,

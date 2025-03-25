@@ -27,13 +27,13 @@ import (
 
 // fakeFlowSchemas implements FlowSchemaInterface
 type fakeFlowSchemas struct {
-	*gentype2.FakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration, v1.FlowSchema, v1.FlowSchemaList]
 	Fake *FakeFlowcontrolV1
 }
 
 func newFakeFlowSchemas(fake *FakeFlowcontrolV1) typedflowcontrolv1.FlowSchemaInterface {
 	return &fakeFlowSchemas{
-		gentype2.NewFakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration, v1.FlowSchema, v1.FlowSchemaList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("flowschemas"),

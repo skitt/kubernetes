@@ -52,13 +52,13 @@ type ClusterRoleInterface interface {
 
 // clusterRoles implements ClusterRoleInterface
 type clusterRoles struct {
-	*gentype2.ClientWithListAndApply[*rbacv1beta1.ClusterRole, *rbacv1beta1.ClusterRoleList, *applyconfigurationsrbacv1beta1.ClusterRoleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*rbacv1beta1.ClusterRole, *rbacv1beta1.ClusterRoleList, *applyconfigurationsrbacv1beta1.ClusterRoleApplyConfiguration, rbacv1beta1.ClusterRole, rbacv1beta1.ClusterRoleList]
 }
 
 // newClusterRoles returns a ClusterRoles
 func newClusterRoles(c *RbacV1beta1Client) *clusterRoles {
 	return &clusterRoles{
-		gentype2.NewClientWithListAndApply[*rbacv1beta1.ClusterRole, *rbacv1beta1.ClusterRoleList, *applyconfigurationsrbacv1beta1.ClusterRoleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*rbacv1beta1.ClusterRole, *rbacv1beta1.ClusterRoleList, *applyconfigurationsrbacv1beta1.ClusterRoleApplyConfiguration, rbacv1beta1.ClusterRole, rbacv1beta1.ClusterRoleList](
 			"clusterroles",
 			c.RESTClient(),
 			scheme.ParameterCodec,

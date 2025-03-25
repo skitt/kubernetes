@@ -26,13 +26,13 @@ import (
 
 // fakeFoos implements FooInterface
 type fakeFoos struct {
-	*gentype2.FakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList]
+	*gentype2.FakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList, v1alpha1.Foo, v1alpha1.FooList]
 	Fake *FakeSamplecontrollerV1alpha1
 }
 
 func newFakeFoos(fake *FakeSamplecontrollerV1alpha1, namespace string) samplecontrollerv1alpha1.FooInterface {
 	return &fakeFoos{
-		gentype2.NewFakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList](
+		gentype2.NewFakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList, v1alpha1.Foo, v1alpha1.FooList](
 			fake.Fake,
 			namespace,
 			v1alpha1.SchemeGroupVersion.WithResource("foos"),

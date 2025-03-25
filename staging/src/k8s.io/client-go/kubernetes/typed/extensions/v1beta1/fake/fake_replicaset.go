@@ -34,13 +34,13 @@ import (
 
 // fakeReplicaSets implements ReplicaSetInterface
 type fakeReplicaSets struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration, v1beta1.ReplicaSet, v1beta1.ReplicaSetList]
 	Fake *FakeExtensionsV1beta1
 }
 
 func newFakeReplicaSets(fake *FakeExtensionsV1beta1, namespace string) typedextensionsv1beta1.ReplicaSetInterface {
 	return &fakeReplicaSets{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration, v1beta1.ReplicaSet, v1beta1.ReplicaSetList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("replicasets"),

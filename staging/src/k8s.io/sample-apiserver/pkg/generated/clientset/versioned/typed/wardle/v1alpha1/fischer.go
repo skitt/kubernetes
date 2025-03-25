@@ -52,13 +52,13 @@ type FischerInterface interface {
 
 // fischers implements FischerInterface
 type fischers struct {
-	*gentype2.ClientWithListAndApply[*wardlev1alpha1.Fischer, *wardlev1alpha1.FischerList, *applyconfigurationwardlev1alpha1.FischerApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*wardlev1alpha1.Fischer, *wardlev1alpha1.FischerList, *applyconfigurationwardlev1alpha1.FischerApplyConfiguration, wardlev1alpha1.Fischer, wardlev1alpha1.FischerList]
 }
 
 // newFischers returns a Fischers
 func newFischers(c *WardleV1alpha1Client) *fischers {
 	return &fischers{
-		gentype2.NewClientWithListAndApply[*wardlev1alpha1.Fischer, *wardlev1alpha1.FischerList, *applyconfigurationwardlev1alpha1.FischerApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*wardlev1alpha1.Fischer, *wardlev1alpha1.FischerList, *applyconfigurationwardlev1alpha1.FischerApplyConfiguration, wardlev1alpha1.Fischer, wardlev1alpha1.FischerList](
 			"fischers",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -52,13 +52,13 @@ type IngressClassInterface interface {
 
 // ingressClasses implements IngressClassInterface
 type ingressClasses struct {
-	*gentype2.ClientWithListAndApply[*networkingv1.IngressClass, *networkingv1.IngressClassList, *applyconfigurationsnetworkingv1.IngressClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1.IngressClass, *networkingv1.IngressClassList, *applyconfigurationsnetworkingv1.IngressClassApplyConfiguration, networkingv1.IngressClass, networkingv1.IngressClassList]
 }
 
 // newIngressClasses returns a IngressClasses
 func newIngressClasses(c *NetworkingV1Client) *ingressClasses {
 	return &ingressClasses{
-		gentype2.NewClientWithListAndApply[*networkingv1.IngressClass, *networkingv1.IngressClassList, *applyconfigurationsnetworkingv1.IngressClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1.IngressClass, *networkingv1.IngressClassList, *applyconfigurationsnetworkingv1.IngressClassApplyConfiguration, networkingv1.IngressClass, networkingv1.IngressClassList](
 			"ingressclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

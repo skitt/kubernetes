@@ -27,13 +27,13 @@ import (
 
 // fakeClusterRoleBindings implements ClusterRoleBindingInterface
 type fakeClusterRoleBindings struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration, v1alpha1.ClusterRoleBinding, v1alpha1.ClusterRoleBindingList]
 	Fake *FakeRbacV1alpha1
 }
 
 func newFakeClusterRoleBindings(fake *FakeRbacV1alpha1) typedrbacv1alpha1.ClusterRoleBindingInterface {
 	return &fakeClusterRoleBindings{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration, v1alpha1.ClusterRoleBinding, v1alpha1.ClusterRoleBindingList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("clusterrolebindings"),

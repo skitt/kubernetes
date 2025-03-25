@@ -52,13 +52,13 @@ type ComponentStatusInterface interface {
 
 // componentStatuses implements ComponentStatusInterface
 type componentStatuses struct {
-	*gentype2.ClientWithListAndApply[*corev1.ComponentStatus, *corev1.ComponentStatusList, *applyconfigurationscorev1.ComponentStatusApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ComponentStatus, *corev1.ComponentStatusList, *applyconfigurationscorev1.ComponentStatusApplyConfiguration, corev1.ComponentStatus, corev1.ComponentStatusList]
 }
 
 // newComponentStatuses returns a ComponentStatuses
 func newComponentStatuses(c *CoreV1Client) *componentStatuses {
 	return &componentStatuses{
-		gentype2.NewClientWithListAndApply[*corev1.ComponentStatus, *corev1.ComponentStatusList, *applyconfigurationscorev1.ComponentStatusApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ComponentStatus, *corev1.ComponentStatusList, *applyconfigurationscorev1.ComponentStatusApplyConfiguration, corev1.ComponentStatus, corev1.ComponentStatusList](
 			"componentstatuses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

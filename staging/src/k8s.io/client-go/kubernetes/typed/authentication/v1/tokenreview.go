@@ -41,13 +41,13 @@ type TokenReviewInterface interface {
 
 // tokenReviews implements TokenReviewInterface
 type tokenReviews struct {
-	*gentype2.Client[*authenticationv1.TokenReview]
+	*gentype2.Client[*authenticationv1.TokenReview, authenticationv1.TokenReview]
 }
 
 // newTokenReviews returns a TokenReviews
 func newTokenReviews(c *AuthenticationV1Client) *tokenReviews {
 	return &tokenReviews{
-		gentype2.NewClient[*authenticationv1.TokenReview](
+		gentype2.NewClient[*authenticationv1.TokenReview, authenticationv1.TokenReview](
 			"tokenreviews",
 			c.RESTClient(),
 			scheme.ParameterCodec,

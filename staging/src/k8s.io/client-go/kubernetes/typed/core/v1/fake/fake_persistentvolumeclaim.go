@@ -27,13 +27,13 @@ import (
 
 // fakePersistentVolumeClaims implements PersistentVolumeClaimInterface
 type fakePersistentVolumeClaims struct {
-	*gentype2.FakeClientWithListAndApply[*v1.PersistentVolumeClaim, *v1.PersistentVolumeClaimList, *corev1.PersistentVolumeClaimApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.PersistentVolumeClaim, *v1.PersistentVolumeClaimList, *corev1.PersistentVolumeClaimApplyConfiguration, v1.PersistentVolumeClaim, v1.PersistentVolumeClaimList]
 	Fake *FakeCoreV1
 }
 
 func newFakePersistentVolumeClaims(fake *FakeCoreV1, namespace string) typedcorev1.PersistentVolumeClaimInterface {
 	return &fakePersistentVolumeClaims{
-		gentype2.NewFakeClientWithListAndApply[*v1.PersistentVolumeClaim, *v1.PersistentVolumeClaimList, *corev1.PersistentVolumeClaimApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.PersistentVolumeClaim, *v1.PersistentVolumeClaimList, *corev1.PersistentVolumeClaimApplyConfiguration, v1.PersistentVolumeClaim, v1.PersistentVolumeClaimList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("persistentvolumeclaims"),

@@ -56,13 +56,13 @@ type JobInterface interface {
 
 // jobs implements JobInterface
 type jobs struct {
-	*gentype2.ClientWithListAndApply[*batchv1.Job, *batchv1.JobList, *applyconfigurationsbatchv1.JobApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*batchv1.Job, *batchv1.JobList, *applyconfigurationsbatchv1.JobApplyConfiguration, batchv1.Job, batchv1.JobList]
 }
 
 // newJobs returns a Jobs
 func newJobs(c *BatchV1Client, namespace string) *jobs {
 	return &jobs{
-		gentype2.NewClientWithListAndApply[*batchv1.Job, *batchv1.JobList, *applyconfigurationsbatchv1.JobApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*batchv1.Job, *batchv1.JobList, *applyconfigurationsbatchv1.JobApplyConfiguration, batchv1.Job, batchv1.JobList](
 			"jobs",
 			c.RESTClient(),
 			scheme.ParameterCodec,

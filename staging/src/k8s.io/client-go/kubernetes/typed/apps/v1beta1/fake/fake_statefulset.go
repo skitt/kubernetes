@@ -27,13 +27,13 @@ import (
 
 // fakeStatefulSets implements StatefulSetInterface
 type fakeStatefulSets struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration, v1beta1.StatefulSet, v1beta1.StatefulSetList]
 	Fake *FakeAppsV1beta1
 }
 
 func newFakeStatefulSets(fake *FakeAppsV1beta1, namespace string) typedappsv1beta1.StatefulSetInterface {
 	return &fakeStatefulSets{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration, v1beta1.StatefulSet, v1beta1.StatefulSetList](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("statefulsets"),

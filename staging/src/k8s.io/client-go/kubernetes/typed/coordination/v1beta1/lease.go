@@ -52,13 +52,13 @@ type LeaseInterface interface {
 
 // leases implements LeaseInterface
 type leases struct {
-	*gentype2.ClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration, coordinationv1beta1.Lease, coordinationv1beta1.LeaseList]
 }
 
 // newLeases returns a Leases
 func newLeases(c *CoordinationV1beta1Client, namespace string) *leases {
 	return &leases{
-		gentype2.NewClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration, coordinationv1beta1.Lease, coordinationv1beta1.LeaseList](
 			"leases",
 			c.RESTClient(),
 			scheme.ParameterCodec,

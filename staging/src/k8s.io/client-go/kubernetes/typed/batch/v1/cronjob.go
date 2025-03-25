@@ -56,13 +56,13 @@ type CronJobInterface interface {
 
 // cronJobs implements CronJobInterface
 type cronJobs struct {
-	*gentype2.ClientWithListAndApply[*batchv1.CronJob, *batchv1.CronJobList, *applyconfigurationsbatchv1.CronJobApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*batchv1.CronJob, *batchv1.CronJobList, *applyconfigurationsbatchv1.CronJobApplyConfiguration, batchv1.CronJob, batchv1.CronJobList]
 }
 
 // newCronJobs returns a CronJobs
 func newCronJobs(c *BatchV1Client, namespace string) *cronJobs {
 	return &cronJobs{
-		gentype2.NewClientWithListAndApply[*batchv1.CronJob, *batchv1.CronJobList, *applyconfigurationsbatchv1.CronJobApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*batchv1.CronJob, *batchv1.CronJobList, *applyconfigurationsbatchv1.CronJobApplyConfiguration, batchv1.CronJob, batchv1.CronJobList](
 			"cronjobs",
 			c.RESTClient(),
 			scheme.ParameterCodec,

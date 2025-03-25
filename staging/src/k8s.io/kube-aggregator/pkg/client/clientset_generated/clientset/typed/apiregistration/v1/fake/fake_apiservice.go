@@ -26,13 +26,13 @@ import (
 
 // fakeAPIServices implements APIServiceInterface
 type fakeAPIServices struct {
-	*gentype2.FakeClientWithList[*v1.APIService, *v1.APIServiceList]
+	*gentype2.FakeClientWithList[*v1.APIService, *v1.APIServiceList, v1.APIService, v1.APIServiceList]
 	Fake *FakeApiregistrationV1
 }
 
 func newFakeAPIServices(fake *FakeApiregistrationV1) apiregistrationv1.APIServiceInterface {
 	return &fakeAPIServices{
-		gentype2.NewFakeClientWithList[*v1.APIService, *v1.APIServiceList](
+		gentype2.NewFakeClientWithList[*v1.APIService, *v1.APIServiceList, v1.APIService, v1.APIServiceList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("apiservices"),

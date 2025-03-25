@@ -27,13 +27,13 @@ import (
 
 // fakeFlunders implements FlunderInterface
 type fakeFlunders struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration, v1alpha1.Flunder, v1alpha1.FlunderList]
 	Fake *FakeWardleV1alpha1
 }
 
 func newFakeFlunders(fake *FakeWardleV1alpha1, namespace string) typedwardlev1alpha1.FlunderInterface {
 	return &fakeFlunders{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration, v1alpha1.Flunder, v1alpha1.FlunderList](
 			fake.Fake,
 			namespace,
 			v1alpha1.SchemeGroupVersion.WithResource("flunders"),

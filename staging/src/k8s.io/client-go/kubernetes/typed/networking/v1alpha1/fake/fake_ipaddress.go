@@ -27,13 +27,13 @@ import (
 
 // fakeIPAddresses implements IPAddressInterface
 type fakeIPAddresses struct {
-	*gentype2.FakeClientWithListAndApply[*v1alpha1.IPAddress, *v1alpha1.IPAddressList, *networkingv1alpha1.IPAddressApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.IPAddress, *v1alpha1.IPAddressList, *networkingv1alpha1.IPAddressApplyConfiguration, v1alpha1.IPAddress, v1alpha1.IPAddressList]
 	Fake *FakeNetworkingV1alpha1
 }
 
 func newFakeIPAddresses(fake *FakeNetworkingV1alpha1) typednetworkingv1alpha1.IPAddressInterface {
 	return &fakeIPAddresses{
-		gentype2.NewFakeClientWithListAndApply[*v1alpha1.IPAddress, *v1alpha1.IPAddressList, *networkingv1alpha1.IPAddressApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.IPAddress, *v1alpha1.IPAddressList, *networkingv1alpha1.IPAddressApplyConfiguration, v1alpha1.IPAddress, v1alpha1.IPAddressList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("ipaddresses"),

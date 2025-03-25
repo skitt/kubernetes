@@ -32,13 +32,13 @@ import (
 
 // fakeReplicationControllers implements ReplicationControllerInterface
 type fakeReplicationControllers struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration, v1.ReplicationController, v1.ReplicationControllerList]
 	Fake *FakeCoreV1
 }
 
 func newFakeReplicationControllers(fake *FakeCoreV1, namespace string) typedcorev1.ReplicationControllerInterface {
 	return &fakeReplicationControllers{
-		gentype2.NewFakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration, v1.ReplicationController, v1.ReplicationControllerList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("replicationcontrollers"),

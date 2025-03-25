@@ -52,13 +52,13 @@ type EndpointsInterface interface {
 
 // endpoints implements EndpointsInterface
 type endpoints struct {
-	*gentype2.ClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration, corev1.Endpoints, corev1.EndpointsList]
 }
 
 // newEndpoints returns a Endpoints
 func newEndpoints(c *CoreV1Client, namespace string) *endpoints {
 	return &endpoints{
-		gentype2.NewClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration, corev1.Endpoints, corev1.EndpointsList](
 			"endpoints",
 			c.RESTClient(),
 			scheme.ParameterCodec,

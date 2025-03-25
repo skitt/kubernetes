@@ -56,13 +56,13 @@ type PriorityLevelConfigurationInterface interface {
 
 // priorityLevelConfigurations implements PriorityLevelConfigurationInterface
 type priorityLevelConfigurations struct {
-	*gentype2.ClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration, flowcontrolv1.PriorityLevelConfiguration, flowcontrolv1.PriorityLevelConfigurationList]
 }
 
 // newPriorityLevelConfigurations returns a PriorityLevelConfigurations
 func newPriorityLevelConfigurations(c *FlowcontrolV1Client) *priorityLevelConfigurations {
 	return &priorityLevelConfigurations{
-		gentype2.NewClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration, flowcontrolv1.PriorityLevelConfiguration, flowcontrolv1.PriorityLevelConfigurationList](
 			"prioritylevelconfigurations",
 			c.RESTClient(),
 			scheme.ParameterCodec,

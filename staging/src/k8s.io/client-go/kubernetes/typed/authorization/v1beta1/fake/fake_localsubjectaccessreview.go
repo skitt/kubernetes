@@ -26,13 +26,13 @@ import (
 
 // fakeLocalSubjectAccessReviews implements LocalSubjectAccessReviewInterface
 type fakeLocalSubjectAccessReviews struct {
-	*gentype2.FakeClient[*v1beta1.LocalSubjectAccessReview]
+	*gentype2.FakeClient[*v1beta1.LocalSubjectAccessReview, v1beta1.LocalSubjectAccessReview]
 	Fake *FakeAuthorizationV1beta1
 }
 
 func newFakeLocalSubjectAccessReviews(fake *FakeAuthorizationV1beta1, namespace string) authorizationv1beta1.LocalSubjectAccessReviewInterface {
 	return &fakeLocalSubjectAccessReviews{
-		gentype2.NewFakeClient[*v1beta1.LocalSubjectAccessReview](
+		gentype2.NewFakeClient[*v1beta1.LocalSubjectAccessReview, v1beta1.LocalSubjectAccessReview](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("localsubjectaccessreviews"),

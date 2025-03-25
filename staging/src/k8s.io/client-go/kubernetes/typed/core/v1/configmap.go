@@ -52,13 +52,13 @@ type ConfigMapInterface interface {
 
 // configMaps implements ConfigMapInterface
 type configMaps struct {
-	*gentype2.ClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration, corev1.ConfigMap, corev1.ConfigMapList]
 }
 
 // newConfigMaps returns a ConfigMaps
 func newConfigMaps(c *CoreV1Client, namespace string) *configMaps {
 	return &configMaps{
-		gentype2.NewClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration, corev1.ConfigMap, corev1.ConfigMapList](
 			"configmaps",
 			c.RESTClient(),
 			scheme.ParameterCodec,

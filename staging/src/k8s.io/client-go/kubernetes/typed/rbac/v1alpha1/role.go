@@ -52,13 +52,13 @@ type RoleInterface interface {
 
 // roles implements RoleInterface
 type roles struct {
-	*gentype2.ClientWithListAndApply[*rbacv1alpha1.Role, *rbacv1alpha1.RoleList, *applyconfigurationsrbacv1alpha1.RoleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*rbacv1alpha1.Role, *rbacv1alpha1.RoleList, *applyconfigurationsrbacv1alpha1.RoleApplyConfiguration, rbacv1alpha1.Role, rbacv1alpha1.RoleList]
 }
 
 // newRoles returns a Roles
 func newRoles(c *RbacV1alpha1Client, namespace string) *roles {
 	return &roles{
-		gentype2.NewClientWithListAndApply[*rbacv1alpha1.Role, *rbacv1alpha1.RoleList, *applyconfigurationsrbacv1alpha1.RoleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*rbacv1alpha1.Role, *rbacv1alpha1.RoleList, *applyconfigurationsrbacv1alpha1.RoleApplyConfiguration, rbacv1alpha1.Role, rbacv1alpha1.RoleList](
 			"roles",
 			c.RESTClient(),
 			scheme.ParameterCodec,

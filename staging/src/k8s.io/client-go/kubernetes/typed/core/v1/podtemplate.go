@@ -52,13 +52,13 @@ type PodTemplateInterface interface {
 
 // podTemplates implements PodTemplateInterface
 type podTemplates struct {
-	*gentype2.ClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration, corev1.PodTemplate, corev1.PodTemplateList]
 }
 
 // newPodTemplates returns a PodTemplates
 func newPodTemplates(c *CoreV1Client, namespace string) *podTemplates {
 	return &podTemplates{
-		gentype2.NewClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration, corev1.PodTemplate, corev1.PodTemplateList](
 			"podtemplates",
 			c.RESTClient(),
 			scheme.ParameterCodec,

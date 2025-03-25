@@ -56,13 +56,13 @@ type ValidatingAdmissionPolicyInterface interface {
 
 // validatingAdmissionPolicies implements ValidatingAdmissionPolicyInterface
 type validatingAdmissionPolicies struct {
-	*gentype2.ClientWithListAndApply[*admissionregistrationv1.ValidatingAdmissionPolicy, *admissionregistrationv1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1.ValidatingAdmissionPolicyApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*admissionregistrationv1.ValidatingAdmissionPolicy, *admissionregistrationv1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1.ValidatingAdmissionPolicyApplyConfiguration, admissionregistrationv1.ValidatingAdmissionPolicy, admissionregistrationv1.ValidatingAdmissionPolicyList]
 }
 
 // newValidatingAdmissionPolicies returns a ValidatingAdmissionPolicies
 func newValidatingAdmissionPolicies(c *AdmissionregistrationV1Client) *validatingAdmissionPolicies {
 	return &validatingAdmissionPolicies{
-		gentype2.NewClientWithListAndApply[*admissionregistrationv1.ValidatingAdmissionPolicy, *admissionregistrationv1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1.ValidatingAdmissionPolicyApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*admissionregistrationv1.ValidatingAdmissionPolicy, *admissionregistrationv1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1.ValidatingAdmissionPolicyApplyConfiguration, admissionregistrationv1.ValidatingAdmissionPolicy, admissionregistrationv1.ValidatingAdmissionPolicyList](
 			"validatingadmissionpolicies",
 			c.RESTClient(),
 			scheme.ParameterCodec,

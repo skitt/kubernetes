@@ -52,13 +52,13 @@ type CSIDriverInterface interface {
 
 // cSIDrivers implements CSIDriverInterface
 type cSIDrivers struct {
-	*gentype2.ClientWithListAndApply[*storagev1beta1.CSIDriver, *storagev1beta1.CSIDriverList, *applyconfigurationsstoragev1beta1.CSIDriverApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1beta1.CSIDriver, *storagev1beta1.CSIDriverList, *applyconfigurationsstoragev1beta1.CSIDriverApplyConfiguration, storagev1beta1.CSIDriver, storagev1beta1.CSIDriverList]
 }
 
 // newCSIDrivers returns a CSIDrivers
 func newCSIDrivers(c *StorageV1beta1Client) *cSIDrivers {
 	return &cSIDrivers{
-		gentype2.NewClientWithListAndApply[*storagev1beta1.CSIDriver, *storagev1beta1.CSIDriverList, *applyconfigurationsstoragev1beta1.CSIDriverApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1beta1.CSIDriver, *storagev1beta1.CSIDriverList, *applyconfigurationsstoragev1beta1.CSIDriverApplyConfiguration, storagev1beta1.CSIDriver, storagev1beta1.CSIDriverList](
 			"csidrivers",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -52,13 +52,13 @@ type DeviceClassInterface interface {
 
 // deviceClasses implements DeviceClassInterface
 type deviceClasses struct {
-	*gentype2.ClientWithListAndApply[*resourcev1alpha3.DeviceClass, *resourcev1alpha3.DeviceClassList, *applyconfigurationsresourcev1alpha3.DeviceClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1alpha3.DeviceClass, *resourcev1alpha3.DeviceClassList, *applyconfigurationsresourcev1alpha3.DeviceClassApplyConfiguration, resourcev1alpha3.DeviceClass, resourcev1alpha3.DeviceClassList]
 }
 
 // newDeviceClasses returns a DeviceClasses
 func newDeviceClasses(c *ResourceV1alpha3Client) *deviceClasses {
 	return &deviceClasses{
-		gentype2.NewClientWithListAndApply[*resourcev1alpha3.DeviceClass, *resourcev1alpha3.DeviceClassList, *applyconfigurationsresourcev1alpha3.DeviceClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1alpha3.DeviceClass, *resourcev1alpha3.DeviceClassList, *applyconfigurationsresourcev1alpha3.DeviceClassApplyConfiguration, resourcev1alpha3.DeviceClass, resourcev1alpha3.DeviceClassList](
 			"deviceclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

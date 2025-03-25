@@ -56,13 +56,13 @@ type PersistentVolumeInterface interface {
 
 // persistentVolumes implements PersistentVolumeInterface
 type persistentVolumes struct {
-	*gentype2.ClientWithListAndApply[*corev1.PersistentVolume, *corev1.PersistentVolumeList, *applyconfigurationscorev1.PersistentVolumeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.PersistentVolume, *corev1.PersistentVolumeList, *applyconfigurationscorev1.PersistentVolumeApplyConfiguration, corev1.PersistentVolume, corev1.PersistentVolumeList]
 }
 
 // newPersistentVolumes returns a PersistentVolumes
 func newPersistentVolumes(c *CoreV1Client) *persistentVolumes {
 	return &persistentVolumes{
-		gentype2.NewClientWithListAndApply[*corev1.PersistentVolume, *corev1.PersistentVolumeList, *applyconfigurationscorev1.PersistentVolumeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.PersistentVolume, *corev1.PersistentVolumeList, *applyconfigurationscorev1.PersistentVolumeApplyConfiguration, corev1.PersistentVolume, corev1.PersistentVolumeList](
 			"persistentvolumes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

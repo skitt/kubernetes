@@ -52,13 +52,13 @@ type NetworkPolicyInterface interface {
 
 // networkPolicies implements NetworkPolicyInterface
 type networkPolicies struct {
-	*gentype2.ClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration, networkingv1.NetworkPolicy, networkingv1.NetworkPolicyList]
 }
 
 // newNetworkPolicies returns a NetworkPolicies
 func newNetworkPolicies(c *NetworkingV1Client, namespace string) *networkPolicies {
 	return &networkPolicies{
-		gentype2.NewClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration, networkingv1.NetworkPolicy, networkingv1.NetworkPolicyList](
 			"networkpolicies",
 			c.RESTClient(),
 			scheme.ParameterCodec,

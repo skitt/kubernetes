@@ -56,13 +56,13 @@ type NodeInterface interface {
 
 // nodes implements NodeInterface
 type nodes struct {
-	*gentype2.ClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration, corev1.Node, corev1.NodeList]
 }
 
 // newNodes returns a Nodes
 func newNodes(c *CoreV1Client) *nodes {
 	return &nodes{
-		gentype2.NewClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration, corev1.Node, corev1.NodeList](
 			"nodes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -27,13 +27,13 @@ import (
 
 // fakeComponentStatuses implements ComponentStatusInterface
 type fakeComponentStatuses struct {
-	*gentype2.FakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration, v1.ComponentStatus, v1.ComponentStatusList]
 	Fake *FakeCoreV1
 }
 
 func newFakeComponentStatuses(fake *FakeCoreV1) typedcorev1.ComponentStatusInterface {
 	return &fakeComponentStatuses{
-		gentype2.NewFakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration, v1.ComponentStatus, v1.ComponentStatusList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("componentstatuses"),

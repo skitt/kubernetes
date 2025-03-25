@@ -27,13 +27,13 @@ import (
 
 // fakeNamespaces implements NamespaceInterface
 type fakeNamespaces struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Namespace, *v1.NamespaceList, *corev1.NamespaceApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Namespace, *v1.NamespaceList, *corev1.NamespaceApplyConfiguration, v1.Namespace, v1.NamespaceList]
 	Fake *FakeCoreV1
 }
 
 func newFakeNamespaces(fake *FakeCoreV1) typedcorev1.NamespaceInterface {
 	return &fakeNamespaces{
-		gentype2.NewFakeClientWithListAndApply[*v1.Namespace, *v1.NamespaceList, *corev1.NamespaceApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Namespace, *v1.NamespaceList, *corev1.NamespaceApplyConfiguration, v1.Namespace, v1.NamespaceList](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("namespaces"),

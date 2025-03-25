@@ -52,13 +52,13 @@ type ClusterTrustBundleInterface interface {
 
 // clusterTrustBundles implements ClusterTrustBundleInterface
 type clusterTrustBundles struct {
-	*gentype2.ClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration, certificatesv1alpha1.ClusterTrustBundle, certificatesv1alpha1.ClusterTrustBundleList]
 }
 
 // newClusterTrustBundles returns a ClusterTrustBundles
 func newClusterTrustBundles(c *CertificatesV1alpha1Client) *clusterTrustBundles {
 	return &clusterTrustBundles{
-		gentype2.NewClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration, certificatesv1alpha1.ClusterTrustBundle, certificatesv1alpha1.ClusterTrustBundleList](
 			"clustertrustbundles",
 			c.RESTClient(),
 			scheme.ParameterCodec,

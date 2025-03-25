@@ -26,13 +26,13 @@ import (
 
 // fakeSubjectAccessReviews implements SubjectAccessReviewInterface
 type fakeSubjectAccessReviews struct {
-	*gentype2.FakeClient[*v1beta1.SubjectAccessReview]
+	*gentype2.FakeClient[*v1beta1.SubjectAccessReview, v1beta1.SubjectAccessReview]
 	Fake *FakeAuthorizationV1beta1
 }
 
 func newFakeSubjectAccessReviews(fake *FakeAuthorizationV1beta1) authorizationv1beta1.SubjectAccessReviewInterface {
 	return &fakeSubjectAccessReviews{
-		gentype2.NewFakeClient[*v1beta1.SubjectAccessReview](
+		gentype2.NewFakeClient[*v1beta1.SubjectAccessReview, v1beta1.SubjectAccessReview](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("subjectaccessreviews"),

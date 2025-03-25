@@ -64,13 +64,13 @@ type DeploymentInterface interface {
 
 // deployments implements DeploymentInterface
 type deployments struct {
-	*gentype2.ClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration, appsv1.Deployment, appsv1.DeploymentList]
 }
 
 // newDeployments returns a Deployments
 func newDeployments(c *AppsV1Client, namespace string) *deployments {
 	return &deployments{
-		gentype2.NewClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration, appsv1.Deployment, appsv1.DeploymentList](
 			"deployments",
 			c.RESTClient(),
 			scheme.ParameterCodec,

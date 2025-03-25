@@ -44,13 +44,13 @@ type PodMetricsInterface interface {
 
 // podMetricses implements PodMetricsInterface
 type podMetricses struct {
-	*gentype2.ClientWithList[*metricsv1alpha1.PodMetrics, *metricsv1alpha1.PodMetricsList]
+	*gentype2.ClientWithList[*metricsv1alpha1.PodMetrics, *metricsv1alpha1.PodMetricsList, metricsv1alpha1.PodMetrics, metricsv1alpha1.PodMetricsList]
 }
 
 // newPodMetricses returns a PodMetricses
 func newPodMetricses(c *MetricsV1alpha1Client, namespace string) *podMetricses {
 	return &podMetricses{
-		gentype2.NewClientWithList[*metricsv1alpha1.PodMetrics, *metricsv1alpha1.PodMetricsList](
+		gentype2.NewClientWithList[*metricsv1alpha1.PodMetrics, *metricsv1alpha1.PodMetricsList, metricsv1alpha1.PodMetrics, metricsv1alpha1.PodMetricsList](
 			"pods",
 			c.RESTClient(),
 			scheme.ParameterCodec,

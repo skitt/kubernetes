@@ -41,13 +41,13 @@ type SelfSubjectReviewInterface interface {
 
 // selfSubjectReviews implements SelfSubjectReviewInterface
 type selfSubjectReviews struct {
-	*gentype2.Client[*authenticationv1beta1.SelfSubjectReview]
+	*gentype2.Client[*authenticationv1beta1.SelfSubjectReview, authenticationv1beta1.SelfSubjectReview]
 }
 
 // newSelfSubjectReviews returns a SelfSubjectReviews
 func newSelfSubjectReviews(c *AuthenticationV1beta1Client) *selfSubjectReviews {
 	return &selfSubjectReviews{
-		gentype2.NewClient[*authenticationv1beta1.SelfSubjectReview](
+		gentype2.NewClient[*authenticationv1beta1.SelfSubjectReview, authenticationv1beta1.SelfSubjectReview](
 			"selfsubjectreviews",
 			c.RESTClient(),
 			scheme.ParameterCodec,

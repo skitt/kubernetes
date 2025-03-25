@@ -26,13 +26,13 @@ import (
 
 // fakeSelfSubjectRulesReviews implements SelfSubjectRulesReviewInterface
 type fakeSelfSubjectRulesReviews struct {
-	*gentype2.FakeClient[*v1.SelfSubjectRulesReview]
+	*gentype2.FakeClient[*v1.SelfSubjectRulesReview, v1.SelfSubjectRulesReview]
 	Fake *FakeAuthorizationV1
 }
 
 func newFakeSelfSubjectRulesReviews(fake *FakeAuthorizationV1) authorizationv1.SelfSubjectRulesReviewInterface {
 	return &fakeSelfSubjectRulesReviews{
-		gentype2.NewFakeClient[*v1.SelfSubjectRulesReview](
+		gentype2.NewFakeClient[*v1.SelfSubjectRulesReview, v1.SelfSubjectRulesReview](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("selfsubjectrulesreviews"),

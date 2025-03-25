@@ -27,13 +27,13 @@ import (
 
 // fakeValidatingWebhookConfigurations implements ValidatingWebhookConfigurationInterface
 type fakeValidatingWebhookConfigurations struct {
-	*gentype2.FakeClientWithListAndApply[*v1beta1.ValidatingWebhookConfiguration, *v1beta1.ValidatingWebhookConfigurationList, *admissionregistrationv1beta1.ValidatingWebhookConfigurationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ValidatingWebhookConfiguration, *v1beta1.ValidatingWebhookConfigurationList, *admissionregistrationv1beta1.ValidatingWebhookConfigurationApplyConfiguration, v1beta1.ValidatingWebhookConfiguration, v1beta1.ValidatingWebhookConfigurationList]
 	Fake *FakeAdmissionregistrationV1beta1
 }
 
 func newFakeValidatingWebhookConfigurations(fake *FakeAdmissionregistrationV1beta1) typedadmissionregistrationv1beta1.ValidatingWebhookConfigurationInterface {
 	return &fakeValidatingWebhookConfigurations{
-		gentype2.NewFakeClientWithListAndApply[*v1beta1.ValidatingWebhookConfiguration, *v1beta1.ValidatingWebhookConfigurationList, *admissionregistrationv1beta1.ValidatingWebhookConfigurationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ValidatingWebhookConfiguration, *v1beta1.ValidatingWebhookConfigurationList, *admissionregistrationv1beta1.ValidatingWebhookConfigurationApplyConfiguration, v1beta1.ValidatingWebhookConfiguration, v1beta1.ValidatingWebhookConfigurationList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("validatingwebhookconfigurations"),

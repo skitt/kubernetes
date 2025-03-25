@@ -27,13 +27,13 @@ import (
 
 // fakeServices implements ServiceInterface
 type fakeServices struct {
-	*gentype2.FakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration, v1.Service, v1.ServiceList]
 	Fake *FakeCoreV1
 }
 
 func newFakeServices(fake *FakeCoreV1, namespace string) typedcorev1.ServiceInterface {
 	return &fakeServices{
-		gentype2.NewFakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration, v1.Service, v1.ServiceList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("services"),

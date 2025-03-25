@@ -26,13 +26,13 @@ import (
 
 // fakeTokenReviews implements TokenReviewInterface
 type fakeTokenReviews struct {
-	*gentype2.FakeClient[*v1.TokenReview]
+	*gentype2.FakeClient[*v1.TokenReview, v1.TokenReview]
 	Fake *FakeAuthenticationV1
 }
 
 func newFakeTokenReviews(fake *FakeAuthenticationV1) authenticationv1.TokenReviewInterface {
 	return &fakeTokenReviews{
-		gentype2.NewFakeClient[*v1.TokenReview](
+		gentype2.NewFakeClient[*v1.TokenReview, v1.TokenReview](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("tokenreviews"),

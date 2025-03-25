@@ -52,13 +52,13 @@ type StorageClassInterface interface {
 
 // storageClasses implements StorageClassInterface
 type storageClasses struct {
-	*gentype2.ClientWithListAndApply[*storagev1.StorageClass, *storagev1.StorageClassList, *applyconfigurationsstoragev1.StorageClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1.StorageClass, *storagev1.StorageClassList, *applyconfigurationsstoragev1.StorageClassApplyConfiguration, storagev1.StorageClass, storagev1.StorageClassList]
 }
 
 // newStorageClasses returns a StorageClasses
 func newStorageClasses(c *StorageV1Client) *storageClasses {
 	return &storageClasses{
-		gentype2.NewClientWithListAndApply[*storagev1.StorageClass, *storagev1.StorageClassList, *applyconfigurationsstoragev1.StorageClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1.StorageClass, *storagev1.StorageClassList, *applyconfigurationsstoragev1.StorageClassApplyConfiguration, storagev1.StorageClass, storagev1.StorageClassList](
 			"storageclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,

@@ -52,13 +52,13 @@ type SecretInterface interface {
 
 // secrets implements SecretInterface
 type secrets struct {
-	*gentype2.ClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration, corev1.Secret, corev1.SecretList]
 }
 
 // newSecrets returns a Secrets
 func newSecrets(c *CoreV1Client, namespace string) *secrets {
 	return &secrets{
-		gentype2.NewClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration, corev1.Secret, corev1.SecretList](
 			"secrets",
 			c.RESTClient(),
 			scheme.ParameterCodec,
