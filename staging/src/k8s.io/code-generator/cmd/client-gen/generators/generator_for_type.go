@@ -483,7 +483,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -498,7 +497,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -513,8 +511,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -529,8 +525,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				namespace,
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -545,7 +539,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -560,7 +553,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -575,8 +567,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}
@@ -591,8 +581,6 @@ var newStruct = []string{
 				c.RESTClient(),
 				$.schemeParameterCodec|raw$,
 				"",
-				func() *$.resultType|raw$ { return &$.resultType|raw${} },
-				func() *$.resultType|raw$List { return &$.resultType|raw$List{} },
 				$if .prefersProtobuf$gentype2.PrefersProtobuf[*$.resultType|raw$](),$end$
 			),
 		}

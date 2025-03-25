@@ -306,7 +306,6 @@ var newStruct = []string{
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
 				$.SchemeGroupVersion|raw$.WithKind("$.type|singularKind$"),
-				func() *$.type|raw$ {return &$.type|raw${}},
 			),
 			fake,
 		}
@@ -320,7 +319,6 @@ var newStruct = []string{
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
 				$.SchemeGroupVersion|raw$.WithKind("$.type|singularKind$"),
-				func() *$.type|raw$ {return &$.type|raw${}},
 			),
 			fake,
 		}
@@ -334,8 +332,6 @@ var newStruct = []string{
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
 				$.SchemeGroupVersion|raw$.WithKind("$.type|singularKind$"),
-				func() *$.type|raw$ {return &$.type|raw${}},
-				func() *$.type|raw$List {return &$.type|raw$List{}},
 				func(dst, src *$.type|raw$List) {dst.ListMeta = src.ListMeta},
 				func(list *$.type|raw$List) []*$.type|raw$ {return gentype2.ToPointerSlice(list.Items)},
 				func(list *$.type|raw$List, items []*$.type|raw$) {list.Items = gentype2.FromPointerSlice(items)},
@@ -352,8 +348,6 @@ var newStruct = []string{
 				$if .namespaced$namespace$else$""$end$,
 				$.SchemeGroupVersion|raw$.WithResource("$.type|resource$"),
 				$.SchemeGroupVersion|raw$.WithKind("$.type|singularKind$"),
-				func() *$.type|raw$ {return &$.type|raw${}},
-				func() *$.type|raw$List {return &$.type|raw$List{}},
 				func(dst, src *$.type|raw$List) {dst.ListMeta = src.ListMeta},
 				func(list *$.type|raw$List) []*$.type|raw$ {return gentype2.ToPointerSlice(list.Items)},
 				func(list *$.type|raw$List, items []*$.type|raw$) {list.Items = gentype2.FromPointerSlice(items)},

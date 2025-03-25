@@ -33,10 +33,9 @@ import (
 // FakeClient represents a fake client
 type FakeClient[PT objectWithMeta[T], T any] struct {
 	*testing.Fake
-	ns        string
-	resource  schema.GroupVersionResource
-	kind      schema.GroupVersionKind
-	newObject func() PT
+	ns       string
+	resource schema.GroupVersionResource
+	kind     schema.GroupVersionKind
 }
 
 // FakeClientWithList represents a fake client with support for lists.
@@ -61,7 +60,6 @@ type FakeClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C nam
 // Helper types for composition
 type alsoFakeLister[PT objectWithMeta[T], PL runtimeObject[L], T any, L any] struct {
 	client       *FakeClient[PT, T]
-	newList      func() PL
 	copyListMeta func(PL, PL)
 	getItems     func(PL) []PT
 	setItems     func(PL, []PT)
@@ -74,28 +72,28 @@ type alsoFakeApplier[PT objectWithMeta[T], C namedObject, T any] struct {
 // NewFakeClient constructs a fake client, namespaced or not, with no support for lists or apply.
 // Non-namespaced clients are constructed by passing an empty namespace ("").
 func NewFakeClient[PT objectWithMeta[T], T any](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind,
 ) *FakeClient[PT, T] {
-	return &FakeClient[PT, T]{fake, namespace, resource, kind, emptyObjectCreator}
+	return &FakeClient[PT, T]{fake, namespace, resource, kind}
 }
 
 // NewFakeClientWithList constructs a namespaced client with support for lists.
 func NewFakeClientWithList[PT objectWithMeta[T], PL runtimeObject[L], T any, L any](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
-	emptyListCreator func() PL, listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind,
+	listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
 ) *FakeClientWithList[PT, PL, T, L] {
-	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind, emptyObjectCreator)
+	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind)
 	return &FakeClientWithList[PT, PL, T, L]{
 		fakeClient,
-		alsoFakeLister[PT, PL, T, L]{fakeClient, emptyListCreator, listMetaCopier, itemGetter, itemSetter},
+		alsoFakeLister[PT, PL, T, L]{fakeClient, listMetaCopier, itemGetter, itemSetter},
 	}
 }
 
 // NewFakeClientWithApply constructs a namespaced client with support for apply declarative configurations.
 func NewFakeClientWithApply[PT objectWithMeta[T], C namedObject, T any](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind,
 ) *FakeClientWithApply[PT, C, T] {
-	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind, emptyObjectCreator)
+	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind)
 	return &FakeClientWithApply[PT, C, T]{
 		fakeClient,
 		alsoFakeApplier[PT, C, T]{fakeClient},
@@ -104,20 +102,20 @@ func NewFakeClientWithApply[PT objectWithMeta[T], C namedObject, T any](
 
 // NewFakeClientWithListAndApply constructs a client with support for lists and applying declarative configurations.
 func NewFakeClientWithListAndApply[PT objectWithMeta[T], PL runtimeObject[L], C namedObject, T any, L any](
-	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind, emptyObjectCreator func() PT,
-	emptyListCreator func() PL, listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
+	fake *testing.Fake, namespace string, resource schema.GroupVersionResource, kind schema.GroupVersionKind,
+	listMetaCopier func(PL, PL), itemGetter func(PL) []PT, itemSetter func(PL, []PT),
 ) *FakeClientWithListAndApply[PT, PL, C, T, L] {
-	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind, emptyObjectCreator)
+	fakeClient := NewFakeClient[PT](fake, namespace, resource, kind)
 	return &FakeClientWithListAndApply[PT, PL, C, T, L]{
 		fakeClient,
-		alsoFakeLister[PT, PL, T, L]{fakeClient, emptyListCreator, listMetaCopier, itemGetter, itemSetter},
+		alsoFakeLister[PT, PL, T, L]{fakeClient, listMetaCopier, itemGetter, itemSetter},
 		alsoFakeApplier[PT, C, T]{fakeClient},
 	}
 }
 
 // Get takes name of a resource, and returns the corresponding object, and an error if there is any.
 func (c *FakeClient[PT, T]) Get(ctx context.Context, name string, options metav1.GetOptions) (PT, error) {
-	emptyResult := c.newObject()
+	emptyResult := PT(new(T))
 
 	obj, err := c.Fake.
 		Invokes(testing.NewGetActionWithOptions(c.resource, c.ns, name, options), emptyResult)
@@ -151,7 +149,7 @@ func FromPointerSlice[T any](src []*T) []T {
 
 // List takes label and field selectors, and returns the list of resources that match those selectors.
 func (l *alsoFakeLister[PT, PL, T, L]) List(ctx context.Context, opts metav1.ListOptions) (PL, error) {
-	emptyResult := l.newList()
+	emptyResult := PL(new(L))
 	obj, err := l.client.Fake.
 		Invokes(testing.NewListActionWithOptions(l.client.resource, l.client.kind, l.client.ns, opts), emptyResult)
 	if obj == nil {
@@ -163,7 +161,7 @@ func (l *alsoFakeLister[PT, PL, T, L]) List(ctx context.Context, opts metav1.Lis
 		// Everything matches
 		return obj.(PL), nil
 	}
-	list := l.newList()
+	list := PL(new(L))
 	l.copyListMeta(list, obj.(PL))
 	var items []PT
 	for _, item := range l.getItems(obj.(PL)) {
@@ -189,7 +187,7 @@ func (c *FakeClient[PT, T]) Watch(ctx context.Context, opts metav1.ListOptions) 
 
 // Create takes the representation of a resource and creates it.  Returns the server's representation of the resource, and an error, if there is any.
 func (c *FakeClient[PT, T]) Create(ctx context.Context, resource PT, opts metav1.CreateOptions) (PT, error) {
-	emptyResult := c.newObject()
+	emptyResult := PT(new(T))
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateActionWithOptions(c.resource, c.ns, resource, opts), emptyResult)
 	if obj == nil {
@@ -200,7 +198,7 @@ func (c *FakeClient[PT, T]) Create(ctx context.Context, resource PT, opts metav1
 
 // Update takes the representation of a resource and updates it. Returns the server's representation of the resource, and an error, if there is any.
 func (c *FakeClient[PT, T]) Update(ctx context.Context, resource PT, opts metav1.UpdateOptions) (PT, error) {
-	emptyResult := c.newObject()
+	emptyResult := PT(new(T))
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateActionWithOptions(c.resource, c.ns, resource, opts), emptyResult)
 	if obj == nil {
@@ -211,7 +209,7 @@ func (c *FakeClient[PT, T]) Update(ctx context.Context, resource PT, opts metav1
 
 // UpdateStatus updates the resource's status and returns the updated resource.
 func (c *FakeClient[PT, T]) UpdateStatus(ctx context.Context, resource PT, opts metav1.UpdateOptions) (PT, error) {
-	emptyResult := c.newObject()
+	emptyResult := PT(new(T))
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceActionWithOptions(c.resource, "status", c.ns, resource, opts), emptyResult)
 
@@ -224,20 +222,20 @@ func (c *FakeClient[PT, T]) UpdateStatus(ctx context.Context, resource PT, opts 
 // Delete deletes the resource matching the given name. Returns an error if one occurs.
 func (c *FakeClient[PT, T]) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteActionWithOptions(c.resource, c.ns, name, opts), c.newObject())
+		Invokes(testing.NewDeleteActionWithOptions(c.resource, c.ns, name, opts), PT(new(T)))
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (l *alsoFakeLister[PT, PL, T, L]) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
 	_, err := l.client.Fake.
-		Invokes(testing.NewDeleteCollectionActionWithOptions(l.client.resource, l.client.ns, opts, listOpts), l.newList())
+		Invokes(testing.NewDeleteCollectionActionWithOptions(l.client.resource, l.client.ns, opts, listOpts), PL(new(L)))
 	return err
 }
 
 // Patch applies the patch and returns the patched resource.
 func (c *FakeClient[PT, T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (PT, error) {
-	emptyResult := c.newObject()
+	emptyResult := PT(new(T))
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceActionWithOptions(c.resource, c.ns, name, pt, data, opts, subresources...), emptyResult)
 	if obj == nil {
@@ -259,7 +257,7 @@ func (a *alsoFakeApplier[PT, C, T]) Apply(ctx context.Context, configuration C, 
 	if name == nil {
 		return new(T), fmt.Errorf("configuration.Name must be provided to Apply")
 	}
-	emptyResult := a.client.newObject()
+	emptyResult := PT(new(T))
 	obj, err := a.client.Fake.
 		Invokes(testing.NewPatchSubresourceActionWithOptions(a.client.resource, a.client.ns, *name, types.ApplyPatchType, data, opts.ToPatchOptions()), emptyResult)
 	if obj == nil {
@@ -281,7 +279,7 @@ func (a *alsoFakeApplier[PT, C, T]) ApplyStatus(ctx context.Context, configurati
 	if name == nil {
 		return new(T), fmt.Errorf("configuration.Name must be provided to Apply")
 	}
-	emptyResult := a.client.newObject()
+	emptyResult := PT(new(T))
 	obj, err := a.client.Fake.
 		Invokes(testing.NewPatchSubresourceActionWithOptions(a.client.resource, a.client.ns, *name, types.ApplyPatchType, data, opts.ToPatchOptions(), "status"), emptyResult)
 
