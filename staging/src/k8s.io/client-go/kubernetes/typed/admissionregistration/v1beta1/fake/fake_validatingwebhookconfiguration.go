@@ -38,10 +38,6 @@ func newFakeValidatingWebhookConfigurations(fake *FakeAdmissionregistrationV1bet
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("validatingwebhookconfigurations"),
 			v1beta1.SchemeGroupVersion.WithKind("ValidatingWebhookConfiguration"),
-			func() *v1beta1.ValidatingWebhookConfiguration { return &v1beta1.ValidatingWebhookConfiguration{} },
-			func() *v1beta1.ValidatingWebhookConfigurationList {
-				return &v1beta1.ValidatingWebhookConfigurationList{}
-			},
 			func(dst, src *v1beta1.ValidatingWebhookConfigurationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ValidatingWebhookConfigurationList) []*v1beta1.ValidatingWebhookConfiguration {
 				return gentype2.ToPointerSlice(list.Items)

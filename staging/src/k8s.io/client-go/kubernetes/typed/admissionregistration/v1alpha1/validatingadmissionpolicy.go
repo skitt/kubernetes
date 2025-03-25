@@ -67,12 +67,6 @@ func newValidatingAdmissionPolicies(c *AdmissionregistrationV1alpha1Client) *val
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *admissionregistrationv1alpha1.ValidatingAdmissionPolicy {
-				return &admissionregistrationv1alpha1.ValidatingAdmissionPolicy{}
-			},
-			func() *admissionregistrationv1alpha1.ValidatingAdmissionPolicyList {
-				return &admissionregistrationv1alpha1.ValidatingAdmissionPolicyList{}
-			},
 			gentype2.PrefersProtobuf[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy](),
 		),
 	}

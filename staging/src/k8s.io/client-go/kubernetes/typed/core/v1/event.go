@@ -63,8 +63,6 @@ func newEvents(c *CoreV1Client, namespace string) *events {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.Event { return &corev1.Event{} },
-			func() *corev1.EventList { return &corev1.EventList{} },
 			gentype2.PrefersProtobuf[*corev1.Event](),
 		),
 	}

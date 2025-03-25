@@ -38,8 +38,6 @@ func newFakeFlunders(fake *FakeWardleV1alpha1, namespace string) typedwardlev1al
 			namespace,
 			v1alpha1.SchemeGroupVersion.WithResource("flunders"),
 			v1alpha1.SchemeGroupVersion.WithKind("Flunder"),
-			func() *v1alpha1.Flunder { return &v1alpha1.Flunder{} },
-			func() *v1alpha1.FlunderList { return &v1alpha1.FlunderList{} },
 			func(dst, src *v1alpha1.FlunderList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.FlunderList) []*v1alpha1.Flunder { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1alpha1.FlunderList, items []*v1alpha1.Flunder) {

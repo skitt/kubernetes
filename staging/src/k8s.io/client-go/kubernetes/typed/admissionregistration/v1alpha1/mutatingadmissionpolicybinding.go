@@ -63,12 +63,6 @@ func newMutatingAdmissionPolicyBindings(c *AdmissionregistrationV1alpha1Client) 
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *admissionregistrationv1alpha1.MutatingAdmissionPolicyBinding {
-				return &admissionregistrationv1alpha1.MutatingAdmissionPolicyBinding{}
-			},
-			func() *admissionregistrationv1alpha1.MutatingAdmissionPolicyBindingList {
-				return &admissionregistrationv1alpha1.MutatingAdmissionPolicyBindingList{}
-			},
 			gentype2.PrefersProtobuf[*admissionregistrationv1alpha1.MutatingAdmissionPolicyBinding](),
 		),
 	}

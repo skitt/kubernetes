@@ -63,8 +63,6 @@ func newExamples(c *CrV1Client, namespace string) *examples {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *crv1.Example { return &crv1.Example{} },
-			func() *crv1.ExampleList { return &crv1.ExampleList{} },
 		),
 	}
 }

@@ -67,12 +67,6 @@ func newStorageVersionMigrations(c *StoragemigrationV1alpha1Client) *storageVers
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *storagemigrationv1alpha1.StorageVersionMigration {
-				return &storagemigrationv1alpha1.StorageVersionMigration{}
-			},
-			func() *storagemigrationv1alpha1.StorageVersionMigrationList {
-				return &storagemigrationv1alpha1.StorageVersionMigrationList{}
-			},
 			gentype2.PrefersProtobuf[*storagemigrationv1alpha1.StorageVersionMigration](),
 		),
 	}

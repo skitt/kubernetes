@@ -67,8 +67,6 @@ func newPersistentVolumes(c *CoreV1Client) *persistentVolumes {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *corev1.PersistentVolume { return &corev1.PersistentVolume{} },
-			func() *corev1.PersistentVolumeList { return &corev1.PersistentVolumeList{} },
 			gentype2.PrefersProtobuf[*corev1.PersistentVolume](),
 		),
 	}

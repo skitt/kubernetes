@@ -37,8 +37,6 @@ func newFakeTestTypes(fake *FakeCoreV1, namespace string) corev1.TestTypeInterfa
 			namespace,
 			v1.SchemeGroupVersion.WithResource("testtypes"),
 			v1.SchemeGroupVersion.WithKind("TestType"),
-			func() *v1.TestType { return &v1.TestType{} },
-			func() *v1.TestTypeList { return &v1.TestTypeList{} },
 			func(dst, src *v1.TestTypeList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.TestTypeList) []*v1.TestType { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.TestTypeList, items []*v1.TestType) { list.Items = gentype2.FromPointerSlice(items) },

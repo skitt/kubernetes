@@ -38,8 +38,6 @@ func newFakeEvents(fake *FakeEventsV1, namespace string) typedeventsv1.EventInte
 			namespace,
 			v1.SchemeGroupVersion.WithResource("events"),
 			v1.SchemeGroupVersion.WithKind("Event"),
-			func() *v1.Event { return &v1.Event{} },
-			func() *v1.EventList { return &v1.EventList{} },
 			func(dst, src *v1.EventList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.EventList) []*v1.Event { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.EventList, items []*v1.Event) { list.Items = gentype2.FromPointerSlice(items) },

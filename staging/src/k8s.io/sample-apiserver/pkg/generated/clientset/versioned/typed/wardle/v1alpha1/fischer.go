@@ -63,8 +63,6 @@ func newFischers(c *WardleV1alpha1Client) *fischers {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *wardlev1alpha1.Fischer { return &wardlev1alpha1.Fischer{} },
-			func() *wardlev1alpha1.FischerList { return &wardlev1alpha1.FischerList{} },
 		),
 	}
 }

@@ -38,8 +38,6 @@ func newFakeServices(fake *FakeCoreV1, namespace string) typedcorev1.ServiceInte
 			namespace,
 			v1.SchemeGroupVersion.WithResource("services"),
 			v1.SchemeGroupVersion.WithKind("Service"),
-			func() *v1.Service { return &v1.Service{} },
-			func() *v1.ServiceList { return &v1.ServiceList{} },
 			func(dst, src *v1.ServiceList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ServiceList) []*v1.Service { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ServiceList, items []*v1.Service) { list.Items = gentype2.FromPointerSlice(items) },

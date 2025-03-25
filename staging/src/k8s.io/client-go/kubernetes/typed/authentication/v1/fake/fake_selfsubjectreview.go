@@ -37,7 +37,6 @@ func newFakeSelfSubjectReviews(fake *FakeAuthenticationV1) authenticationv1.Self
 			"",
 			v1.SchemeGroupVersion.WithResource("selfsubjectreviews"),
 			v1.SchemeGroupVersion.WithKind("SelfSubjectReview"),
-			func() *v1.SelfSubjectReview { return &v1.SelfSubjectReview{} },
 		),
 		fake,
 	}

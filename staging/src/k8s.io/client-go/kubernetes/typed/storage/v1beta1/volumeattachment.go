@@ -67,8 +67,6 @@ func newVolumeAttachments(c *StorageV1beta1Client) *volumeAttachments {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *storagev1beta1.VolumeAttachment { return &storagev1beta1.VolumeAttachment{} },
-			func() *storagev1beta1.VolumeAttachmentList { return &storagev1beta1.VolumeAttachmentList{} },
 			gentype2.PrefersProtobuf[*storagev1beta1.VolumeAttachment](),
 		),
 	}

@@ -37,7 +37,6 @@ func newFakeTokenReviews(fake *FakeAuthenticationV1beta1) authenticationv1beta1.
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("tokenreviews"),
 			v1beta1.SchemeGroupVersion.WithKind("TokenReview"),
-			func() *v1beta1.TokenReview { return &v1beta1.TokenReview{} },
 		),
 		fake,
 	}

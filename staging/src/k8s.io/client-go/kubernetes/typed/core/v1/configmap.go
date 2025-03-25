@@ -63,8 +63,6 @@ func newConfigMaps(c *CoreV1Client, namespace string) *configMaps {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.ConfigMap { return &corev1.ConfigMap{} },
-			func() *corev1.ConfigMapList { return &corev1.ConfigMapList{} },
 			gentype2.PrefersProtobuf[*corev1.ConfigMap](),
 		),
 	}

@@ -38,8 +38,6 @@ func newFakeResourceQuotas(fake *FakeCoreV1, namespace string) typedcorev1.Resou
 			namespace,
 			v1.SchemeGroupVersion.WithResource("resourcequotas"),
 			v1.SchemeGroupVersion.WithKind("ResourceQuota"),
-			func() *v1.ResourceQuota { return &v1.ResourceQuota{} },
-			func() *v1.ResourceQuotaList { return &v1.ResourceQuotaList{} },
 			func(dst, src *v1.ResourceQuotaList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ResourceQuotaList) []*v1.ResourceQuota { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ResourceQuotaList, items []*v1.ResourceQuota) {

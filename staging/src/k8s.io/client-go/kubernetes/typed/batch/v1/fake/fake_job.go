@@ -38,8 +38,6 @@ func newFakeJobs(fake *FakeBatchV1, namespace string) typedbatchv1.JobInterface 
 			namespace,
 			v1.SchemeGroupVersion.WithResource("jobs"),
 			v1.SchemeGroupVersion.WithKind("Job"),
-			func() *v1.Job { return &v1.Job{} },
-			func() *v1.JobList { return &v1.JobList{} },
 			func(dst, src *v1.JobList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.JobList) []*v1.Job { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.JobList, items []*v1.Job) { list.Items = gentype2.FromPointerSlice(items) },

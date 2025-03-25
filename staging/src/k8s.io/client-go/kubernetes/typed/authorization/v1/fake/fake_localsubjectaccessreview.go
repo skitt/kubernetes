@@ -37,7 +37,6 @@ func newFakeLocalSubjectAccessReviews(fake *FakeAuthorizationV1, namespace strin
 			namespace,
 			v1.SchemeGroupVersion.WithResource("localsubjectaccessreviews"),
 			v1.SchemeGroupVersion.WithKind("LocalSubjectAccessReview"),
-			func() *v1.LocalSubjectAccessReview { return &v1.LocalSubjectAccessReview{} },
 		),
 		fake,
 	}

@@ -67,8 +67,6 @@ func newPersistentVolumeClaims(c *CoreV1Client, namespace string) *persistentVol
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.PersistentVolumeClaim { return &corev1.PersistentVolumeClaim{} },
-			func() *corev1.PersistentVolumeClaimList { return &corev1.PersistentVolumeClaimList{} },
 			gentype2.PrefersProtobuf[*corev1.PersistentVolumeClaim](),
 		),
 	}

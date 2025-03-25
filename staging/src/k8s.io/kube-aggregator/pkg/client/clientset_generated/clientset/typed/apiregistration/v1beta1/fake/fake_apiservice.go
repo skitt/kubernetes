@@ -37,8 +37,6 @@ func newFakeAPIServices(fake *FakeApiregistrationV1beta1) apiregistrationv1beta1
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("apiservices"),
 			v1beta1.SchemeGroupVersion.WithKind("APIService"),
-			func() *v1beta1.APIService { return &v1beta1.APIService{} },
-			func() *v1beta1.APIServiceList { return &v1beta1.APIServiceList{} },
 			func(dst, src *v1beta1.APIServiceList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.APIServiceList) []*v1beta1.APIService { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.APIServiceList, items []*v1beta1.APIService) {

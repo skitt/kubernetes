@@ -38,8 +38,6 @@ func newFakeLimitRanges(fake *FakeCoreV1, namespace string) typedcorev1.LimitRan
 			namespace,
 			v1.SchemeGroupVersion.WithResource("limitranges"),
 			v1.SchemeGroupVersion.WithKind("LimitRange"),
-			func() *v1.LimitRange { return &v1.LimitRange{} },
-			func() *v1.LimitRangeList { return &v1.LimitRangeList{} },
 			func(dst, src *v1.LimitRangeList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.LimitRangeList) []*v1.LimitRange { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.LimitRangeList, items []*v1.LimitRange) { list.Items = gentype2.FromPointerSlice(items) },

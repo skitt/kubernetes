@@ -37,7 +37,6 @@ func newFakeSubjectAccessReviews(fake *FakeAuthorizationV1) authorizationv1.Subj
 			"",
 			v1.SchemeGroupVersion.WithResource("subjectaccessreviews"),
 			v1.SchemeGroupVersion.WithKind("SubjectAccessReview"),
-			func() *v1.SubjectAccessReview { return &v1.SubjectAccessReview{} },
 		),
 		fake,
 	}

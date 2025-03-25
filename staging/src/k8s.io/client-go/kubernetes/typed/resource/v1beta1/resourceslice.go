@@ -63,8 +63,6 @@ func newResourceSlices(c *ResourceV1beta1Client) *resourceSlices {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *resourcev1beta1.ResourceSlice { return &resourcev1beta1.ResourceSlice{} },
-			func() *resourcev1beta1.ResourceSliceList { return &resourcev1beta1.ResourceSliceList{} },
 			gentype2.PrefersProtobuf[*resourcev1beta1.ResourceSlice](),
 		),
 	}

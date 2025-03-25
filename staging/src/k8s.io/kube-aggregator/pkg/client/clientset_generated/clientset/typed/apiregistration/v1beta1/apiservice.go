@@ -63,8 +63,6 @@ func newAPIServices(c *ApiregistrationV1beta1Client) *aPIServices {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *apiregistrationv1beta1.APIService { return &apiregistrationv1beta1.APIService{} },
-			func() *apiregistrationv1beta1.APIServiceList { return &apiregistrationv1beta1.APIServiceList{} },
 			gentype2.PrefersProtobuf[*apiregistrationv1beta1.APIService](),
 		),
 	}

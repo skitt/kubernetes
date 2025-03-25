@@ -63,8 +63,6 @@ func newComponentStatuses(c *CoreV1Client) *componentStatuses {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *corev1.ComponentStatus { return &corev1.ComponentStatus{} },
-			func() *corev1.ComponentStatusList { return &corev1.ComponentStatusList{} },
 			gentype2.PrefersProtobuf[*corev1.ComponentStatus](),
 		),
 	}

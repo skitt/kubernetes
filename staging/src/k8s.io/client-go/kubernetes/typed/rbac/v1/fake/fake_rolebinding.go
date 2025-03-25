@@ -38,8 +38,6 @@ func newFakeRoleBindings(fake *FakeRbacV1, namespace string) typedrbacv1.RoleBin
 			namespace,
 			v1.SchemeGroupVersion.WithResource("rolebindings"),
 			v1.SchemeGroupVersion.WithKind("RoleBinding"),
-			func() *v1.RoleBinding { return &v1.RoleBinding{} },
-			func() *v1.RoleBindingList { return &v1.RoleBindingList{} },
 			func(dst, src *v1.RoleBindingList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.RoleBindingList) []*v1.RoleBinding { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.RoleBindingList, items []*v1.RoleBinding) { list.Items = gentype2.FromPointerSlice(items) },

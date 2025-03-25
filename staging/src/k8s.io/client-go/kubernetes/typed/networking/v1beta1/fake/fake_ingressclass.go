@@ -38,8 +38,6 @@ func newFakeIngressClasses(fake *FakeNetworkingV1beta1) typednetworkingv1beta1.I
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("ingressclasses"),
 			v1beta1.SchemeGroupVersion.WithKind("IngressClass"),
-			func() *v1beta1.IngressClass { return &v1beta1.IngressClass{} },
-			func() *v1beta1.IngressClassList { return &v1beta1.IngressClassList{} },
 			func(dst, src *v1beta1.IngressClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.IngressClassList) []*v1beta1.IngressClass {
 				return gentype2.ToPointerSlice(list.Items)

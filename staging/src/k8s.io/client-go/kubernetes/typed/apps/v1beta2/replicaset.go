@@ -67,8 +67,6 @@ func newReplicaSets(c *AppsV1beta2Client, namespace string) *replicaSets {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *appsv1beta2.ReplicaSet { return &appsv1beta2.ReplicaSet{} },
-			func() *appsv1beta2.ReplicaSetList { return &appsv1beta2.ReplicaSetList{} },
 			gentype2.PrefersProtobuf[*appsv1beta2.ReplicaSet](),
 		),
 	}

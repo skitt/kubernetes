@@ -63,8 +63,6 @@ func newClusterRoles(c *RbacV1alpha1Client) *clusterRoles {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *rbacv1alpha1.ClusterRole { return &rbacv1alpha1.ClusterRole{} },
-			func() *rbacv1alpha1.ClusterRoleList { return &rbacv1alpha1.ClusterRoleList{} },
 			gentype2.PrefersProtobuf[*rbacv1alpha1.ClusterRole](),
 		),
 	}

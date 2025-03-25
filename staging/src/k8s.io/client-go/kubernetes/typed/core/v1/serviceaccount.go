@@ -66,8 +66,6 @@ func newServiceAccounts(c *CoreV1Client, namespace string) *serviceAccounts {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.ServiceAccount { return &corev1.ServiceAccount{} },
-			func() *corev1.ServiceAccountList { return &corev1.ServiceAccountList{} },
 			gentype2.PrefersProtobuf[*corev1.ServiceAccount](),
 		),
 	}

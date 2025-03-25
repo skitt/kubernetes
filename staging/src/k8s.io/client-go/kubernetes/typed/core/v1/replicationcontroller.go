@@ -71,8 +71,6 @@ func newReplicationControllers(c *CoreV1Client, namespace string) *replicationCo
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *corev1.ReplicationController { return &corev1.ReplicationController{} },
-			func() *corev1.ReplicationControllerList { return &corev1.ReplicationControllerList{} },
 			gentype2.PrefersProtobuf[*corev1.ReplicationController](),
 		),
 	}

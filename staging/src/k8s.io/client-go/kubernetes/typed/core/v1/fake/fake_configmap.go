@@ -38,8 +38,6 @@ func newFakeConfigMaps(fake *FakeCoreV1, namespace string) typedcorev1.ConfigMap
 			namespace,
 			v1.SchemeGroupVersion.WithResource("configmaps"),
 			v1.SchemeGroupVersion.WithKind("ConfigMap"),
-			func() *v1.ConfigMap { return &v1.ConfigMap{} },
-			func() *v1.ConfigMapList { return &v1.ConfigMapList{} },
 			func(dst, src *v1.ConfigMapList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ConfigMapList) []*v1.ConfigMap { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ConfigMapList, items []*v1.ConfigMap) { list.Items = gentype2.FromPointerSlice(items) },

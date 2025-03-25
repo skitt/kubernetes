@@ -37,8 +37,6 @@ func newFakeNodeMetricses(fake *FakeMetricsV1alpha1) metricsv1alpha1.NodeMetrics
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("nodes"),
 			v1alpha1.SchemeGroupVersion.WithKind("NodeMetrics"),
-			func() *v1alpha1.NodeMetrics { return &v1alpha1.NodeMetrics{} },
-			func() *v1alpha1.NodeMetricsList { return &v1alpha1.NodeMetricsList{} },
 			func(dst, src *v1alpha1.NodeMetricsList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.NodeMetricsList) []*v1alpha1.NodeMetrics {
 				return gentype2.ToPointerSlice(list.Items)

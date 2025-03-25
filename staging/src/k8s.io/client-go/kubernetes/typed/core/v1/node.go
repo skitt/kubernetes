@@ -67,8 +67,6 @@ func newNodes(c *CoreV1Client) *nodes {
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *corev1.Node { return &corev1.Node{} },
-			func() *corev1.NodeList { return &corev1.NodeList{} },
 			gentype2.PrefersProtobuf[*corev1.Node](),
 		),
 	}

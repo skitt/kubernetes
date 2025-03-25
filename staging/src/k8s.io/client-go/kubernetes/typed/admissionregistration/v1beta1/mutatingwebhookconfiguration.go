@@ -63,12 +63,6 @@ func newMutatingWebhookConfigurations(c *AdmissionregistrationV1beta1Client) *mu
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *admissionregistrationv1beta1.MutatingWebhookConfiguration {
-				return &admissionregistrationv1beta1.MutatingWebhookConfiguration{}
-			},
-			func() *admissionregistrationv1beta1.MutatingWebhookConfigurationList {
-				return &admissionregistrationv1beta1.MutatingWebhookConfigurationList{}
-			},
 			gentype2.PrefersProtobuf[*admissionregistrationv1beta1.MutatingWebhookConfiguration](),
 		),
 	}

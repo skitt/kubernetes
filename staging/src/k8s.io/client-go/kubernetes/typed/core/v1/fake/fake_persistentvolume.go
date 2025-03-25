@@ -38,8 +38,6 @@ func newFakePersistentVolumes(fake *FakeCoreV1) typedcorev1.PersistentVolumeInte
 			"",
 			v1.SchemeGroupVersion.WithResource("persistentvolumes"),
 			v1.SchemeGroupVersion.WithKind("PersistentVolume"),
-			func() *v1.PersistentVolume { return &v1.PersistentVolume{} },
-			func() *v1.PersistentVolumeList { return &v1.PersistentVolumeList{} },
 			func(dst, src *v1.PersistentVolumeList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.PersistentVolumeList) []*v1.PersistentVolume { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.PersistentVolumeList, items []*v1.PersistentVolume) {

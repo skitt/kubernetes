@@ -38,8 +38,6 @@ func newFakeRoles(fake *FakeRbacV1, namespace string) typedrbacv1.RoleInterface 
 			namespace,
 			v1.SchemeGroupVersion.WithResource("roles"),
 			v1.SchemeGroupVersion.WithKind("Role"),
-			func() *v1.Role { return &v1.Role{} },
-			func() *v1.RoleList { return &v1.RoleList{} },
 			func(dst, src *v1.RoleList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.RoleList) []*v1.Role { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.RoleList, items []*v1.Role) { list.Items = gentype2.FromPointerSlice(items) },

@@ -38,8 +38,6 @@ func newFakeDeviceClasses(fake *FakeResourceV1alpha3) typedresourcev1alpha3.Devi
 			"",
 			v1alpha3.SchemeGroupVersion.WithResource("deviceclasses"),
 			v1alpha3.SchemeGroupVersion.WithKind("DeviceClass"),
-			func() *v1alpha3.DeviceClass { return &v1alpha3.DeviceClass{} },
-			func() *v1alpha3.DeviceClassList { return &v1alpha3.DeviceClassList{} },
 			func(dst, src *v1alpha3.DeviceClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha3.DeviceClassList) []*v1alpha3.DeviceClass {
 				return gentype2.ToPointerSlice(list.Items)
