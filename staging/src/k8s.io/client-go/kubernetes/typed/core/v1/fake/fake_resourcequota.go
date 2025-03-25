@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 // fakeResourceQuotas implements ResourceQuotaInterface
 type fakeResourceQuotas struct {
-	*gentype.FakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakeResourceQuotas(fake *FakeCoreV1, namespace string) typedcorev1.ResourceQuotaInterface {
 	return &fakeResourceQuotas{
-		gentype.NewFakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ResourceQuota, *v1.ResourceQuotaList, *corev1.ResourceQuotaApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("resourcequotas"),
@@ -41,9 +41,9 @@ func newFakeResourceQuotas(fake *FakeCoreV1, namespace string) typedcorev1.Resou
 			func() *v1.ResourceQuota { return &v1.ResourceQuota{} },
 			func() *v1.ResourceQuotaList { return &v1.ResourceQuotaList{} },
 			func(dst, src *v1.ResourceQuotaList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ResourceQuotaList) []*v1.ResourceQuota { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.ResourceQuotaList) []*v1.ResourceQuota { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ResourceQuotaList, items []*v1.ResourceQuota) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

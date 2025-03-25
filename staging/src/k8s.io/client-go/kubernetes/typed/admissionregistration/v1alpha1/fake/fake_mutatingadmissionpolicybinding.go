@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/admissionregistration/v1alpha1"
 	admissionregistrationv1alpha1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedadmissionregistrationv1alpha1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1alpha1"
 )
 
 // fakeMutatingAdmissionPolicyBindings implements MutatingAdmissionPolicyBindingInterface
 type fakeMutatingAdmissionPolicyBindings struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicyBinding, *v1alpha1.MutatingAdmissionPolicyBindingList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyBindingApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicyBinding, *v1alpha1.MutatingAdmissionPolicyBindingList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyBindingApplyConfiguration]
 	Fake *FakeAdmissionregistrationV1alpha1
 }
 
 func newFakeMutatingAdmissionPolicyBindings(fake *FakeAdmissionregistrationV1alpha1) typedadmissionregistrationv1alpha1.MutatingAdmissionPolicyBindingInterface {
 	return &fakeMutatingAdmissionPolicyBindings{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicyBinding, *v1alpha1.MutatingAdmissionPolicyBindingList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyBindingApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.MutatingAdmissionPolicyBinding, *v1alpha1.MutatingAdmissionPolicyBindingList, *admissionregistrationv1alpha1.MutatingAdmissionPolicyBindingApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("mutatingadmissionpolicybindings"),
@@ -44,10 +44,10 @@ func newFakeMutatingAdmissionPolicyBindings(fake *FakeAdmissionregistrationV1alp
 			},
 			func(dst, src *v1alpha1.MutatingAdmissionPolicyBindingList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.MutatingAdmissionPolicyBindingList) []*v1alpha1.MutatingAdmissionPolicyBinding {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.MutatingAdmissionPolicyBindingList, items []*v1alpha1.MutatingAdmissionPolicyBinding) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

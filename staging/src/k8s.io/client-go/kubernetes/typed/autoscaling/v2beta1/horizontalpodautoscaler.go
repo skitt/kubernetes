@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsautoscalingv2beta1 "k8s.io/client-go/applyconfigurations/autoscaling/v2beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,13 +56,13 @@ type HorizontalPodAutoscalerInterface interface {
 
 // horizontalPodAutoscalers implements HorizontalPodAutoscalerInterface
 type horizontalPodAutoscalers struct {
-	*gentype.ClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration]
 }
 
 // newHorizontalPodAutoscalers returns a HorizontalPodAutoscalers
 func newHorizontalPodAutoscalers(c *AutoscalingV2beta1Client, namespace string) *horizontalPodAutoscalers {
 	return &horizontalPodAutoscalers{
-		gentype.NewClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*autoscalingv2beta1.HorizontalPodAutoscaler, *autoscalingv2beta1.HorizontalPodAutoscalerList, *applyconfigurationsautoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration](
 			"horizontalpodautoscalers",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -73,7 +73,7 @@ func newHorizontalPodAutoscalers(c *AutoscalingV2beta1Client, namespace string) 
 			func() *autoscalingv2beta1.HorizontalPodAutoscalerList {
 				return &autoscalingv2beta1.HorizontalPodAutoscalerList{}
 			},
-			gentype.PrefersProtobuf[*autoscalingv2beta1.HorizontalPodAutoscaler](),
+			gentype2.PrefersProtobuf[*autoscalingv2beta1.HorizontalPodAutoscaler](),
 		),
 	}
 }

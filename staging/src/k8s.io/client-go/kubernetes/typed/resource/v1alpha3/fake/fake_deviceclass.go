@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha3 "k8s.io/api/resource/v1alpha3"
 	resourcev1alpha3 "k8s.io/client-go/applyconfigurations/resource/v1alpha3"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedresourcev1alpha3 "k8s.io/client-go/kubernetes/typed/resource/v1alpha3"
 )
 
 // fakeDeviceClasses implements DeviceClassInterface
 type fakeDeviceClasses struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration]
 	Fake *FakeResourceV1alpha3
 }
 
 func newFakeDeviceClasses(fake *FakeResourceV1alpha3) typedresourcev1alpha3.DeviceClassInterface {
 	return &fakeDeviceClasses{
-		gentype.NewFakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha3.DeviceClass, *v1alpha3.DeviceClassList, *resourcev1alpha3.DeviceClassApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha3.SchemeGroupVersion.WithResource("deviceclasses"),
@@ -42,10 +42,10 @@ func newFakeDeviceClasses(fake *FakeResourceV1alpha3) typedresourcev1alpha3.Devi
 			func() *v1alpha3.DeviceClassList { return &v1alpha3.DeviceClassList{} },
 			func(dst, src *v1alpha3.DeviceClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha3.DeviceClassList) []*v1alpha3.DeviceClass {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha3.DeviceClassList, items []*v1alpha3.DeviceClass) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

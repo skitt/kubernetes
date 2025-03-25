@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/apps/v1beta1"
 	appsv1beta1 "k8s.io/client-go/applyconfigurations/apps/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedappsv1beta1 "k8s.io/client-go/kubernetes/typed/apps/v1beta1"
 )
 
 // fakeStatefulSets implements StatefulSetInterface
 type fakeStatefulSets struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration]
 	Fake *FakeAppsV1beta1
 }
 
 func newFakeStatefulSets(fake *FakeAppsV1beta1, namespace string) typedappsv1beta1.StatefulSetInterface {
 	return &fakeStatefulSets{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.StatefulSet, *v1beta1.StatefulSetList, *appsv1beta1.StatefulSetApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("statefulsets"),
@@ -41,9 +41,9 @@ func newFakeStatefulSets(fake *FakeAppsV1beta1, namespace string) typedappsv1bet
 			func() *v1beta1.StatefulSet { return &v1beta1.StatefulSet{} },
 			func() *v1beta1.StatefulSetList { return &v1beta1.StatefulSetList{} },
 			func(dst, src *v1beta1.StatefulSetList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.StatefulSetList) []*v1beta1.StatefulSet { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.StatefulSetList) []*v1beta1.StatefulSet { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.StatefulSetList, items []*v1beta1.StatefulSet) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

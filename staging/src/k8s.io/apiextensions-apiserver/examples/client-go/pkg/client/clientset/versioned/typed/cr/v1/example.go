@@ -27,7 +27,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 )
 
 // ExamplesGetter has a method to return a ExampleInterface.
@@ -52,13 +52,13 @@ type ExampleInterface interface {
 
 // examples implements ExampleInterface
 type examples struct {
-	*gentype.ClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration]
 }
 
 // newExamples returns a Examples
 func newExamples(c *CrV1Client, namespace string) *examples {
 	return &examples{
-		gentype.NewClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*crv1.Example, *crv1.ExampleList, *applyconfigurationcrv1.ExampleApplyConfiguration](
 			"examples",
 			c.RESTClient(),
 			scheme.ParameterCodec,

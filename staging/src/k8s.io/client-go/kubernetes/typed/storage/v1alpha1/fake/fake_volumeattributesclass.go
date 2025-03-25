@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/storage/v1alpha1"
 	storagev1alpha1 "k8s.io/client-go/applyconfigurations/storage/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragev1alpha1 "k8s.io/client-go/kubernetes/typed/storage/v1alpha1"
 )
 
 // fakeVolumeAttributesClasses implements VolumeAttributesClassInterface
 type fakeVolumeAttributesClasses struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.VolumeAttributesClass, *v1alpha1.VolumeAttributesClassList, *storagev1alpha1.VolumeAttributesClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.VolumeAttributesClass, *v1alpha1.VolumeAttributesClassList, *storagev1alpha1.VolumeAttributesClassApplyConfiguration]
 	Fake *FakeStorageV1alpha1
 }
 
 func newFakeVolumeAttributesClasses(fake *FakeStorageV1alpha1) typedstoragev1alpha1.VolumeAttributesClassInterface {
 	return &fakeVolumeAttributesClasses{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.VolumeAttributesClass, *v1alpha1.VolumeAttributesClassList, *storagev1alpha1.VolumeAttributesClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.VolumeAttributesClass, *v1alpha1.VolumeAttributesClassList, *storagev1alpha1.VolumeAttributesClassApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("volumeattributesclasses"),
@@ -42,10 +42,10 @@ func newFakeVolumeAttributesClasses(fake *FakeStorageV1alpha1) typedstoragev1alp
 			func() *v1alpha1.VolumeAttributesClassList { return &v1alpha1.VolumeAttributesClassList{} },
 			func(dst, src *v1alpha1.VolumeAttributesClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.VolumeAttributesClassList) []*v1alpha1.VolumeAttributesClass {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.VolumeAttributesClassList, items []*v1alpha1.VolumeAttributesClass) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

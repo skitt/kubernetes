@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsstoragev1 "k8s.io/client-go/applyconfigurations/storage/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,20 +56,20 @@ type VolumeAttachmentInterface interface {
 
 // volumeAttachments implements VolumeAttachmentInterface
 type volumeAttachments struct {
-	*gentype.ClientWithListAndApply[*storagev1.VolumeAttachment, *storagev1.VolumeAttachmentList, *applyconfigurationsstoragev1.VolumeAttachmentApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1.VolumeAttachment, *storagev1.VolumeAttachmentList, *applyconfigurationsstoragev1.VolumeAttachmentApplyConfiguration]
 }
 
 // newVolumeAttachments returns a VolumeAttachments
 func newVolumeAttachments(c *StorageV1Client) *volumeAttachments {
 	return &volumeAttachments{
-		gentype.NewClientWithListAndApply[*storagev1.VolumeAttachment, *storagev1.VolumeAttachmentList, *applyconfigurationsstoragev1.VolumeAttachmentApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1.VolumeAttachment, *storagev1.VolumeAttachmentList, *applyconfigurationsstoragev1.VolumeAttachmentApplyConfiguration](
 			"volumeattachments",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *storagev1.VolumeAttachment { return &storagev1.VolumeAttachment{} },
 			func() *storagev1.VolumeAttachmentList { return &storagev1.VolumeAttachmentList{} },
-			gentype.PrefersProtobuf[*storagev1.VolumeAttachment](),
+			gentype2.PrefersProtobuf[*storagev1.VolumeAttachment](),
 		),
 	}
 }

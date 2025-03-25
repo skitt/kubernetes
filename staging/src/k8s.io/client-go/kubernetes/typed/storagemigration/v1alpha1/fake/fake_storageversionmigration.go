@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/storagemigration/v1alpha1"
 	storagemigrationv1alpha1 "k8s.io/client-go/applyconfigurations/storagemigration/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragemigrationv1alpha1 "k8s.io/client-go/kubernetes/typed/storagemigration/v1alpha1"
 )
 
 // fakeStorageVersionMigrations implements StorageVersionMigrationInterface
 type fakeStorageVersionMigrations struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration]
 	Fake *FakeStoragemigrationV1alpha1
 }
 
 func newFakeStorageVersionMigrations(fake *FakeStoragemigrationV1alpha1) typedstoragemigrationv1alpha1.StorageVersionMigrationInterface {
 	return &fakeStorageVersionMigrations{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.StorageVersionMigration, *v1alpha1.StorageVersionMigrationList, *storagemigrationv1alpha1.StorageVersionMigrationApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("storageversionmigrations"),
@@ -42,10 +42,10 @@ func newFakeStorageVersionMigrations(fake *FakeStoragemigrationV1alpha1) typedst
 			func() *v1alpha1.StorageVersionMigrationList { return &v1alpha1.StorageVersionMigrationList{} },
 			func(dst, src *v1alpha1.StorageVersionMigrationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.StorageVersionMigrationList) []*v1alpha1.StorageVersionMigration {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.StorageVersionMigrationList, items []*v1alpha1.StorageVersionMigration) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

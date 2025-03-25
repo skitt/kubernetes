@@ -22,18 +22,18 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/examples/client-go/pkg/apis/cr/v1"
 	crv1 "k8s.io/apiextensions-apiserver/examples/client-go/pkg/client/applyconfiguration/cr/v1"
 	typedcrv1 "k8s.io/apiextensions-apiserver/examples/client-go/pkg/client/clientset/versioned/typed/cr/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 )
 
 // fakeExamples implements ExampleInterface
 type fakeExamples struct {
-	*gentype.FakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration]
 	Fake *FakeCrV1
 }
 
 func newFakeExamples(fake *FakeCrV1, namespace string) typedcrv1.ExampleInterface {
 	return &fakeExamples{
-		gentype.NewFakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Example, *v1.ExampleList, *crv1.ExampleApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("examples"),
@@ -41,8 +41,8 @@ func newFakeExamples(fake *FakeCrV1, namespace string) typedcrv1.ExampleInterfac
 			func() *v1.Example { return &v1.Example{} },
 			func() *v1.ExampleList { return &v1.ExampleList{} },
 			func(dst, src *v1.ExampleList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ExampleList) []*v1.Example { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.ExampleList, items []*v1.Example) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.ExampleList) []*v1.Example { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.ExampleList, items []*v1.Example) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

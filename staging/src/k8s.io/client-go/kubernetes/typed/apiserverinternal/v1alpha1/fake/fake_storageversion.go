@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/apiserverinternal/v1alpha1"
 	apiserverinternalv1alpha1 "k8s.io/client-go/applyconfigurations/apiserverinternal/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedapiserverinternalv1alpha1 "k8s.io/client-go/kubernetes/typed/apiserverinternal/v1alpha1"
 )
 
 // fakeStorageVersions implements StorageVersionInterface
 type fakeStorageVersions struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration]
 	Fake *FakeInternalV1alpha1
 }
 
 func newFakeStorageVersions(fake *FakeInternalV1alpha1) typedapiserverinternalv1alpha1.StorageVersionInterface {
 	return &fakeStorageVersions{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.StorageVersion, *v1alpha1.StorageVersionList, *apiserverinternalv1alpha1.StorageVersionApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("storageversions"),
@@ -42,10 +42,10 @@ func newFakeStorageVersions(fake *FakeInternalV1alpha1) typedapiserverinternalv1
 			func() *v1alpha1.StorageVersionList { return &v1alpha1.StorageVersionList{} },
 			func(dst, src *v1alpha1.StorageVersionList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.StorageVersionList) []*v1alpha1.StorageVersion {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.StorageVersionList, items []*v1alpha1.StorageVersion) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

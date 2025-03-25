@@ -25,7 +25,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	examplev1 "k8s.io/code-generator/examples/MixedCase/apis/example/v1"
 	applyconfigurationexamplev1 "k8s.io/code-generator/examples/MixedCase/applyconfiguration/example/v1"
 	scheme "k8s.io/code-generator/examples/MixedCase/clientset/versioned/scheme"
@@ -61,13 +61,13 @@ type ClusterTestTypeInterface interface {
 
 // clusterTestTypes implements ClusterTestTypeInterface
 type clusterTestTypes struct {
-	*gentype.ClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration]
 }
 
 // newClusterTestTypes returns a ClusterTestTypes
 func newClusterTestTypes(c *ExampleV1Client) *clusterTestTypes {
 	return &clusterTestTypes{
-		gentype.NewClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*examplev1.ClusterTestType, *examplev1.ClusterTestTypeList, *applyconfigurationexamplev1.ClusterTestTypeApplyConfiguration](
 			"clustertesttypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

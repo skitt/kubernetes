@@ -19,20 +19,20 @@ limitations under the License.
 package fake
 
 import (
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	v1alpha1 "k8s.io/metrics/pkg/apis/metrics/v1alpha1"
 	metricsv1alpha1 "k8s.io/metrics/pkg/client/clientset/versioned/typed/metrics/v1alpha1"
 )
 
 // fakeNodeMetricses implements NodeMetricsInterface
 type fakeNodeMetricses struct {
-	*gentype.FakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList]
+	*gentype2.FakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList]
 	Fake *FakeMetricsV1alpha1
 }
 
 func newFakeNodeMetricses(fake *FakeMetricsV1alpha1) metricsv1alpha1.NodeMetricsInterface {
 	return &fakeNodeMetricses{
-		gentype.NewFakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList](
+		gentype2.NewFakeClientWithList[*v1alpha1.NodeMetrics, *v1alpha1.NodeMetricsList](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("nodes"),
@@ -41,10 +41,10 @@ func newFakeNodeMetricses(fake *FakeMetricsV1alpha1) metricsv1alpha1.NodeMetrics
 			func() *v1alpha1.NodeMetricsList { return &v1alpha1.NodeMetricsList{} },
 			func(dst, src *v1alpha1.NodeMetricsList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.NodeMetricsList) []*v1alpha1.NodeMetrics {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.NodeMetricsList, items []*v1alpha1.NodeMetrics) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/extensions/v1beta1"
 	extensionsv1beta1 "k8s.io/client-go/applyconfigurations/extensions/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedextensionsv1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
 )
 
 // fakeIngresses implements IngressInterface
 type fakeIngresses struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.Ingress, *v1beta1.IngressList, *extensionsv1beta1.IngressApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.Ingress, *v1beta1.IngressList, *extensionsv1beta1.IngressApplyConfiguration]
 	Fake *FakeExtensionsV1beta1
 }
 
 func newFakeIngresses(fake *FakeExtensionsV1beta1, namespace string) typedextensionsv1beta1.IngressInterface {
 	return &fakeIngresses{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.Ingress, *v1beta1.IngressList, *extensionsv1beta1.IngressApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.Ingress, *v1beta1.IngressList, *extensionsv1beta1.IngressApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("ingresses"),
@@ -41,9 +41,9 @@ func newFakeIngresses(fake *FakeExtensionsV1beta1, namespace string) typedextens
 			func() *v1beta1.Ingress { return &v1beta1.Ingress{} },
 			func() *v1beta1.IngressList { return &v1beta1.IngressList{} },
 			func(dst, src *v1beta1.IngressList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.IngressList) []*v1beta1.Ingress { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.IngressList) []*v1beta1.Ingress { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.IngressList, items []*v1beta1.Ingress) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsstoragev1 "k8s.io/client-go/applyconfigurations/storage/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type CSIStorageCapacityInterface interface {
 
 // cSIStorageCapacities implements CSIStorageCapacityInterface
 type cSIStorageCapacities struct {
-	*gentype.ClientWithListAndApply[*storagev1.CSIStorageCapacity, *storagev1.CSIStorageCapacityList, *applyconfigurationsstoragev1.CSIStorageCapacityApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1.CSIStorageCapacity, *storagev1.CSIStorageCapacityList, *applyconfigurationsstoragev1.CSIStorageCapacityApplyConfiguration]
 }
 
 // newCSIStorageCapacities returns a CSIStorageCapacities
 func newCSIStorageCapacities(c *StorageV1Client, namespace string) *cSIStorageCapacities {
 	return &cSIStorageCapacities{
-		gentype.NewClientWithListAndApply[*storagev1.CSIStorageCapacity, *storagev1.CSIStorageCapacityList, *applyconfigurationsstoragev1.CSIStorageCapacityApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1.CSIStorageCapacity, *storagev1.CSIStorageCapacityList, *applyconfigurationsstoragev1.CSIStorageCapacityApplyConfiguration](
 			"csistoragecapacities",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *storagev1.CSIStorageCapacity { return &storagev1.CSIStorageCapacity{} },
 			func() *storagev1.CSIStorageCapacityList { return &storagev1.CSIStorageCapacityList{} },
-			gentype.PrefersProtobuf[*storagev1.CSIStorageCapacity](),
+			gentype2.PrefersProtobuf[*storagev1.CSIStorageCapacity](),
 		),
 	}
 }

@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscoordinationv1beta1 "k8s.io/client-go/applyconfigurations/coordination/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type LeaseInterface interface {
 
 // leases implements LeaseInterface
 type leases struct {
-	*gentype.ClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration]
 }
 
 // newLeases returns a Leases
 func newLeases(c *CoordinationV1beta1Client, namespace string) *leases {
 	return &leases{
-		gentype.NewClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*coordinationv1beta1.Lease, *coordinationv1beta1.LeaseList, *applyconfigurationscoordinationv1beta1.LeaseApplyConfiguration](
 			"leases",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *coordinationv1beta1.Lease { return &coordinationv1beta1.Lease{} },
 			func() *coordinationv1beta1.LeaseList { return &coordinationv1beta1.LeaseList{} },
-			gentype.PrefersProtobuf[*coordinationv1beta1.Lease](),
+			gentype2.PrefersProtobuf[*coordinationv1beta1.Lease](),
 		),
 	}
 }

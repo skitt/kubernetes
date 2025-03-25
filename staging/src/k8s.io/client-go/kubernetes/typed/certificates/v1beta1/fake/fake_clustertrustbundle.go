@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/certificates/v1beta1"
 	certificatesv1beta1 "k8s.io/client-go/applyconfigurations/certificates/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcertificatesv1beta1 "k8s.io/client-go/kubernetes/typed/certificates/v1beta1"
 )
 
 // fakeClusterTrustBundles implements ClusterTrustBundleInterface
 type fakeClusterTrustBundles struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.ClusterTrustBundle, *v1beta1.ClusterTrustBundleList, *certificatesv1beta1.ClusterTrustBundleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ClusterTrustBundle, *v1beta1.ClusterTrustBundleList, *certificatesv1beta1.ClusterTrustBundleApplyConfiguration]
 	Fake *FakeCertificatesV1beta1
 }
 
 func newFakeClusterTrustBundles(fake *FakeCertificatesV1beta1) typedcertificatesv1beta1.ClusterTrustBundleInterface {
 	return &fakeClusterTrustBundles{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.ClusterTrustBundle, *v1beta1.ClusterTrustBundleList, *certificatesv1beta1.ClusterTrustBundleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ClusterTrustBundle, *v1beta1.ClusterTrustBundleList, *certificatesv1beta1.ClusterTrustBundleApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("clustertrustbundles"),
@@ -42,10 +42,10 @@ func newFakeClusterTrustBundles(fake *FakeCertificatesV1beta1) typedcertificates
 			func() *v1beta1.ClusterTrustBundleList { return &v1beta1.ClusterTrustBundleList{} },
 			func(dst, src *v1beta1.ClusterTrustBundleList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ClusterTrustBundleList) []*v1beta1.ClusterTrustBundle {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.ClusterTrustBundleList, items []*v1beta1.ClusterTrustBundle) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

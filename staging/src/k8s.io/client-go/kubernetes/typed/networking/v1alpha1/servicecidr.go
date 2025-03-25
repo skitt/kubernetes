@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsnetworkingv1alpha1 "k8s.io/client-go/applyconfigurations/networking/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,20 +56,20 @@ type ServiceCIDRInterface interface {
 
 // serviceCIDRs implements ServiceCIDRInterface
 type serviceCIDRs struct {
-	*gentype.ClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration]
 }
 
 // newServiceCIDRs returns a ServiceCIDRs
 func newServiceCIDRs(c *NetworkingV1alpha1Client) *serviceCIDRs {
 	return &serviceCIDRs{
-		gentype.NewClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1alpha1.ServiceCIDR, *networkingv1alpha1.ServiceCIDRList, *applyconfigurationsnetworkingv1alpha1.ServiceCIDRApplyConfiguration](
 			"servicecidrs",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *networkingv1alpha1.ServiceCIDR { return &networkingv1alpha1.ServiceCIDR{} },
 			func() *networkingv1alpha1.ServiceCIDRList { return &networkingv1alpha1.ServiceCIDRList{} },
-			gentype.PrefersProtobuf[*networkingv1alpha1.ServiceCIDR](),
+			gentype2.PrefersProtobuf[*networkingv1alpha1.ServiceCIDR](),
 		),
 	}
 }

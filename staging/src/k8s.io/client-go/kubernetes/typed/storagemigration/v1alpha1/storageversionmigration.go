@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsstoragemigrationv1alpha1 "k8s.io/client-go/applyconfigurations/storagemigration/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,13 +56,13 @@ type StorageVersionMigrationInterface interface {
 
 // storageVersionMigrations implements StorageVersionMigrationInterface
 type storageVersionMigrations struct {
-	*gentype.ClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration]
 }
 
 // newStorageVersionMigrations returns a StorageVersionMigrations
 func newStorageVersionMigrations(c *StoragemigrationV1alpha1Client) *storageVersionMigrations {
 	return &storageVersionMigrations{
-		gentype.NewClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagemigrationv1alpha1.StorageVersionMigration, *storagemigrationv1alpha1.StorageVersionMigrationList, *applyconfigurationsstoragemigrationv1alpha1.StorageVersionMigrationApplyConfiguration](
 			"storageversionmigrations",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -73,7 +73,7 @@ func newStorageVersionMigrations(c *StoragemigrationV1alpha1Client) *storageVers
 			func() *storagemigrationv1alpha1.StorageVersionMigrationList {
 				return &storagemigrationv1alpha1.StorageVersionMigrationList{}
 			},
-			gentype.PrefersProtobuf[*storagemigrationv1alpha1.StorageVersionMigration](),
+			gentype2.PrefersProtobuf[*storagemigrationv1alpha1.StorageVersionMigration](),
 		),
 	}
 }

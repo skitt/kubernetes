@@ -22,18 +22,18 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/client/applyconfiguration/apiextensions/v1"
 	typedapiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 )
 
 // fakeCustomResourceDefinitions implements CustomResourceDefinitionInterface
 type fakeCustomResourceDefinitions struct {
-	*gentype.FakeClientWithListAndApply[*v1.CustomResourceDefinition, *v1.CustomResourceDefinitionList, *apiextensionsv1.CustomResourceDefinitionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.CustomResourceDefinition, *v1.CustomResourceDefinitionList, *apiextensionsv1.CustomResourceDefinitionApplyConfiguration]
 	Fake *FakeApiextensionsV1
 }
 
 func newFakeCustomResourceDefinitions(fake *FakeApiextensionsV1) typedapiextensionsv1.CustomResourceDefinitionInterface {
 	return &fakeCustomResourceDefinitions{
-		gentype.NewFakeClientWithListAndApply[*v1.CustomResourceDefinition, *v1.CustomResourceDefinitionList, *apiextensionsv1.CustomResourceDefinitionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.CustomResourceDefinition, *v1.CustomResourceDefinitionList, *apiextensionsv1.CustomResourceDefinitionApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("customresourcedefinitions"),
@@ -42,10 +42,10 @@ func newFakeCustomResourceDefinitions(fake *FakeApiextensionsV1) typedapiextensi
 			func() *v1.CustomResourceDefinitionList { return &v1.CustomResourceDefinitionList{} },
 			func(dst, src *v1.CustomResourceDefinitionList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.CustomResourceDefinitionList) []*v1.CustomResourceDefinition {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.CustomResourceDefinitionList, items []*v1.CustomResourceDefinition) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

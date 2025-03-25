@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 // fakeLimitRanges implements LimitRangeInterface
 type fakeLimitRanges struct {
-	*gentype.FakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakeLimitRanges(fake *FakeCoreV1, namespace string) typedcorev1.LimitRangeInterface {
 	return &fakeLimitRanges{
-		gentype.NewFakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.LimitRange, *v1.LimitRangeList, *corev1.LimitRangeApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("limitranges"),
@@ -41,8 +41,8 @@ func newFakeLimitRanges(fake *FakeCoreV1, namespace string) typedcorev1.LimitRan
 			func() *v1.LimitRange { return &v1.LimitRange{} },
 			func() *v1.LimitRangeList { return &v1.LimitRangeList{} },
 			func(dst, src *v1.LimitRangeList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.LimitRangeList) []*v1.LimitRange { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.LimitRangeList, items []*v1.LimitRange) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.LimitRangeList) []*v1.LimitRange { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.LimitRangeList, items []*v1.LimitRange) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

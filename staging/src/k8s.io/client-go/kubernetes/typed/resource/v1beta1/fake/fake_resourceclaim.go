@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/resource/v1beta1"
 	resourcev1beta1 "k8s.io/client-go/applyconfigurations/resource/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedresourcev1beta1 "k8s.io/client-go/kubernetes/typed/resource/v1beta1"
 )
 
 // fakeResourceClaims implements ResourceClaimInterface
 type fakeResourceClaims struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration]
 	Fake *FakeResourceV1beta1
 }
 
 func newFakeResourceClaims(fake *FakeResourceV1beta1, namespace string) typedresourcev1beta1.ResourceClaimInterface {
 	return &fakeResourceClaims{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ResourceClaim, *v1beta1.ResourceClaimList, *resourcev1beta1.ResourceClaimApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("resourceclaims"),
@@ -42,10 +42,10 @@ func newFakeResourceClaims(fake *FakeResourceV1beta1, namespace string) typedres
 			func() *v1beta1.ResourceClaimList { return &v1beta1.ResourceClaimList{} },
 			func(dst, src *v1beta1.ResourceClaimList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ResourceClaimList) []*v1beta1.ResourceClaim {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.ResourceClaimList, items []*v1beta1.ResourceClaim) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

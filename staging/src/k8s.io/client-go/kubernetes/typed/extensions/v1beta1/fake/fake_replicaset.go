@@ -27,20 +27,20 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	extensionsv1beta1 "k8s.io/client-go/applyconfigurations/extensions/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedextensionsv1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
 	testing "k8s.io/client-go/testing"
 )
 
 // fakeReplicaSets implements ReplicaSetInterface
 type fakeReplicaSets struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration]
 	Fake *FakeExtensionsV1beta1
 }
 
 func newFakeReplicaSets(fake *FakeExtensionsV1beta1, namespace string) typedextensionsv1beta1.ReplicaSetInterface {
 	return &fakeReplicaSets{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ReplicaSet, *v1beta1.ReplicaSetList, *extensionsv1beta1.ReplicaSetApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("replicasets"),
@@ -48,9 +48,9 @@ func newFakeReplicaSets(fake *FakeExtensionsV1beta1, namespace string) typedexte
 			func() *v1beta1.ReplicaSet { return &v1beta1.ReplicaSet{} },
 			func() *v1beta1.ReplicaSetList { return &v1beta1.ReplicaSetList{} },
 			func(dst, src *v1beta1.ReplicaSetList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.ReplicaSetList) []*v1beta1.ReplicaSet { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.ReplicaSetList) []*v1beta1.ReplicaSet { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.ReplicaSetList, items []*v1beta1.ReplicaSet) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

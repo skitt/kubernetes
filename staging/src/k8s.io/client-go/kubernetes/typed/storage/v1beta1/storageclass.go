@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsstoragev1beta1 "k8s.io/client-go/applyconfigurations/storage/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type StorageClassInterface interface {
 
 // storageClasses implements StorageClassInterface
 type storageClasses struct {
-	*gentype.ClientWithListAndApply[*storagev1beta1.StorageClass, *storagev1beta1.StorageClassList, *applyconfigurationsstoragev1beta1.StorageClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1beta1.StorageClass, *storagev1beta1.StorageClassList, *applyconfigurationsstoragev1beta1.StorageClassApplyConfiguration]
 }
 
 // newStorageClasses returns a StorageClasses
 func newStorageClasses(c *StorageV1beta1Client) *storageClasses {
 	return &storageClasses{
-		gentype.NewClientWithListAndApply[*storagev1beta1.StorageClass, *storagev1beta1.StorageClassList, *applyconfigurationsstoragev1beta1.StorageClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1beta1.StorageClass, *storagev1beta1.StorageClassList, *applyconfigurationsstoragev1beta1.StorageClassApplyConfiguration](
 			"storageclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *storagev1beta1.StorageClass { return &storagev1beta1.StorageClass{} },
 			func() *storagev1beta1.StorageClassList { return &storagev1beta1.StorageClassList{} },
-			gentype.PrefersProtobuf[*storagev1beta1.StorageClass](),
+			gentype2.PrefersProtobuf[*storagev1beta1.StorageClass](),
 		),
 	}
 }

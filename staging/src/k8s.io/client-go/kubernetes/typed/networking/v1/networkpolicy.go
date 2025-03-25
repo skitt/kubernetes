@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsnetworkingv1 "k8s.io/client-go/applyconfigurations/networking/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type NetworkPolicyInterface interface {
 
 // networkPolicies implements NetworkPolicyInterface
 type networkPolicies struct {
-	*gentype.ClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration]
 }
 
 // newNetworkPolicies returns a NetworkPolicies
 func newNetworkPolicies(c *NetworkingV1Client, namespace string) *networkPolicies {
 	return &networkPolicies{
-		gentype.NewClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1.NetworkPolicy, *networkingv1.NetworkPolicyList, *applyconfigurationsnetworkingv1.NetworkPolicyApplyConfiguration](
 			"networkpolicies",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *networkingv1.NetworkPolicy { return &networkingv1.NetworkPolicy{} },
 			func() *networkingv1.NetworkPolicyList { return &networkingv1.NetworkPolicyList{} },
-			gentype.PrefersProtobuf[*networkingv1.NetworkPolicy](),
+			gentype2.PrefersProtobuf[*networkingv1.NetworkPolicy](),
 		),
 	}
 }

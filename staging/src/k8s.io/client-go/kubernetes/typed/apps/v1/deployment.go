@@ -29,7 +29,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsappsv1 "k8s.io/client-go/applyconfigurations/apps/v1"
 	applyconfigurationsautoscalingv1 "k8s.io/client-go/applyconfigurations/autoscaling/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 	apply "k8s.io/client-go/util/apply"
 )
@@ -64,20 +64,20 @@ type DeploymentInterface interface {
 
 // deployments implements DeploymentInterface
 type deployments struct {
-	*gentype.ClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration]
 }
 
 // newDeployments returns a Deployments
 func newDeployments(c *AppsV1Client, namespace string) *deployments {
 	return &deployments{
-		gentype.NewClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1.Deployment, *appsv1.DeploymentList, *applyconfigurationsappsv1.DeploymentApplyConfiguration](
 			"deployments",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *appsv1.Deployment { return &appsv1.Deployment{} },
 			func() *appsv1.DeploymentList { return &appsv1.DeploymentList{} },
-			gentype.PrefersProtobuf[*appsv1.Deployment](),
+			gentype2.PrefersProtobuf[*appsv1.Deployment](),
 		),
 	}
 }

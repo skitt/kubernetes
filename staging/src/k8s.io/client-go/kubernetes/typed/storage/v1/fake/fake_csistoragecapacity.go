@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/storage/v1"
 	storagev1 "k8s.io/client-go/applyconfigurations/storage/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragev1 "k8s.io/client-go/kubernetes/typed/storage/v1"
 )
 
 // fakeCSIStorageCapacities implements CSIStorageCapacityInterface
 type fakeCSIStorageCapacities struct {
-	*gentype.FakeClientWithListAndApply[*v1.CSIStorageCapacity, *v1.CSIStorageCapacityList, *storagev1.CSIStorageCapacityApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.CSIStorageCapacity, *v1.CSIStorageCapacityList, *storagev1.CSIStorageCapacityApplyConfiguration]
 	Fake *FakeStorageV1
 }
 
 func newFakeCSIStorageCapacities(fake *FakeStorageV1, namespace string) typedstoragev1.CSIStorageCapacityInterface {
 	return &fakeCSIStorageCapacities{
-		gentype.NewFakeClientWithListAndApply[*v1.CSIStorageCapacity, *v1.CSIStorageCapacityList, *storagev1.CSIStorageCapacityApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.CSIStorageCapacity, *v1.CSIStorageCapacityList, *storagev1.CSIStorageCapacityApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("csistoragecapacities"),
@@ -42,10 +42,10 @@ func newFakeCSIStorageCapacities(fake *FakeStorageV1, namespace string) typedsto
 			func() *v1.CSIStorageCapacityList { return &v1.CSIStorageCapacityList{} },
 			func(dst, src *v1.CSIStorageCapacityList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.CSIStorageCapacityList) []*v1.CSIStorageCapacity {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.CSIStorageCapacityList, items []*v1.CSIStorageCapacity) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

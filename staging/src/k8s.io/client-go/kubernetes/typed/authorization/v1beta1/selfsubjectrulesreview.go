@@ -23,7 +23,7 @@ import (
 
 	authorizationv1beta1 "k8s.io/api/authorization/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -41,13 +41,13 @@ type SelfSubjectRulesReviewInterface interface {
 
 // selfSubjectRulesReviews implements SelfSubjectRulesReviewInterface
 type selfSubjectRulesReviews struct {
-	*gentype.Client[*authorizationv1beta1.SelfSubjectRulesReview]
+	*gentype2.Client[*authorizationv1beta1.SelfSubjectRulesReview]
 }
 
 // newSelfSubjectRulesReviews returns a SelfSubjectRulesReviews
 func newSelfSubjectRulesReviews(c *AuthorizationV1beta1Client) *selfSubjectRulesReviews {
 	return &selfSubjectRulesReviews{
-		gentype.NewClient[*authorizationv1beta1.SelfSubjectRulesReview](
+		gentype2.NewClient[*authorizationv1beta1.SelfSubjectRulesReview](
 			"selfsubjectrulesreviews",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -55,7 +55,7 @@ func newSelfSubjectRulesReviews(c *AuthorizationV1beta1Client) *selfSubjectRules
 			func() *authorizationv1beta1.SelfSubjectRulesReview {
 				return &authorizationv1beta1.SelfSubjectRulesReview{}
 			},
-			gentype.PrefersProtobuf[*authorizationv1beta1.SelfSubjectRulesReview](),
+			gentype2.PrefersProtobuf[*authorizationv1beta1.SelfSubjectRulesReview](),
 		),
 	}
 }

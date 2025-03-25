@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsstoragev1 "k8s.io/client-go/applyconfigurations/storage/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type CSINodeInterface interface {
 
 // cSINodes implements CSINodeInterface
 type cSINodes struct {
-	*gentype.ClientWithListAndApply[*storagev1.CSINode, *storagev1.CSINodeList, *applyconfigurationsstoragev1.CSINodeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*storagev1.CSINode, *storagev1.CSINodeList, *applyconfigurationsstoragev1.CSINodeApplyConfiguration]
 }
 
 // newCSINodes returns a CSINodes
 func newCSINodes(c *StorageV1Client) *cSINodes {
 	return &cSINodes{
-		gentype.NewClientWithListAndApply[*storagev1.CSINode, *storagev1.CSINodeList, *applyconfigurationsstoragev1.CSINodeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*storagev1.CSINode, *storagev1.CSINodeList, *applyconfigurationsstoragev1.CSINodeApplyConfiguration](
 			"csinodes",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *storagev1.CSINode { return &storagev1.CSINode{} },
 			func() *storagev1.CSINodeList { return &storagev1.CSINodeList{} },
-			gentype.PrefersProtobuf[*storagev1.CSINode](),
+			gentype2.PrefersProtobuf[*storagev1.CSINode](),
 		),
 	}
 }

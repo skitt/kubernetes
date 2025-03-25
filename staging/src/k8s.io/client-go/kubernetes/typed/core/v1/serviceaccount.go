@@ -27,7 +27,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -55,20 +55,20 @@ type ServiceAccountInterface interface {
 
 // serviceAccounts implements ServiceAccountInterface
 type serviceAccounts struct {
-	*gentype.ClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration]
 }
 
 // newServiceAccounts returns a ServiceAccounts
 func newServiceAccounts(c *CoreV1Client, namespace string) *serviceAccounts {
 	return &serviceAccounts{
-		gentype.NewClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ServiceAccount, *corev1.ServiceAccountList, *applyconfigurationscorev1.ServiceAccountApplyConfiguration](
 			"serviceaccounts",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.ServiceAccount { return &corev1.ServiceAccount{} },
 			func() *corev1.ServiceAccountList { return &corev1.ServiceAccountList{} },
-			gentype.PrefersProtobuf[*corev1.ServiceAccount](),
+			gentype2.PrefersProtobuf[*corev1.ServiceAccount](),
 		),
 	}
 }

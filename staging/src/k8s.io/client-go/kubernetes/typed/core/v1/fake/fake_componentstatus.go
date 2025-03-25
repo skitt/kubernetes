@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 // fakeComponentStatuses implements ComponentStatusInterface
 type fakeComponentStatuses struct {
-	*gentype.FakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakeComponentStatuses(fake *FakeCoreV1) typedcorev1.ComponentStatusInterface {
 	return &fakeComponentStatuses{
-		gentype.NewFakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ComponentStatus, *v1.ComponentStatusList, *corev1.ComponentStatusApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("componentstatuses"),
@@ -41,9 +41,9 @@ func newFakeComponentStatuses(fake *FakeCoreV1) typedcorev1.ComponentStatusInter
 			func() *v1.ComponentStatus { return &v1.ComponentStatus{} },
 			func() *v1.ComponentStatusList { return &v1.ComponentStatusList{} },
 			func(dst, src *v1.ComponentStatusList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ComponentStatusList) []*v1.ComponentStatus { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.ComponentStatusList) []*v1.ComponentStatus { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.ComponentStatusList, items []*v1.ComponentStatus) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

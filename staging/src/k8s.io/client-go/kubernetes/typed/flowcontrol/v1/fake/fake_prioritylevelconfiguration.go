@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/flowcontrol/v1"
 	flowcontrolv1 "k8s.io/client-go/applyconfigurations/flowcontrol/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedflowcontrolv1 "k8s.io/client-go/kubernetes/typed/flowcontrol/v1"
 )
 
 // fakePriorityLevelConfigurations implements PriorityLevelConfigurationInterface
 type fakePriorityLevelConfigurations struct {
-	*gentype.FakeClientWithListAndApply[*v1.PriorityLevelConfiguration, *v1.PriorityLevelConfigurationList, *flowcontrolv1.PriorityLevelConfigurationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.PriorityLevelConfiguration, *v1.PriorityLevelConfigurationList, *flowcontrolv1.PriorityLevelConfigurationApplyConfiguration]
 	Fake *FakeFlowcontrolV1
 }
 
 func newFakePriorityLevelConfigurations(fake *FakeFlowcontrolV1) typedflowcontrolv1.PriorityLevelConfigurationInterface {
 	return &fakePriorityLevelConfigurations{
-		gentype.NewFakeClientWithListAndApply[*v1.PriorityLevelConfiguration, *v1.PriorityLevelConfigurationList, *flowcontrolv1.PriorityLevelConfigurationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.PriorityLevelConfiguration, *v1.PriorityLevelConfigurationList, *flowcontrolv1.PriorityLevelConfigurationApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("prioritylevelconfigurations"),
@@ -42,10 +42,10 @@ func newFakePriorityLevelConfigurations(fake *FakeFlowcontrolV1) typedflowcontro
 			func() *v1.PriorityLevelConfigurationList { return &v1.PriorityLevelConfigurationList{} },
 			func(dst, src *v1.PriorityLevelConfigurationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.PriorityLevelConfigurationList) []*v1.PriorityLevelConfiguration {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.PriorityLevelConfigurationList, items []*v1.PriorityLevelConfiguration) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

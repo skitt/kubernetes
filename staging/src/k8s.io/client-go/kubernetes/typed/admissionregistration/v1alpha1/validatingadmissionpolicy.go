@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsadmissionregistrationv1alpha1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,13 +56,13 @@ type ValidatingAdmissionPolicyInterface interface {
 
 // validatingAdmissionPolicies implements ValidatingAdmissionPolicyInterface
 type validatingAdmissionPolicies struct {
-	*gentype.ClientWithListAndApply[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy, *admissionregistrationv1alpha1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy, *admissionregistrationv1alpha1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration]
 }
 
 // newValidatingAdmissionPolicies returns a ValidatingAdmissionPolicies
 func newValidatingAdmissionPolicies(c *AdmissionregistrationV1alpha1Client) *validatingAdmissionPolicies {
 	return &validatingAdmissionPolicies{
-		gentype.NewClientWithListAndApply[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy, *admissionregistrationv1alpha1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy, *admissionregistrationv1alpha1.ValidatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.ValidatingAdmissionPolicyApplyConfiguration](
 			"validatingadmissionpolicies",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -73,7 +73,7 @@ func newValidatingAdmissionPolicies(c *AdmissionregistrationV1alpha1Client) *val
 			func() *admissionregistrationv1alpha1.ValidatingAdmissionPolicyList {
 				return &admissionregistrationv1alpha1.ValidatingAdmissionPolicyList{}
 			},
-			gentype.PrefersProtobuf[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy](),
+			gentype2.PrefersProtobuf[*admissionregistrationv1alpha1.ValidatingAdmissionPolicy](),
 		),
 	}
 }

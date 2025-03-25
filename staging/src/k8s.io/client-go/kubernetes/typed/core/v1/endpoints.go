@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type EndpointsInterface interface {
 
 // endpoints implements EndpointsInterface
 type endpoints struct {
-	*gentype.ClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration]
 }
 
 // newEndpoints returns a Endpoints
 func newEndpoints(c *CoreV1Client, namespace string) *endpoints {
 	return &endpoints{
-		gentype.NewClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Endpoints, *corev1.EndpointsList, *applyconfigurationscorev1.EndpointsApplyConfiguration](
 			"endpoints",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.Endpoints { return &corev1.Endpoints{} },
 			func() *corev1.EndpointsList { return &corev1.EndpointsList{} },
-			gentype.PrefersProtobuf[*corev1.Endpoints](),
+			gentype2.PrefersProtobuf[*corev1.Endpoints](),
 		),
 	}
 }

@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/networking/v1"
 	networkingv1 "k8s.io/client-go/applyconfigurations/networking/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typednetworkingv1 "k8s.io/client-go/kubernetes/typed/networking/v1"
 )
 
 // fakeNetworkPolicies implements NetworkPolicyInterface
 type fakeNetworkPolicies struct {
-	*gentype.FakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration]
 	Fake *FakeNetworkingV1
 }
 
 func newFakeNetworkPolicies(fake *FakeNetworkingV1, namespace string) typednetworkingv1.NetworkPolicyInterface {
 	return &fakeNetworkPolicies{
-		gentype.NewFakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.NetworkPolicy, *v1.NetworkPolicyList, *networkingv1.NetworkPolicyApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("networkpolicies"),
@@ -41,9 +41,9 @@ func newFakeNetworkPolicies(fake *FakeNetworkingV1, namespace string) typednetwo
 			func() *v1.NetworkPolicy { return &v1.NetworkPolicy{} },
 			func() *v1.NetworkPolicyList { return &v1.NetworkPolicyList{} },
 			func(dst, src *v1.NetworkPolicyList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.NetworkPolicyList) []*v1.NetworkPolicy { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.NetworkPolicyList) []*v1.NetworkPolicy { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.NetworkPolicyList, items []*v1.NetworkPolicy) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

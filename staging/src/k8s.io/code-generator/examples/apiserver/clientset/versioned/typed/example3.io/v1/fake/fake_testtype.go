@@ -19,20 +19,20 @@ limitations under the License.
 package fake
 
 import (
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	v1 "k8s.io/code-generator/examples/apiserver/apis/example3.io/v1"
 	example3iov1 "k8s.io/code-generator/examples/apiserver/clientset/versioned/typed/example3.io/v1"
 )
 
 // fakeTestTypes implements TestTypeInterface
 type fakeTestTypes struct {
-	*gentype.FakeClientWithList[*v1.TestType, *v1.TestTypeList]
+	*gentype2.FakeClientWithList[*v1.TestType, *v1.TestTypeList]
 	Fake *FakeThirdExampleV1
 }
 
 func newFakeTestTypes(fake *FakeThirdExampleV1, namespace string) example3iov1.TestTypeInterface {
 	return &fakeTestTypes{
-		gentype.NewFakeClientWithList[*v1.TestType, *v1.TestTypeList](
+		gentype2.NewFakeClientWithList[*v1.TestType, *v1.TestTypeList](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("testtypes"),
@@ -40,8 +40,8 @@ func newFakeTestTypes(fake *FakeThirdExampleV1, namespace string) example3iov1.T
 			func() *v1.TestType { return &v1.TestType{} },
 			func() *v1.TestTypeList { return &v1.TestTypeList{} },
 			func(dst, src *v1.TestTypeList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.TestTypeList) []*v1.TestType { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.TestTypeList, items []*v1.TestType) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.TestTypeList) []*v1.TestType { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.TestTypeList, items []*v1.TestType) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

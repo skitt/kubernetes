@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/storage/v1"
 	storagev1 "k8s.io/client-go/applyconfigurations/storage/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragev1 "k8s.io/client-go/kubernetes/typed/storage/v1"
 )
 
 // fakeVolumeAttachments implements VolumeAttachmentInterface
 type fakeVolumeAttachments struct {
-	*gentype.FakeClientWithListAndApply[*v1.VolumeAttachment, *v1.VolumeAttachmentList, *storagev1.VolumeAttachmentApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.VolumeAttachment, *v1.VolumeAttachmentList, *storagev1.VolumeAttachmentApplyConfiguration]
 	Fake *FakeStorageV1
 }
 
 func newFakeVolumeAttachments(fake *FakeStorageV1) typedstoragev1.VolumeAttachmentInterface {
 	return &fakeVolumeAttachments{
-		gentype.NewFakeClientWithListAndApply[*v1.VolumeAttachment, *v1.VolumeAttachmentList, *storagev1.VolumeAttachmentApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.VolumeAttachment, *v1.VolumeAttachmentList, *storagev1.VolumeAttachmentApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("volumeattachments"),
@@ -41,9 +41,9 @@ func newFakeVolumeAttachments(fake *FakeStorageV1) typedstoragev1.VolumeAttachme
 			func() *v1.VolumeAttachment { return &v1.VolumeAttachment{} },
 			func() *v1.VolumeAttachmentList { return &v1.VolumeAttachmentList{} },
 			func(dst, src *v1.VolumeAttachmentList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.VolumeAttachmentList) []*v1.VolumeAttachment { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.VolumeAttachmentList) []*v1.VolumeAttachment { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.VolumeAttachmentList, items []*v1.VolumeAttachment) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsadmissionregistrationv1alpha1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,13 +52,13 @@ type MutatingAdmissionPolicyInterface interface {
 
 // mutatingAdmissionPolicies implements MutatingAdmissionPolicyInterface
 type mutatingAdmissionPolicies struct {
-	*gentype.ClientWithListAndApply[*admissionregistrationv1alpha1.MutatingAdmissionPolicy, *admissionregistrationv1alpha1.MutatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*admissionregistrationv1alpha1.MutatingAdmissionPolicy, *admissionregistrationv1alpha1.MutatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration]
 }
 
 // newMutatingAdmissionPolicies returns a MutatingAdmissionPolicies
 func newMutatingAdmissionPolicies(c *AdmissionregistrationV1alpha1Client) *mutatingAdmissionPolicies {
 	return &mutatingAdmissionPolicies{
-		gentype.NewClientWithListAndApply[*admissionregistrationv1alpha1.MutatingAdmissionPolicy, *admissionregistrationv1alpha1.MutatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*admissionregistrationv1alpha1.MutatingAdmissionPolicy, *admissionregistrationv1alpha1.MutatingAdmissionPolicyList, *applyconfigurationsadmissionregistrationv1alpha1.MutatingAdmissionPolicyApplyConfiguration](
 			"mutatingadmissionpolicies",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -69,7 +69,7 @@ func newMutatingAdmissionPolicies(c *AdmissionregistrationV1alpha1Client) *mutat
 			func() *admissionregistrationv1alpha1.MutatingAdmissionPolicyList {
 				return &admissionregistrationv1alpha1.MutatingAdmissionPolicyList{}
 			},
-			gentype.PrefersProtobuf[*admissionregistrationv1alpha1.MutatingAdmissionPolicy](),
+			gentype2.PrefersProtobuf[*admissionregistrationv1alpha1.MutatingAdmissionPolicy](),
 		),
 	}
 }

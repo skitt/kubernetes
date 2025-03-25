@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 // fakePersistentVolumes implements PersistentVolumeInterface
 type fakePersistentVolumes struct {
-	*gentype.FakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakePersistentVolumes(fake *FakeCoreV1) typedcorev1.PersistentVolumeInterface {
 	return &fakePersistentVolumes{
-		gentype.NewFakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.PersistentVolume, *v1.PersistentVolumeList, *corev1.PersistentVolumeApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("persistentvolumes"),
@@ -41,9 +41,9 @@ func newFakePersistentVolumes(fake *FakeCoreV1) typedcorev1.PersistentVolumeInte
 			func() *v1.PersistentVolume { return &v1.PersistentVolume{} },
 			func() *v1.PersistentVolumeList { return &v1.PersistentVolumeList{} },
 			func(dst, src *v1.PersistentVolumeList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.PersistentVolumeList) []*v1.PersistentVolume { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.PersistentVolumeList) []*v1.PersistentVolume { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.PersistentVolumeList, items []*v1.PersistentVolume) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsrbacv1alpha1 "k8s.io/client-go/applyconfigurations/rbac/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type ClusterRoleBindingInterface interface {
 
 // clusterRoleBindings implements ClusterRoleBindingInterface
 type clusterRoleBindings struct {
-	*gentype.ClientWithListAndApply[*rbacv1alpha1.ClusterRoleBinding, *rbacv1alpha1.ClusterRoleBindingList, *applyconfigurationsrbacv1alpha1.ClusterRoleBindingApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*rbacv1alpha1.ClusterRoleBinding, *rbacv1alpha1.ClusterRoleBindingList, *applyconfigurationsrbacv1alpha1.ClusterRoleBindingApplyConfiguration]
 }
 
 // newClusterRoleBindings returns a ClusterRoleBindings
 func newClusterRoleBindings(c *RbacV1alpha1Client) *clusterRoleBindings {
 	return &clusterRoleBindings{
-		gentype.NewClientWithListAndApply[*rbacv1alpha1.ClusterRoleBinding, *rbacv1alpha1.ClusterRoleBindingList, *applyconfigurationsrbacv1alpha1.ClusterRoleBindingApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*rbacv1alpha1.ClusterRoleBinding, *rbacv1alpha1.ClusterRoleBindingList, *applyconfigurationsrbacv1alpha1.ClusterRoleBindingApplyConfiguration](
 			"clusterrolebindings",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *rbacv1alpha1.ClusterRoleBinding { return &rbacv1alpha1.ClusterRoleBinding{} },
 			func() *rbacv1alpha1.ClusterRoleBindingList { return &rbacv1alpha1.ClusterRoleBindingList{} },
-			gentype.PrefersProtobuf[*rbacv1alpha1.ClusterRoleBinding](),
+			gentype2.PrefersProtobuf[*rbacv1alpha1.ClusterRoleBinding](),
 		),
 	}
 }

@@ -24,20 +24,20 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	testing "k8s.io/client-go/testing"
 )
 
 // fakePods implements PodInterface
 type fakePods struct {
-	*gentype.FakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakePods(fake *FakeCoreV1, namespace string) typedcorev1.PodInterface {
 	return &fakePods{
-		gentype.NewFakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Pod, *v1.PodList, *corev1.PodApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("pods"),
@@ -45,8 +45,8 @@ func newFakePods(fake *FakeCoreV1, namespace string) typedcorev1.PodInterface {
 			func() *v1.Pod { return &v1.Pod{} },
 			func() *v1.PodList { return &v1.PodList{} },
 			func(dst, src *v1.PodList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.PodList) []*v1.Pod { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.PodList, items []*v1.Pod) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.PodList) []*v1.Pod { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.PodList, items []*v1.Pod) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

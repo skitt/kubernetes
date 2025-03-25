@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha3 "k8s.io/api/resource/v1alpha3"
 	resourcev1alpha3 "k8s.io/client-go/applyconfigurations/resource/v1alpha3"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedresourcev1alpha3 "k8s.io/client-go/kubernetes/typed/resource/v1alpha3"
 )
 
 // fakeDeviceTaintRules implements DeviceTaintRuleInterface
 type fakeDeviceTaintRules struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration]
 	Fake *FakeResourceV1alpha3
 }
 
 func newFakeDeviceTaintRules(fake *FakeResourceV1alpha3) typedresourcev1alpha3.DeviceTaintRuleInterface {
 	return &fakeDeviceTaintRules{
-		gentype.NewFakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha3.DeviceTaintRule, *v1alpha3.DeviceTaintRuleList, *resourcev1alpha3.DeviceTaintRuleApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha3.SchemeGroupVersion.WithResource("devicetaintrules"),
@@ -42,10 +42,10 @@ func newFakeDeviceTaintRules(fake *FakeResourceV1alpha3) typedresourcev1alpha3.D
 			func() *v1alpha3.DeviceTaintRuleList { return &v1alpha3.DeviceTaintRuleList{} },
 			func(dst, src *v1alpha3.DeviceTaintRuleList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha3.DeviceTaintRuleList) []*v1alpha3.DeviceTaintRule {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha3.DeviceTaintRuleList, items []*v1alpha3.DeviceTaintRule) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

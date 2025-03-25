@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/storage/v1beta1"
 	storagev1beta1 "k8s.io/client-go/applyconfigurations/storage/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragev1beta1 "k8s.io/client-go/kubernetes/typed/storage/v1beta1"
 )
 
 // fakeVolumeAttributesClasses implements VolumeAttributesClassInterface
 type fakeVolumeAttributesClasses struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration]
 	Fake *FakeStorageV1beta1
 }
 
 func newFakeVolumeAttributesClasses(fake *FakeStorageV1beta1) typedstoragev1beta1.VolumeAttributesClassInterface {
 	return &fakeVolumeAttributesClasses{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.VolumeAttributesClass, *v1beta1.VolumeAttributesClassList, *storagev1beta1.VolumeAttributesClassApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("volumeattributesclasses"),
@@ -42,10 +42,10 @@ func newFakeVolumeAttributesClasses(fake *FakeStorageV1beta1) typedstoragev1beta
 			func() *v1beta1.VolumeAttributesClassList { return &v1beta1.VolumeAttributesClassList{} },
 			func(dst, src *v1beta1.VolumeAttributesClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.VolumeAttributesClassList) []*v1beta1.VolumeAttributesClass {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.VolumeAttributesClassList, items []*v1beta1.VolumeAttributesClass) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

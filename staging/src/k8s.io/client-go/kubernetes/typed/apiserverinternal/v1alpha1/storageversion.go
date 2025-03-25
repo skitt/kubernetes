@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsapiserverinternalv1alpha1 "k8s.io/client-go/applyconfigurations/apiserverinternal/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,13 +56,13 @@ type StorageVersionInterface interface {
 
 // storageVersions implements StorageVersionInterface
 type storageVersions struct {
-	*gentype.ClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration]
 }
 
 // newStorageVersions returns a StorageVersions
 func newStorageVersions(c *InternalV1alpha1Client) *storageVersions {
 	return &storageVersions{
-		gentype.NewClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*apiserverinternalv1alpha1.StorageVersion, *apiserverinternalv1alpha1.StorageVersionList, *applyconfigurationsapiserverinternalv1alpha1.StorageVersionApplyConfiguration](
 			"storageversions",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -71,7 +71,7 @@ func newStorageVersions(c *InternalV1alpha1Client) *storageVersions {
 			func() *apiserverinternalv1alpha1.StorageVersionList {
 				return &apiserverinternalv1alpha1.StorageVersionList{}
 			},
-			gentype.PrefersProtobuf[*apiserverinternalv1alpha1.StorageVersion](),
+			gentype2.PrefersProtobuf[*apiserverinternalv1alpha1.StorageVersion](),
 		),
 	}
 }

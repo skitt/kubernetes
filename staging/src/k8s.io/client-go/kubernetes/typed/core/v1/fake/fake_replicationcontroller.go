@@ -25,20 +25,20 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	testing "k8s.io/client-go/testing"
 )
 
 // fakeReplicationControllers implements ReplicationControllerInterface
 type fakeReplicationControllers struct {
-	*gentype.FakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakeReplicationControllers(fake *FakeCoreV1, namespace string) typedcorev1.ReplicationControllerInterface {
 	return &fakeReplicationControllers{
-		gentype.NewFakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ReplicationController, *v1.ReplicationControllerList, *corev1.ReplicationControllerApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("replicationcontrollers"),
@@ -47,10 +47,10 @@ func newFakeReplicationControllers(fake *FakeCoreV1, namespace string) typedcore
 			func() *v1.ReplicationControllerList { return &v1.ReplicationControllerList{} },
 			func(dst, src *v1.ReplicationControllerList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ReplicationControllerList) []*v1.ReplicationController {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.ReplicationControllerList, items []*v1.ReplicationController) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

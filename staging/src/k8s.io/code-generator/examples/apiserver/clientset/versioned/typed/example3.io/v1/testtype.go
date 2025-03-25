@@ -24,7 +24,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	example3iov1 "k8s.io/code-generator/examples/apiserver/apis/example3.io/v1"
 	scheme "k8s.io/code-generator/examples/apiserver/clientset/versioned/scheme"
 )
@@ -52,13 +52,13 @@ type TestTypeInterface interface {
 
 // testTypes implements TestTypeInterface
 type testTypes struct {
-	*gentype.ClientWithList[*example3iov1.TestType, *example3iov1.TestTypeList]
+	*gentype2.ClientWithList[*example3iov1.TestType, *example3iov1.TestTypeList]
 }
 
 // newTestTypes returns a TestTypes
 func newTestTypes(c *ThirdExampleV1Client, namespace string) *testTypes {
 	return &testTypes{
-		gentype.NewClientWithList[*example3iov1.TestType, *example3iov1.TestTypeList](
+		gentype2.NewClientWithList[*example3iov1.TestType, *example3iov1.TestTypeList](
 			"testtypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

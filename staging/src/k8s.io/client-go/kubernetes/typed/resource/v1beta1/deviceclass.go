@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsresourcev1beta1 "k8s.io/client-go/applyconfigurations/resource/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type DeviceClassInterface interface {
 
 // deviceClasses implements DeviceClassInterface
 type deviceClasses struct {
-	*gentype.ClientWithListAndApply[*resourcev1beta1.DeviceClass, *resourcev1beta1.DeviceClassList, *applyconfigurationsresourcev1beta1.DeviceClassApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1beta1.DeviceClass, *resourcev1beta1.DeviceClassList, *applyconfigurationsresourcev1beta1.DeviceClassApplyConfiguration]
 }
 
 // newDeviceClasses returns a DeviceClasses
 func newDeviceClasses(c *ResourceV1beta1Client) *deviceClasses {
 	return &deviceClasses{
-		gentype.NewClientWithListAndApply[*resourcev1beta1.DeviceClass, *resourcev1beta1.DeviceClassList, *applyconfigurationsresourcev1beta1.DeviceClassApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1beta1.DeviceClass, *resourcev1beta1.DeviceClassList, *applyconfigurationsresourcev1beta1.DeviceClassApplyConfiguration](
 			"deviceclasses",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *resourcev1beta1.DeviceClass { return &resourcev1beta1.DeviceClass{} },
 			func() *resourcev1beta1.DeviceClassList { return &resourcev1beta1.DeviceClassList{} },
-			gentype.PrefersProtobuf[*resourcev1beta1.DeviceClass](),
+			gentype2.PrefersProtobuf[*resourcev1beta1.DeviceClass](),
 		),
 	}
 }

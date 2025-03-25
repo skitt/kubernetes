@@ -27,20 +27,20 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	extensionsv1beta1 "k8s.io/client-go/applyconfigurations/extensions/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedextensionsv1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
 	testing "k8s.io/client-go/testing"
 )
 
 // fakeDeployments implements DeploymentInterface
 type fakeDeployments struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration]
 	Fake *FakeExtensionsV1beta1
 }
 
 func newFakeDeployments(fake *FakeExtensionsV1beta1, namespace string) typedextensionsv1beta1.DeploymentInterface {
 	return &fakeDeployments{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.Deployment, *v1beta1.DeploymentList, *extensionsv1beta1.DeploymentApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("deployments"),
@@ -48,9 +48,9 @@ func newFakeDeployments(fake *FakeExtensionsV1beta1, namespace string) typedexte
 			func() *v1beta1.Deployment { return &v1beta1.Deployment{} },
 			func() *v1beta1.DeploymentList { return &v1beta1.DeploymentList{} },
 			func(dst, src *v1beta1.DeploymentList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.DeploymentList) []*v1beta1.Deployment { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.DeploymentList) []*v1beta1.Deployment { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.DeploymentList, items []*v1beta1.Deployment) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

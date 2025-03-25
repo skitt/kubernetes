@@ -24,20 +24,20 @@ import (
 	v1 "k8s.io/api/certificates/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	certificatesv1 "k8s.io/client-go/applyconfigurations/certificates/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcertificatesv1 "k8s.io/client-go/kubernetes/typed/certificates/v1"
 	testing "k8s.io/client-go/testing"
 )
 
 // fakeCertificateSigningRequests implements CertificateSigningRequestInterface
 type fakeCertificateSigningRequests struct {
-	*gentype.FakeClientWithListAndApply[*v1.CertificateSigningRequest, *v1.CertificateSigningRequestList, *certificatesv1.CertificateSigningRequestApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.CertificateSigningRequest, *v1.CertificateSigningRequestList, *certificatesv1.CertificateSigningRequestApplyConfiguration]
 	Fake *FakeCertificatesV1
 }
 
 func newFakeCertificateSigningRequests(fake *FakeCertificatesV1) typedcertificatesv1.CertificateSigningRequestInterface {
 	return &fakeCertificateSigningRequests{
-		gentype.NewFakeClientWithListAndApply[*v1.CertificateSigningRequest, *v1.CertificateSigningRequestList, *certificatesv1.CertificateSigningRequestApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.CertificateSigningRequest, *v1.CertificateSigningRequestList, *certificatesv1.CertificateSigningRequestApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("certificatesigningrequests"),
@@ -46,10 +46,10 @@ func newFakeCertificateSigningRequests(fake *FakeCertificatesV1) typedcertificat
 			func() *v1.CertificateSigningRequestList { return &v1.CertificateSigningRequestList{} },
 			func(dst, src *v1.CertificateSigningRequestList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.CertificateSigningRequestList) []*v1.CertificateSigningRequest {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.CertificateSigningRequestList, items []*v1.CertificateSigningRequest) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

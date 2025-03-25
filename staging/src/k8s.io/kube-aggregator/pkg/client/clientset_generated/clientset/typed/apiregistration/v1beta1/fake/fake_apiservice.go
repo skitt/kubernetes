@@ -19,20 +19,20 @@ limitations under the License.
 package fake
 
 import (
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	v1beta1 "k8s.io/kube-aggregator/pkg/apis/apiregistration/v1beta1"
 	apiregistrationv1beta1 "k8s.io/kube-aggregator/pkg/client/clientset_generated/clientset/typed/apiregistration/v1beta1"
 )
 
 // fakeAPIServices implements APIServiceInterface
 type fakeAPIServices struct {
-	*gentype.FakeClientWithList[*v1beta1.APIService, *v1beta1.APIServiceList]
+	*gentype2.FakeClientWithList[*v1beta1.APIService, *v1beta1.APIServiceList]
 	Fake *FakeApiregistrationV1beta1
 }
 
 func newFakeAPIServices(fake *FakeApiregistrationV1beta1) apiregistrationv1beta1.APIServiceInterface {
 	return &fakeAPIServices{
-		gentype.NewFakeClientWithList[*v1beta1.APIService, *v1beta1.APIServiceList](
+		gentype2.NewFakeClientWithList[*v1beta1.APIService, *v1beta1.APIServiceList](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("apiservices"),
@@ -40,9 +40,9 @@ func newFakeAPIServices(fake *FakeApiregistrationV1beta1) apiregistrationv1beta1
 			func() *v1beta1.APIService { return &v1beta1.APIService{} },
 			func() *v1beta1.APIServiceList { return &v1beta1.APIServiceList{} },
 			func(dst, src *v1beta1.APIServiceList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.APIServiceList) []*v1beta1.APIService { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.APIServiceList) []*v1beta1.APIService { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.APIServiceList, items []*v1beta1.APIService) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

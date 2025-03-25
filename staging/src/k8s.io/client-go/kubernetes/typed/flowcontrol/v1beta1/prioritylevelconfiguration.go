@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsflowcontrolv1beta1 "k8s.io/client-go/applyconfigurations/flowcontrol/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,13 +56,13 @@ type PriorityLevelConfigurationInterface interface {
 
 // priorityLevelConfigurations implements PriorityLevelConfigurationInterface
 type priorityLevelConfigurations struct {
-	*gentype.ClientWithListAndApply[*flowcontrolv1beta1.PriorityLevelConfiguration, *flowcontrolv1beta1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1beta1.PriorityLevelConfigurationApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*flowcontrolv1beta1.PriorityLevelConfiguration, *flowcontrolv1beta1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1beta1.PriorityLevelConfigurationApplyConfiguration]
 }
 
 // newPriorityLevelConfigurations returns a PriorityLevelConfigurations
 func newPriorityLevelConfigurations(c *FlowcontrolV1beta1Client) *priorityLevelConfigurations {
 	return &priorityLevelConfigurations{
-		gentype.NewClientWithListAndApply[*flowcontrolv1beta1.PriorityLevelConfiguration, *flowcontrolv1beta1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1beta1.PriorityLevelConfigurationApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*flowcontrolv1beta1.PriorityLevelConfiguration, *flowcontrolv1beta1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1beta1.PriorityLevelConfigurationApplyConfiguration](
 			"prioritylevelconfigurations",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -73,7 +73,7 @@ func newPriorityLevelConfigurations(c *FlowcontrolV1beta1Client) *priorityLevelC
 			func() *flowcontrolv1beta1.PriorityLevelConfigurationList {
 				return &flowcontrolv1beta1.PriorityLevelConfigurationList{}
 			},
-			gentype.PrefersProtobuf[*flowcontrolv1beta1.PriorityLevelConfiguration](),
+			gentype2.PrefersProtobuf[*flowcontrolv1beta1.PriorityLevelConfiguration](),
 		),
 	}
 }

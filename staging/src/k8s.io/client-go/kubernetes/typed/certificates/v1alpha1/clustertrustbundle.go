@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscertificatesv1alpha1 "k8s.io/client-go/applyconfigurations/certificates/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,13 +52,13 @@ type ClusterTrustBundleInterface interface {
 
 // clusterTrustBundles implements ClusterTrustBundleInterface
 type clusterTrustBundles struct {
-	*gentype.ClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
 }
 
 // newClusterTrustBundles returns a ClusterTrustBundles
 func newClusterTrustBundles(c *CertificatesV1alpha1Client) *clusterTrustBundles {
 	return &clusterTrustBundles{
-		gentype.NewClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*certificatesv1alpha1.ClusterTrustBundle, *certificatesv1alpha1.ClusterTrustBundleList, *applyconfigurationscertificatesv1alpha1.ClusterTrustBundleApplyConfiguration](
 			"clustertrustbundles",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -67,7 +67,7 @@ func newClusterTrustBundles(c *CertificatesV1alpha1Client) *clusterTrustBundles 
 			func() *certificatesv1alpha1.ClusterTrustBundleList {
 				return &certificatesv1alpha1.ClusterTrustBundleList{}
 			},
-			gentype.PrefersProtobuf[*certificatesv1alpha1.ClusterTrustBundle](),
+			gentype2.PrefersProtobuf[*certificatesv1alpha1.ClusterTrustBundle](),
 		),
 	}
 }

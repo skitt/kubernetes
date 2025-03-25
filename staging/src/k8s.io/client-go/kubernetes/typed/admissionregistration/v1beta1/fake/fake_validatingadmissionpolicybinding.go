@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/admissionregistration/v1beta1"
 	admissionregistrationv1beta1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedadmissionregistrationv1beta1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1beta1"
 )
 
 // fakeValidatingAdmissionPolicyBindings implements ValidatingAdmissionPolicyBindingInterface
 type fakeValidatingAdmissionPolicyBindings struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicyBinding, *v1beta1.ValidatingAdmissionPolicyBindingList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyBindingApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicyBinding, *v1beta1.ValidatingAdmissionPolicyBindingList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyBindingApplyConfiguration]
 	Fake *FakeAdmissionregistrationV1beta1
 }
 
 func newFakeValidatingAdmissionPolicyBindings(fake *FakeAdmissionregistrationV1beta1) typedadmissionregistrationv1beta1.ValidatingAdmissionPolicyBindingInterface {
 	return &fakeValidatingAdmissionPolicyBindings{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicyBinding, *v1beta1.ValidatingAdmissionPolicyBindingList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyBindingApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ValidatingAdmissionPolicyBinding, *v1beta1.ValidatingAdmissionPolicyBindingList, *admissionregistrationv1beta1.ValidatingAdmissionPolicyBindingApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("validatingadmissionpolicybindings"),
@@ -44,10 +44,10 @@ func newFakeValidatingAdmissionPolicyBindings(fake *FakeAdmissionregistrationV1b
 			},
 			func(dst, src *v1beta1.ValidatingAdmissionPolicyBindingList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ValidatingAdmissionPolicyBindingList) []*v1beta1.ValidatingAdmissionPolicyBinding {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.ValidatingAdmissionPolicyBindingList, items []*v1beta1.ValidatingAdmissionPolicyBinding) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

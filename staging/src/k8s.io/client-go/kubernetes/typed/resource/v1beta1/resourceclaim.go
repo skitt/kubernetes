@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsresourcev1beta1 "k8s.io/client-go/applyconfigurations/resource/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,20 +56,20 @@ type ResourceClaimInterface interface {
 
 // resourceClaims implements ResourceClaimInterface
 type resourceClaims struct {
-	*gentype.ClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration]
 }
 
 // newResourceClaims returns a ResourceClaims
 func newResourceClaims(c *ResourceV1beta1Client, namespace string) *resourceClaims {
 	return &resourceClaims{
-		gentype.NewClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*resourcev1beta1.ResourceClaim, *resourcev1beta1.ResourceClaimList, *applyconfigurationsresourcev1beta1.ResourceClaimApplyConfiguration](
 			"resourceclaims",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *resourcev1beta1.ResourceClaim { return &resourcev1beta1.ResourceClaim{} },
 			func() *resourcev1beta1.ResourceClaimList { return &resourcev1beta1.ResourceClaimList{} },
-			gentype.PrefersProtobuf[*resourcev1beta1.ResourceClaim](),
+			gentype2.PrefersProtobuf[*resourcev1beta1.ResourceClaim](),
 		),
 	}
 }

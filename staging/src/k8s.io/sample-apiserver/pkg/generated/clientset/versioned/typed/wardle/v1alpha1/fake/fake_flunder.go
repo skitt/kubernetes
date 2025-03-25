@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	v1alpha1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
 	wardlev1alpha1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1alpha1"
 	typedwardlev1alpha1 "k8s.io/sample-apiserver/pkg/generated/clientset/versioned/typed/wardle/v1alpha1"
@@ -27,13 +27,13 @@ import (
 
 // fakeFlunders implements FlunderInterface
 type fakeFlunders struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration]
 	Fake *FakeWardleV1alpha1
 }
 
 func newFakeFlunders(fake *FakeWardleV1alpha1, namespace string) typedwardlev1alpha1.FlunderInterface {
 	return &fakeFlunders{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.Flunder, *v1alpha1.FlunderList, *wardlev1alpha1.FlunderApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1alpha1.SchemeGroupVersion.WithResource("flunders"),
@@ -41,9 +41,9 @@ func newFakeFlunders(fake *FakeWardleV1alpha1, namespace string) typedwardlev1al
 			func() *v1alpha1.Flunder { return &v1alpha1.Flunder{} },
 			func() *v1alpha1.FlunderList { return &v1alpha1.FlunderList{} },
 			func(dst, src *v1alpha1.FlunderList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.FlunderList) []*v1alpha1.Flunder { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1alpha1.FlunderList) []*v1alpha1.Flunder { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1alpha1.FlunderList, items []*v1alpha1.Flunder) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

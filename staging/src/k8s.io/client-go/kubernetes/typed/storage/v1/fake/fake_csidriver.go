@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/storage/v1"
 	storagev1 "k8s.io/client-go/applyconfigurations/storage/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragev1 "k8s.io/client-go/kubernetes/typed/storage/v1"
 )
 
 // fakeCSIDrivers implements CSIDriverInterface
 type fakeCSIDrivers struct {
-	*gentype.FakeClientWithListAndApply[*v1.CSIDriver, *v1.CSIDriverList, *storagev1.CSIDriverApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.CSIDriver, *v1.CSIDriverList, *storagev1.CSIDriverApplyConfiguration]
 	Fake *FakeStorageV1
 }
 
 func newFakeCSIDrivers(fake *FakeStorageV1) typedstoragev1.CSIDriverInterface {
 	return &fakeCSIDrivers{
-		gentype.NewFakeClientWithListAndApply[*v1.CSIDriver, *v1.CSIDriverList, *storagev1.CSIDriverApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.CSIDriver, *v1.CSIDriverList, *storagev1.CSIDriverApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("csidrivers"),
@@ -41,8 +41,8 @@ func newFakeCSIDrivers(fake *FakeStorageV1) typedstoragev1.CSIDriverInterface {
 			func() *v1.CSIDriver { return &v1.CSIDriver{} },
 			func() *v1.CSIDriverList { return &v1.CSIDriverList{} },
 			func(dst, src *v1.CSIDriverList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.CSIDriverList) []*v1.CSIDriver { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.CSIDriverList, items []*v1.CSIDriver) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.CSIDriverList) []*v1.CSIDriver { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.CSIDriverList, items []*v1.CSIDriver) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationseventsv1beta1 "k8s.io/client-go/applyconfigurations/events/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type EventInterface interface {
 
 // events implements EventInterface
 type events struct {
-	*gentype.ClientWithListAndApply[*eventsv1beta1.Event, *eventsv1beta1.EventList, *applyconfigurationseventsv1beta1.EventApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*eventsv1beta1.Event, *eventsv1beta1.EventList, *applyconfigurationseventsv1beta1.EventApplyConfiguration]
 }
 
 // newEvents returns a Events
 func newEvents(c *EventsV1beta1Client, namespace string) *events {
 	return &events{
-		gentype.NewClientWithListAndApply[*eventsv1beta1.Event, *eventsv1beta1.EventList, *applyconfigurationseventsv1beta1.EventApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*eventsv1beta1.Event, *eventsv1beta1.EventList, *applyconfigurationseventsv1beta1.EventApplyConfiguration](
 			"events",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *eventsv1beta1.Event { return &eventsv1beta1.Event{} },
 			func() *eventsv1beta1.EventList { return &eventsv1beta1.EventList{} },
-			gentype.PrefersProtobuf[*eventsv1beta1.Event](),
+			gentype2.PrefersProtobuf[*eventsv1beta1.Event](),
 		),
 	}
 }

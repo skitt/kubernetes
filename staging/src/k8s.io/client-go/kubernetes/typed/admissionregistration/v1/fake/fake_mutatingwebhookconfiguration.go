@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/admissionregistration/v1"
 	admissionregistrationv1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedadmissionregistrationv1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1"
 )
 
 // fakeMutatingWebhookConfigurations implements MutatingWebhookConfigurationInterface
 type fakeMutatingWebhookConfigurations struct {
-	*gentype.FakeClientWithListAndApply[*v1.MutatingWebhookConfiguration, *v1.MutatingWebhookConfigurationList, *admissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.MutatingWebhookConfiguration, *v1.MutatingWebhookConfigurationList, *admissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration]
 	Fake *FakeAdmissionregistrationV1
 }
 
 func newFakeMutatingWebhookConfigurations(fake *FakeAdmissionregistrationV1) typedadmissionregistrationv1.MutatingWebhookConfigurationInterface {
 	return &fakeMutatingWebhookConfigurations{
-		gentype.NewFakeClientWithListAndApply[*v1.MutatingWebhookConfiguration, *v1.MutatingWebhookConfigurationList, *admissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.MutatingWebhookConfiguration, *v1.MutatingWebhookConfigurationList, *admissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("mutatingwebhookconfigurations"),
@@ -42,10 +42,10 @@ func newFakeMutatingWebhookConfigurations(fake *FakeAdmissionregistrationV1) typ
 			func() *v1.MutatingWebhookConfigurationList { return &v1.MutatingWebhookConfigurationList{} },
 			func(dst, src *v1.MutatingWebhookConfigurationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.MutatingWebhookConfigurationList) []*v1.MutatingWebhookConfiguration {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.MutatingWebhookConfigurationList, items []*v1.MutatingWebhookConfiguration) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

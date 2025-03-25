@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscertificatesv1 "k8s.io/client-go/applyconfigurations/certificates/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -58,13 +58,13 @@ type CertificateSigningRequestInterface interface {
 
 // certificateSigningRequests implements CertificateSigningRequestInterface
 type certificateSigningRequests struct {
-	*gentype.ClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration]
 }
 
 // newCertificateSigningRequests returns a CertificateSigningRequests
 func newCertificateSigningRequests(c *CertificatesV1Client) *certificateSigningRequests {
 	return &certificateSigningRequests{
-		gentype.NewClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*certificatesv1.CertificateSigningRequest, *certificatesv1.CertificateSigningRequestList, *applyconfigurationscertificatesv1.CertificateSigningRequestApplyConfiguration](
 			"certificatesigningrequests",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -73,7 +73,7 @@ func newCertificateSigningRequests(c *CertificatesV1Client) *certificateSigningR
 			func() *certificatesv1.CertificateSigningRequestList {
 				return &certificatesv1.CertificateSigningRequestList{}
 			},
-			gentype.PrefersProtobuf[*certificatesv1.CertificateSigningRequest](),
+			gentype2.PrefersProtobuf[*certificatesv1.CertificateSigningRequest](),
 		),
 	}
 }

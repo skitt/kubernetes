@@ -21,19 +21,19 @@ package fake
 import (
 	v2beta1 "k8s.io/api/autoscaling/v2beta1"
 	autoscalingv2beta1 "k8s.io/client-go/applyconfigurations/autoscaling/v2beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedautoscalingv2beta1 "k8s.io/client-go/kubernetes/typed/autoscaling/v2beta1"
 )
 
 // fakeHorizontalPodAutoscalers implements HorizontalPodAutoscalerInterface
 type fakeHorizontalPodAutoscalers struct {
-	*gentype.FakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration]
 	Fake *FakeAutoscalingV2beta1
 }
 
 func newFakeHorizontalPodAutoscalers(fake *FakeAutoscalingV2beta1, namespace string) typedautoscalingv2beta1.HorizontalPodAutoscalerInterface {
 	return &fakeHorizontalPodAutoscalers{
-		gentype.NewFakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v2beta1.HorizontalPodAutoscaler, *v2beta1.HorizontalPodAutoscalerList, *autoscalingv2beta1.HorizontalPodAutoscalerApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v2beta1.SchemeGroupVersion.WithResource("horizontalpodautoscalers"),
@@ -42,10 +42,10 @@ func newFakeHorizontalPodAutoscalers(fake *FakeAutoscalingV2beta1, namespace str
 			func() *v2beta1.HorizontalPodAutoscalerList { return &v2beta1.HorizontalPodAutoscalerList{} },
 			func(dst, src *v2beta1.HorizontalPodAutoscalerList) { dst.ListMeta = src.ListMeta },
 			func(list *v2beta1.HorizontalPodAutoscalerList) []*v2beta1.HorizontalPodAutoscaler {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v2beta1.HorizontalPodAutoscalerList, items []*v2beta1.HorizontalPodAutoscaler) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

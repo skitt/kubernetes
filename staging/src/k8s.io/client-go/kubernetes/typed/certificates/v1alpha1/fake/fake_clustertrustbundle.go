@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/certificates/v1alpha1"
 	certificatesv1alpha1 "k8s.io/client-go/applyconfigurations/certificates/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcertificatesv1alpha1 "k8s.io/client-go/kubernetes/typed/certificates/v1alpha1"
 )
 
 // fakeClusterTrustBundles implements ClusterTrustBundleInterface
 type fakeClusterTrustBundles struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration]
 	Fake *FakeCertificatesV1alpha1
 }
 
 func newFakeClusterTrustBundles(fake *FakeCertificatesV1alpha1) typedcertificatesv1alpha1.ClusterTrustBundleInterface {
 	return &fakeClusterTrustBundles{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ClusterTrustBundle, *v1alpha1.ClusterTrustBundleList, *certificatesv1alpha1.ClusterTrustBundleApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("clustertrustbundles"),
@@ -42,10 +42,10 @@ func newFakeClusterTrustBundles(fake *FakeCertificatesV1alpha1) typedcertificate
 			func() *v1alpha1.ClusterTrustBundleList { return &v1alpha1.ClusterTrustBundleList{} },
 			func(dst, src *v1alpha1.ClusterTrustBundleList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.ClusterTrustBundleList) []*v1alpha1.ClusterTrustBundle {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.ClusterTrustBundleList, items []*v1alpha1.ClusterTrustBundle) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

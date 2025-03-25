@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/flowcontrol/v1"
 	flowcontrolv1 "k8s.io/client-go/applyconfigurations/flowcontrol/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedflowcontrolv1 "k8s.io/client-go/kubernetes/typed/flowcontrol/v1"
 )
 
 // fakeFlowSchemas implements FlowSchemaInterface
 type fakeFlowSchemas struct {
-	*gentype.FakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration]
 	Fake *FakeFlowcontrolV1
 }
 
 func newFakeFlowSchemas(fake *FakeFlowcontrolV1) typedflowcontrolv1.FlowSchemaInterface {
 	return &fakeFlowSchemas{
-		gentype.NewFakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.FlowSchema, *v1.FlowSchemaList, *flowcontrolv1.FlowSchemaApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("flowschemas"),
@@ -41,8 +41,8 @@ func newFakeFlowSchemas(fake *FakeFlowcontrolV1) typedflowcontrolv1.FlowSchemaIn
 			func() *v1.FlowSchema { return &v1.FlowSchema{} },
 			func() *v1.FlowSchemaList { return &v1.FlowSchemaList{} },
 			func(dst, src *v1.FlowSchemaList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.FlowSchemaList) []*v1.FlowSchema { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.FlowSchemaList, items []*v1.FlowSchema) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.FlowSchemaList) []*v1.FlowSchema { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.FlowSchemaList, items []*v1.FlowSchema) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

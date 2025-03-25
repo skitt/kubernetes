@@ -20,19 +20,19 @@ package fake
 
 import (
 	v1 "k8s.io/api/authorization/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	authorizationv1 "k8s.io/client-go/kubernetes/typed/authorization/v1"
 )
 
 // fakeLocalSubjectAccessReviews implements LocalSubjectAccessReviewInterface
 type fakeLocalSubjectAccessReviews struct {
-	*gentype.FakeClient[*v1.LocalSubjectAccessReview]
+	*gentype2.FakeClient[*v1.LocalSubjectAccessReview]
 	Fake *FakeAuthorizationV1
 }
 
 func newFakeLocalSubjectAccessReviews(fake *FakeAuthorizationV1, namespace string) authorizationv1.LocalSubjectAccessReviewInterface {
 	return &fakeLocalSubjectAccessReviews{
-		gentype.NewFakeClient[*v1.LocalSubjectAccessReview](
+		gentype2.NewFakeClient[*v1.LocalSubjectAccessReview](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("localsubjectaccessreviews"),

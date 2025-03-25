@@ -29,20 +29,20 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	appsv1 "k8s.io/client-go/applyconfigurations/apps/v1"
 	applyconfigurationsautoscalingv1 "k8s.io/client-go/applyconfigurations/autoscaling/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedappsv1 "k8s.io/client-go/kubernetes/typed/apps/v1"
 	testing "k8s.io/client-go/testing"
 )
 
 // fakeReplicaSets implements ReplicaSetInterface
 type fakeReplicaSets struct {
-	*gentype.FakeClientWithListAndApply[*v1.ReplicaSet, *v1.ReplicaSetList, *appsv1.ReplicaSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ReplicaSet, *v1.ReplicaSetList, *appsv1.ReplicaSetApplyConfiguration]
 	Fake *FakeAppsV1
 }
 
 func newFakeReplicaSets(fake *FakeAppsV1, namespace string) typedappsv1.ReplicaSetInterface {
 	return &fakeReplicaSets{
-		gentype.NewFakeClientWithListAndApply[*v1.ReplicaSet, *v1.ReplicaSetList, *appsv1.ReplicaSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ReplicaSet, *v1.ReplicaSetList, *appsv1.ReplicaSetApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("replicasets"),
@@ -50,8 +50,8 @@ func newFakeReplicaSets(fake *FakeAppsV1, namespace string) typedappsv1.ReplicaS
 			func() *v1.ReplicaSet { return &v1.ReplicaSet{} },
 			func() *v1.ReplicaSetList { return &v1.ReplicaSetList{} },
 			func(dst, src *v1.ReplicaSetList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ReplicaSetList) []*v1.ReplicaSet { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.ReplicaSetList, items []*v1.ReplicaSet) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.ReplicaSetList) []*v1.ReplicaSet { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.ReplicaSetList, items []*v1.ReplicaSet) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/admissionregistration/v1beta1"
 	admissionregistrationv1beta1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedadmissionregistrationv1beta1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1beta1"
 )
 
 // fakeMutatingWebhookConfigurations implements MutatingWebhookConfigurationInterface
 type fakeMutatingWebhookConfigurations struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration]
 	Fake *FakeAdmissionregistrationV1beta1
 }
 
 func newFakeMutatingWebhookConfigurations(fake *FakeAdmissionregistrationV1beta1) typedadmissionregistrationv1beta1.MutatingWebhookConfigurationInterface {
 	return &fakeMutatingWebhookConfigurations{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.MutatingWebhookConfiguration, *v1beta1.MutatingWebhookConfigurationList, *admissionregistrationv1beta1.MutatingWebhookConfigurationApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("mutatingwebhookconfigurations"),
@@ -42,10 +42,10 @@ func newFakeMutatingWebhookConfigurations(fake *FakeAdmissionregistrationV1beta1
 			func() *v1beta1.MutatingWebhookConfigurationList { return &v1beta1.MutatingWebhookConfigurationList{} },
 			func(dst, src *v1beta1.MutatingWebhookConfigurationList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.MutatingWebhookConfigurationList) []*v1beta1.MutatingWebhookConfiguration {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.MutatingWebhookConfigurationList, items []*v1beta1.MutatingWebhookConfiguration) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

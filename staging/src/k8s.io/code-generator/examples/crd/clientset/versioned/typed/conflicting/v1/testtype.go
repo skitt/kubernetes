@@ -24,7 +24,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	conflictingv1 "k8s.io/code-generator/examples/crd/apis/conflicting/v1"
 	applyconfigurationconflictingv1 "k8s.io/code-generator/examples/crd/applyconfiguration/conflicting/v1"
 	scheme "k8s.io/code-generator/examples/crd/clientset/versioned/scheme"
@@ -56,13 +56,13 @@ type TestTypeInterface interface {
 
 // testTypes implements TestTypeInterface
 type testTypes struct {
-	*gentype.ClientWithListAndApply[*conflictingv1.TestType, *conflictingv1.TestTypeList, *applyconfigurationconflictingv1.TestTypeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*conflictingv1.TestType, *conflictingv1.TestTypeList, *applyconfigurationconflictingv1.TestTypeApplyConfiguration]
 }
 
 // newTestTypes returns a TestTypes
 func newTestTypes(c *ConflictingExampleV1Client, namespace string) *testTypes {
 	return &testTypes{
-		gentype.NewClientWithListAndApply[*conflictingv1.TestType, *conflictingv1.TestTypeList, *applyconfigurationconflictingv1.TestTypeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*conflictingv1.TestType, *conflictingv1.TestTypeList, *applyconfigurationconflictingv1.TestTypeApplyConfiguration](
 			"testtypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

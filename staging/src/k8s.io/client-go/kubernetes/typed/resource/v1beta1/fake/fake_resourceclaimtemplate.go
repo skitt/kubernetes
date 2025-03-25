@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/resource/v1beta1"
 	resourcev1beta1 "k8s.io/client-go/applyconfigurations/resource/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedresourcev1beta1 "k8s.io/client-go/kubernetes/typed/resource/v1beta1"
 )
 
 // fakeResourceClaimTemplates implements ResourceClaimTemplateInterface
 type fakeResourceClaimTemplates struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.ResourceClaimTemplate, *v1beta1.ResourceClaimTemplateList, *resourcev1beta1.ResourceClaimTemplateApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.ResourceClaimTemplate, *v1beta1.ResourceClaimTemplateList, *resourcev1beta1.ResourceClaimTemplateApplyConfiguration]
 	Fake *FakeResourceV1beta1
 }
 
 func newFakeResourceClaimTemplates(fake *FakeResourceV1beta1, namespace string) typedresourcev1beta1.ResourceClaimTemplateInterface {
 	return &fakeResourceClaimTemplates{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.ResourceClaimTemplate, *v1beta1.ResourceClaimTemplateList, *resourcev1beta1.ResourceClaimTemplateApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.ResourceClaimTemplate, *v1beta1.ResourceClaimTemplateList, *resourcev1beta1.ResourceClaimTemplateApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("resourceclaimtemplates"),
@@ -42,10 +42,10 @@ func newFakeResourceClaimTemplates(fake *FakeResourceV1beta1, namespace string) 
 			func() *v1beta1.ResourceClaimTemplateList { return &v1beta1.ResourceClaimTemplateList{} },
 			func(dst, src *v1beta1.ResourceClaimTemplateList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.ResourceClaimTemplateList) []*v1beta1.ResourceClaimTemplate {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.ResourceClaimTemplateList, items []*v1beta1.ResourceClaimTemplate) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

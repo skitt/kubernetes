@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 // fakeServices implements ServiceInterface
 type fakeServices struct {
-	*gentype.FakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakeServices(fake *FakeCoreV1, namespace string) typedcorev1.ServiceInterface {
 	return &fakeServices{
-		gentype.NewFakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Service, *v1.ServiceList, *corev1.ServiceApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("services"),
@@ -41,8 +41,8 @@ func newFakeServices(fake *FakeCoreV1, namespace string) typedcorev1.ServiceInte
 			func() *v1.Service { return &v1.Service{} },
 			func() *v1.ServiceList { return &v1.ServiceList{} },
 			func(dst, src *v1.ServiceList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ServiceList) []*v1.Service { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.ServiceList, items []*v1.Service) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.ServiceList) []*v1.Service { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.ServiceList, items []*v1.Service) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

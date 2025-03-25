@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsflowcontrolv1 "k8s.io/client-go/applyconfigurations/flowcontrol/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,13 +56,13 @@ type PriorityLevelConfigurationInterface interface {
 
 // priorityLevelConfigurations implements PriorityLevelConfigurationInterface
 type priorityLevelConfigurations struct {
-	*gentype.ClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration]
 }
 
 // newPriorityLevelConfigurations returns a PriorityLevelConfigurations
 func newPriorityLevelConfigurations(c *FlowcontrolV1Client) *priorityLevelConfigurations {
 	return &priorityLevelConfigurations{
-		gentype.NewClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*flowcontrolv1.PriorityLevelConfiguration, *flowcontrolv1.PriorityLevelConfigurationList, *applyconfigurationsflowcontrolv1.PriorityLevelConfigurationApplyConfiguration](
 			"prioritylevelconfigurations",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -71,7 +71,7 @@ func newPriorityLevelConfigurations(c *FlowcontrolV1Client) *priorityLevelConfig
 			func() *flowcontrolv1.PriorityLevelConfigurationList {
 				return &flowcontrolv1.PriorityLevelConfigurationList{}
 			},
-			gentype.PrefersProtobuf[*flowcontrolv1.PriorityLevelConfiguration](),
+			gentype2.PrefersProtobuf[*flowcontrolv1.PriorityLevelConfiguration](),
 		),
 	}
 }

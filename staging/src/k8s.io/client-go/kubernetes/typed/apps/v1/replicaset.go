@@ -29,7 +29,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsappsv1 "k8s.io/client-go/applyconfigurations/apps/v1"
 	applyconfigurationsautoscalingv1 "k8s.io/client-go/applyconfigurations/autoscaling/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 	apply "k8s.io/client-go/util/apply"
 )
@@ -64,20 +64,20 @@ type ReplicaSetInterface interface {
 
 // replicaSets implements ReplicaSetInterface
 type replicaSets struct {
-	*gentype.ClientWithListAndApply[*appsv1.ReplicaSet, *appsv1.ReplicaSetList, *applyconfigurationsappsv1.ReplicaSetApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1.ReplicaSet, *appsv1.ReplicaSetList, *applyconfigurationsappsv1.ReplicaSetApplyConfiguration]
 }
 
 // newReplicaSets returns a ReplicaSets
 func newReplicaSets(c *AppsV1Client, namespace string) *replicaSets {
 	return &replicaSets{
-		gentype.NewClientWithListAndApply[*appsv1.ReplicaSet, *appsv1.ReplicaSetList, *applyconfigurationsappsv1.ReplicaSetApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1.ReplicaSet, *appsv1.ReplicaSetList, *applyconfigurationsappsv1.ReplicaSetApplyConfiguration](
 			"replicasets",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *appsv1.ReplicaSet { return &appsv1.ReplicaSet{} },
 			func() *appsv1.ReplicaSetList { return &appsv1.ReplicaSetList{} },
-			gentype.PrefersProtobuf[*appsv1.ReplicaSet](),
+			gentype2.PrefersProtobuf[*appsv1.ReplicaSet](),
 		),
 	}
 }

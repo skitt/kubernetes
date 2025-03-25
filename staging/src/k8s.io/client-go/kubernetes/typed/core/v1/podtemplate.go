@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type PodTemplateInterface interface {
 
 // podTemplates implements PodTemplateInterface
 type podTemplates struct {
-	*gentype.ClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration]
 }
 
 // newPodTemplates returns a PodTemplates
 func newPodTemplates(c *CoreV1Client, namespace string) *podTemplates {
 	return &podTemplates{
-		gentype.NewClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.PodTemplate, *corev1.PodTemplateList, *applyconfigurationscorev1.PodTemplateApplyConfiguration](
 			"podtemplates",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.PodTemplate { return &corev1.PodTemplate{} },
 			func() *corev1.PodTemplateList { return &corev1.PodTemplateList{} },
-			gentype.PrefersProtobuf[*corev1.PodTemplate](),
+			gentype2.PrefersProtobuf[*corev1.PodTemplate](),
 		),
 	}
 }

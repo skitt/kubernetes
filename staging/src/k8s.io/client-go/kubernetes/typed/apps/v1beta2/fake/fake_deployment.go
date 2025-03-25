@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta2 "k8s.io/api/apps/v1beta2"
 	appsv1beta2 "k8s.io/client-go/applyconfigurations/apps/v1beta2"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedappsv1beta2 "k8s.io/client-go/kubernetes/typed/apps/v1beta2"
 )
 
 // fakeDeployments implements DeploymentInterface
 type fakeDeployments struct {
-	*gentype.FakeClientWithListAndApply[*v1beta2.Deployment, *v1beta2.DeploymentList, *appsv1beta2.DeploymentApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta2.Deployment, *v1beta2.DeploymentList, *appsv1beta2.DeploymentApplyConfiguration]
 	Fake *FakeAppsV1beta2
 }
 
 func newFakeDeployments(fake *FakeAppsV1beta2, namespace string) typedappsv1beta2.DeploymentInterface {
 	return &fakeDeployments{
-		gentype.NewFakeClientWithListAndApply[*v1beta2.Deployment, *v1beta2.DeploymentList, *appsv1beta2.DeploymentApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta2.Deployment, *v1beta2.DeploymentList, *appsv1beta2.DeploymentApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta2.SchemeGroupVersion.WithResource("deployments"),
@@ -41,9 +41,9 @@ func newFakeDeployments(fake *FakeAppsV1beta2, namespace string) typedappsv1beta
 			func() *v1beta2.Deployment { return &v1beta2.Deployment{} },
 			func() *v1beta2.DeploymentList { return &v1beta2.DeploymentList{} },
 			func(dst, src *v1beta2.DeploymentList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta2.DeploymentList) []*v1beta2.Deployment { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta2.DeploymentList) []*v1beta2.Deployment { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta2.DeploymentList, items []*v1beta2.Deployment) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

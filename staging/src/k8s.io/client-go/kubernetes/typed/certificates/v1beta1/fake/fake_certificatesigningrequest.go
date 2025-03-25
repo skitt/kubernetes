@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/certificates/v1beta1"
 	certificatesv1beta1 "k8s.io/client-go/applyconfigurations/certificates/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcertificatesv1beta1 "k8s.io/client-go/kubernetes/typed/certificates/v1beta1"
 )
 
 // fakeCertificateSigningRequests implements CertificateSigningRequestInterface
 type fakeCertificateSigningRequests struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration]
 	Fake *FakeCertificatesV1beta1
 }
 
 func newFakeCertificateSigningRequests(fake *FakeCertificatesV1beta1) typedcertificatesv1beta1.CertificateSigningRequestInterface {
 	return &fakeCertificateSigningRequests{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CertificateSigningRequest, *v1beta1.CertificateSigningRequestList, *certificatesv1beta1.CertificateSigningRequestApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("certificatesigningrequests"),
@@ -42,10 +42,10 @@ func newFakeCertificateSigningRequests(fake *FakeCertificatesV1beta1) typedcerti
 			func() *v1beta1.CertificateSigningRequestList { return &v1beta1.CertificateSigningRequestList{} },
 			func(dst, src *v1beta1.CertificateSigningRequestList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.CertificateSigningRequestList) []*v1beta1.CertificateSigningRequest {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.CertificateSigningRequestList, items []*v1beta1.CertificateSigningRequest) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

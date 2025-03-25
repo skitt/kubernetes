@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
 // fakePodTemplates implements PodTemplateInterface
 type fakePodTemplates struct {
-	*gentype.FakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration]
 	Fake *FakeCoreV1
 }
 
 func newFakePodTemplates(fake *FakeCoreV1, namespace string) typedcorev1.PodTemplateInterface {
 	return &fakePodTemplates{
-		gentype.NewFakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.PodTemplate, *v1.PodTemplateList, *corev1.PodTemplateApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("podtemplates"),
@@ -41,8 +41,8 @@ func newFakePodTemplates(fake *FakeCoreV1, namespace string) typedcorev1.PodTemp
 			func() *v1.PodTemplate { return &v1.PodTemplate{} },
 			func() *v1.PodTemplateList { return &v1.PodTemplateList{} },
 			func(dst, src *v1.PodTemplateList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.PodTemplateList) []*v1.PodTemplate { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.PodTemplateList, items []*v1.PodTemplate) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.PodTemplateList) []*v1.PodTemplate { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.PodTemplateList, items []*v1.PodTemplate) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

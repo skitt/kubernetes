@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/rbac/v1beta1"
 	rbacv1beta1 "k8s.io/client-go/applyconfigurations/rbac/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedrbacv1beta1 "k8s.io/client-go/kubernetes/typed/rbac/v1beta1"
 )
 
 // fakeRoleBindings implements RoleBindingInterface
 type fakeRoleBindings struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration]
 	Fake *FakeRbacV1beta1
 }
 
 func newFakeRoleBindings(fake *FakeRbacV1beta1, namespace string) typedrbacv1beta1.RoleBindingInterface {
 	return &fakeRoleBindings{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.RoleBinding, *v1beta1.RoleBindingList, *rbacv1beta1.RoleBindingApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("rolebindings"),
@@ -41,9 +41,9 @@ func newFakeRoleBindings(fake *FakeRbacV1beta1, namespace string) typedrbacv1bet
 			func() *v1beta1.RoleBinding { return &v1beta1.RoleBinding{} },
 			func() *v1beta1.RoleBindingList { return &v1beta1.RoleBindingList{} },
 			func(dst, src *v1beta1.RoleBindingList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.RoleBindingList) []*v1beta1.RoleBinding { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.RoleBindingList) []*v1beta1.RoleBinding { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.RoleBindingList, items []*v1beta1.RoleBinding) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

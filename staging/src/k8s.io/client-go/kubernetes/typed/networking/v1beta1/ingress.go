@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsnetworkingv1beta1 "k8s.io/client-go/applyconfigurations/networking/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,20 +56,20 @@ type IngressInterface interface {
 
 // ingresses implements IngressInterface
 type ingresses struct {
-	*gentype.ClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration]
 }
 
 // newIngresses returns a Ingresses
 func newIngresses(c *NetworkingV1beta1Client, namespace string) *ingresses {
 	return &ingresses{
-		gentype.NewClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1beta1.Ingress, *networkingv1beta1.IngressList, *applyconfigurationsnetworkingv1beta1.IngressApplyConfiguration](
 			"ingresses",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *networkingv1beta1.Ingress { return &networkingv1beta1.Ingress{} },
 			func() *networkingv1beta1.IngressList { return &networkingv1beta1.IngressList{} },
-			gentype.PrefersProtobuf[*networkingv1beta1.Ingress](),
+			gentype2.PrefersProtobuf[*networkingv1beta1.Ingress](),
 		),
 	}
 }

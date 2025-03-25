@@ -27,7 +27,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -60,20 +60,20 @@ type ReplicationControllerInterface interface {
 
 // replicationControllers implements ReplicationControllerInterface
 type replicationControllers struct {
-	*gentype.ClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration]
 }
 
 // newReplicationControllers returns a ReplicationControllers
 func newReplicationControllers(c *CoreV1Client, namespace string) *replicationControllers {
 	return &replicationControllers{
-		gentype.NewClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ReplicationController, *corev1.ReplicationControllerList, *applyconfigurationscorev1.ReplicationControllerApplyConfiguration](
 			"replicationcontrollers",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.ReplicationController { return &corev1.ReplicationController{} },
 			func() *corev1.ReplicationControllerList { return &corev1.ReplicationControllerList{} },
-			gentype.PrefersProtobuf[*corev1.ReplicationController](),
+			gentype2.PrefersProtobuf[*corev1.ReplicationController](),
 		),
 	}
 }

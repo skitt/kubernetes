@@ -19,20 +19,20 @@ limitations under the License.
 package fake
 
 import (
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	v1alpha1 "k8s.io/sample-controller/pkg/apis/samplecontroller/v1alpha1"
 	samplecontrollerv1alpha1 "k8s.io/sample-controller/pkg/generated/clientset/versioned/typed/samplecontroller/v1alpha1"
 )
 
 // fakeFoos implements FooInterface
 type fakeFoos struct {
-	*gentype.FakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList]
+	*gentype2.FakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList]
 	Fake *FakeSamplecontrollerV1alpha1
 }
 
 func newFakeFoos(fake *FakeSamplecontrollerV1alpha1, namespace string) samplecontrollerv1alpha1.FooInterface {
 	return &fakeFoos{
-		gentype.NewFakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList](
+		gentype2.NewFakeClientWithList[*v1alpha1.Foo, *v1alpha1.FooList](
 			fake.Fake,
 			namespace,
 			v1alpha1.SchemeGroupVersion.WithResource("foos"),
@@ -40,8 +40,8 @@ func newFakeFoos(fake *FakeSamplecontrollerV1alpha1, namespace string) samplecon
 			func() *v1alpha1.Foo { return &v1alpha1.Foo{} },
 			func() *v1alpha1.FooList { return &v1alpha1.FooList{} },
 			func(dst, src *v1alpha1.FooList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.FooList) []*v1alpha1.Foo { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1alpha1.FooList, items []*v1alpha1.Foo) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1alpha1.FooList) []*v1alpha1.Foo { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1alpha1.FooList, items []*v1alpha1.Foo) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

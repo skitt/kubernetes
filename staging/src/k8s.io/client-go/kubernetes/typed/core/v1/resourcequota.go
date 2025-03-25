@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,20 +56,20 @@ type ResourceQuotaInterface interface {
 
 // resourceQuotas implements ResourceQuotaInterface
 type resourceQuotas struct {
-	*gentype.ClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration]
 }
 
 // newResourceQuotas returns a ResourceQuotas
 func newResourceQuotas(c *CoreV1Client, namespace string) *resourceQuotas {
 	return &resourceQuotas{
-		gentype.NewClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ResourceQuota, *corev1.ResourceQuotaList, *applyconfigurationscorev1.ResourceQuotaApplyConfiguration](
 			"resourcequotas",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.ResourceQuota { return &corev1.ResourceQuota{} },
 			func() *corev1.ResourceQuotaList { return &corev1.ResourceQuotaList{} },
-			gentype.PrefersProtobuf[*corev1.ResourceQuota](),
+			gentype2.PrefersProtobuf[*corev1.ResourceQuota](),
 		),
 	}
 }

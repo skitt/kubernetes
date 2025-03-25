@@ -27,7 +27,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsappsv1beta2 "k8s.io/client-go/applyconfigurations/apps/v1beta2"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 	apply "k8s.io/client-go/util/apply"
 )
@@ -62,20 +62,20 @@ type StatefulSetInterface interface {
 
 // statefulSets implements StatefulSetInterface
 type statefulSets struct {
-	*gentype.ClientWithListAndApply[*appsv1beta2.StatefulSet, *appsv1beta2.StatefulSetList, *applyconfigurationsappsv1beta2.StatefulSetApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*appsv1beta2.StatefulSet, *appsv1beta2.StatefulSetList, *applyconfigurationsappsv1beta2.StatefulSetApplyConfiguration]
 }
 
 // newStatefulSets returns a StatefulSets
 func newStatefulSets(c *AppsV1beta2Client, namespace string) *statefulSets {
 	return &statefulSets{
-		gentype.NewClientWithListAndApply[*appsv1beta2.StatefulSet, *appsv1beta2.StatefulSetList, *applyconfigurationsappsv1beta2.StatefulSetApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*appsv1beta2.StatefulSet, *appsv1beta2.StatefulSetList, *applyconfigurationsappsv1beta2.StatefulSetApplyConfiguration](
 			"statefulsets",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *appsv1beta2.StatefulSet { return &appsv1beta2.StatefulSet{} },
 			func() *appsv1beta2.StatefulSetList { return &appsv1beta2.StatefulSetList{} },
-			gentype.PrefersProtobuf[*appsv1beta2.StatefulSet](),
+			gentype2.PrefersProtobuf[*appsv1beta2.StatefulSet](),
 		),
 	}
 }

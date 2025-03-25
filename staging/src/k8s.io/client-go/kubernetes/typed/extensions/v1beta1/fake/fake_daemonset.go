@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/extensions/v1beta1"
 	extensionsv1beta1 "k8s.io/client-go/applyconfigurations/extensions/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedextensionsv1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
 )
 
 // fakeDaemonSets implements DaemonSetInterface
 type fakeDaemonSets struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.DaemonSet, *v1beta1.DaemonSetList, *extensionsv1beta1.DaemonSetApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.DaemonSet, *v1beta1.DaemonSetList, *extensionsv1beta1.DaemonSetApplyConfiguration]
 	Fake *FakeExtensionsV1beta1
 }
 
 func newFakeDaemonSets(fake *FakeExtensionsV1beta1, namespace string) typedextensionsv1beta1.DaemonSetInterface {
 	return &fakeDaemonSets{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.DaemonSet, *v1beta1.DaemonSetList, *extensionsv1beta1.DaemonSetApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.DaemonSet, *v1beta1.DaemonSetList, *extensionsv1beta1.DaemonSetApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1beta1.SchemeGroupVersion.WithResource("daemonsets"),
@@ -41,9 +41,9 @@ func newFakeDaemonSets(fake *FakeExtensionsV1beta1, namespace string) typedexten
 			func() *v1beta1.DaemonSet { return &v1beta1.DaemonSet{} },
 			func() *v1beta1.DaemonSetList { return &v1beta1.DaemonSetList{} },
 			func(dst, src *v1beta1.DaemonSetList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.DaemonSetList) []*v1beta1.DaemonSet { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1beta1.DaemonSetList) []*v1beta1.DaemonSet { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1beta1.DaemonSetList, items []*v1beta1.DaemonSet) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

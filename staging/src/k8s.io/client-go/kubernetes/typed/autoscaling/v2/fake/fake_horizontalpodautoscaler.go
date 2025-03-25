@@ -21,19 +21,19 @@ package fake
 import (
 	v2 "k8s.io/api/autoscaling/v2"
 	autoscalingv2 "k8s.io/client-go/applyconfigurations/autoscaling/v2"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedautoscalingv2 "k8s.io/client-go/kubernetes/typed/autoscaling/v2"
 )
 
 // fakeHorizontalPodAutoscalers implements HorizontalPodAutoscalerInterface
 type fakeHorizontalPodAutoscalers struct {
-	*gentype.FakeClientWithListAndApply[*v2.HorizontalPodAutoscaler, *v2.HorizontalPodAutoscalerList, *autoscalingv2.HorizontalPodAutoscalerApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v2.HorizontalPodAutoscaler, *v2.HorizontalPodAutoscalerList, *autoscalingv2.HorizontalPodAutoscalerApplyConfiguration]
 	Fake *FakeAutoscalingV2
 }
 
 func newFakeHorizontalPodAutoscalers(fake *FakeAutoscalingV2, namespace string) typedautoscalingv2.HorizontalPodAutoscalerInterface {
 	return &fakeHorizontalPodAutoscalers{
-		gentype.NewFakeClientWithListAndApply[*v2.HorizontalPodAutoscaler, *v2.HorizontalPodAutoscalerList, *autoscalingv2.HorizontalPodAutoscalerApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v2.HorizontalPodAutoscaler, *v2.HorizontalPodAutoscalerList, *autoscalingv2.HorizontalPodAutoscalerApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v2.SchemeGroupVersion.WithResource("horizontalpodautoscalers"),
@@ -42,10 +42,10 @@ func newFakeHorizontalPodAutoscalers(fake *FakeAutoscalingV2, namespace string) 
 			func() *v2.HorizontalPodAutoscalerList { return &v2.HorizontalPodAutoscalerList{} },
 			func(dst, src *v2.HorizontalPodAutoscalerList) { dst.ListMeta = src.ListMeta },
 			func(list *v2.HorizontalPodAutoscalerList) []*v2.HorizontalPodAutoscaler {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v2.HorizontalPodAutoscalerList, items []*v2.HorizontalPodAutoscaler) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

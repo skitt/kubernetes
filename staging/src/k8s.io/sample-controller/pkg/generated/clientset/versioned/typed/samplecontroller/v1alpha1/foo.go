@@ -24,7 +24,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	samplecontrollerv1alpha1 "k8s.io/sample-controller/pkg/apis/samplecontroller/v1alpha1"
 	scheme "k8s.io/sample-controller/pkg/generated/clientset/versioned/scheme"
 )
@@ -52,13 +52,13 @@ type FooInterface interface {
 
 // foos implements FooInterface
 type foos struct {
-	*gentype.ClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList]
+	*gentype2.ClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList]
 }
 
 // newFoos returns a Foos
 func newFoos(c *SamplecontrollerV1alpha1Client, namespace string) *foos {
 	return &foos{
-		gentype.NewClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList](
+		gentype2.NewClientWithList[*samplecontrollerv1alpha1.Foo, *samplecontrollerv1alpha1.FooList](
 			"foos",
 			c.RESTClient(),
 			scheme.ParameterCodec,

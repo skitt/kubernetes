@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/scheduling/v1alpha1"
 	schedulingv1alpha1 "k8s.io/client-go/applyconfigurations/scheduling/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedschedulingv1alpha1 "k8s.io/client-go/kubernetes/typed/scheduling/v1alpha1"
 )
 
 // fakePriorityClasses implements PriorityClassInterface
 type fakePriorityClasses struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.PriorityClass, *v1alpha1.PriorityClassList, *schedulingv1alpha1.PriorityClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.PriorityClass, *v1alpha1.PriorityClassList, *schedulingv1alpha1.PriorityClassApplyConfiguration]
 	Fake *FakeSchedulingV1alpha1
 }
 
 func newFakePriorityClasses(fake *FakeSchedulingV1alpha1) typedschedulingv1alpha1.PriorityClassInterface {
 	return &fakePriorityClasses{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.PriorityClass, *v1alpha1.PriorityClassList, *schedulingv1alpha1.PriorityClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.PriorityClass, *v1alpha1.PriorityClassList, *schedulingv1alpha1.PriorityClassApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("priorityclasses"),
@@ -42,10 +42,10 @@ func newFakePriorityClasses(fake *FakeSchedulingV1alpha1) typedschedulingv1alpha
 			func() *v1alpha1.PriorityClassList { return &v1alpha1.PriorityClassList{} },
 			func(dst, src *v1alpha1.PriorityClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.PriorityClassList) []*v1alpha1.PriorityClass {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.PriorityClassList, items []*v1alpha1.PriorityClass) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

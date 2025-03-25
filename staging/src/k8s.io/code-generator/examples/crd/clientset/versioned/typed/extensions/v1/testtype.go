@@ -26,7 +26,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	apply "k8s.io/client-go/util/apply"
 	consistencydetector "k8s.io/client-go/util/consistencydetector"
 	watchlist "k8s.io/client-go/util/watchlist"
@@ -73,13 +73,13 @@ type TestTypeInterface interface {
 
 // testTypes implements TestTypeInterface
 type testTypes struct {
-	*gentype.ClientWithListAndApply[*extensionsv1.TestType, *extensionsv1.TestTypeList, *applyconfigurationextensionsv1.TestTypeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*extensionsv1.TestType, *extensionsv1.TestTypeList, *applyconfigurationextensionsv1.TestTypeApplyConfiguration]
 }
 
 // newTestTypes returns a TestTypes
 func newTestTypes(c *ExtensionsExampleV1Client, namespace string) *testTypes {
 	return &testTypes{
-		gentype.NewClientWithListAndApply[*extensionsv1.TestType, *extensionsv1.TestTypeList, *applyconfigurationextensionsv1.TestTypeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*extensionsv1.TestType, *extensionsv1.TestTypeList, *applyconfigurationextensionsv1.TestTypeApplyConfiguration](
 			"testtypes",
 			c.RESTClient(),
 			scheme.ParameterCodec,

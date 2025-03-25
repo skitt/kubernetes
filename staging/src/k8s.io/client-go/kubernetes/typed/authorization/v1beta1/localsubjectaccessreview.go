@@ -23,7 +23,7 @@ import (
 
 	authorizationv1beta1 "k8s.io/api/authorization/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -41,13 +41,13 @@ type LocalSubjectAccessReviewInterface interface {
 
 // localSubjectAccessReviews implements LocalSubjectAccessReviewInterface
 type localSubjectAccessReviews struct {
-	*gentype.Client[*authorizationv1beta1.LocalSubjectAccessReview]
+	*gentype2.Client[*authorizationv1beta1.LocalSubjectAccessReview]
 }
 
 // newLocalSubjectAccessReviews returns a LocalSubjectAccessReviews
 func newLocalSubjectAccessReviews(c *AuthorizationV1beta1Client, namespace string) *localSubjectAccessReviews {
 	return &localSubjectAccessReviews{
-		gentype.NewClient[*authorizationv1beta1.LocalSubjectAccessReview](
+		gentype2.NewClient[*authorizationv1beta1.LocalSubjectAccessReview](
 			"localsubjectaccessreviews",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -55,7 +55,7 @@ func newLocalSubjectAccessReviews(c *AuthorizationV1beta1Client, namespace strin
 			func() *authorizationv1beta1.LocalSubjectAccessReview {
 				return &authorizationv1beta1.LocalSubjectAccessReview{}
 			},
-			gentype.PrefersProtobuf[*authorizationv1beta1.LocalSubjectAccessReview](),
+			gentype2.PrefersProtobuf[*authorizationv1beta1.LocalSubjectAccessReview](),
 		),
 	}
 }

@@ -21,19 +21,19 @@ package fake
 import (
 	v1beta1 "k8s.io/api/storage/v1beta1"
 	storagev1beta1 "k8s.io/client-go/applyconfigurations/storage/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedstoragev1beta1 "k8s.io/client-go/kubernetes/typed/storage/v1beta1"
 )
 
 // fakeStorageClasses implements StorageClassInterface
 type fakeStorageClasses struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.StorageClass, *v1beta1.StorageClassList, *storagev1beta1.StorageClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.StorageClass, *v1beta1.StorageClassList, *storagev1beta1.StorageClassApplyConfiguration]
 	Fake *FakeStorageV1beta1
 }
 
 func newFakeStorageClasses(fake *FakeStorageV1beta1) typedstoragev1beta1.StorageClassInterface {
 	return &fakeStorageClasses{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.StorageClass, *v1beta1.StorageClassList, *storagev1beta1.StorageClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.StorageClass, *v1beta1.StorageClassList, *storagev1beta1.StorageClassApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("storageclasses"),
@@ -42,10 +42,10 @@ func newFakeStorageClasses(fake *FakeStorageV1beta1) typedstoragev1beta1.Storage
 			func() *v1beta1.StorageClassList { return &v1beta1.StorageClassList{} },
 			func(dst, src *v1beta1.StorageClassList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.StorageClassList) []*v1beta1.StorageClass {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.StorageClassList, items []*v1beta1.StorageClass) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

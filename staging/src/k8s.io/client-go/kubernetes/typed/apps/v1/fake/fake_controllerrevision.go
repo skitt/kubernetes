@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/apps/v1"
 	appsv1 "k8s.io/client-go/applyconfigurations/apps/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedappsv1 "k8s.io/client-go/kubernetes/typed/apps/v1"
 )
 
 // fakeControllerRevisions implements ControllerRevisionInterface
 type fakeControllerRevisions struct {
-	*gentype.FakeClientWithListAndApply[*v1.ControllerRevision, *v1.ControllerRevisionList, *appsv1.ControllerRevisionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.ControllerRevision, *v1.ControllerRevisionList, *appsv1.ControllerRevisionApplyConfiguration]
 	Fake *FakeAppsV1
 }
 
 func newFakeControllerRevisions(fake *FakeAppsV1, namespace string) typedappsv1.ControllerRevisionInterface {
 	return &fakeControllerRevisions{
-		gentype.NewFakeClientWithListAndApply[*v1.ControllerRevision, *v1.ControllerRevisionList, *appsv1.ControllerRevisionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.ControllerRevision, *v1.ControllerRevisionList, *appsv1.ControllerRevisionApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("controllerrevisions"),
@@ -42,10 +42,10 @@ func newFakeControllerRevisions(fake *FakeAppsV1, namespace string) typedappsv1.
 			func() *v1.ControllerRevisionList { return &v1.ControllerRevisionList{} },
 			func(dst, src *v1.ControllerRevisionList) { dst.ListMeta = src.ListMeta },
 			func(list *v1.ControllerRevisionList) []*v1.ControllerRevision {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1.ControllerRevisionList, items []*v1.ControllerRevision) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

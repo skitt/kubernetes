@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type SecretInterface interface {
 
 // secrets implements SecretInterface
 type secrets struct {
-	*gentype.ClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration]
 }
 
 // newSecrets returns a Secrets
 func newSecrets(c *CoreV1Client, namespace string) *secrets {
 	return &secrets{
-		gentype.NewClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Secret, *corev1.SecretList, *applyconfigurationscorev1.SecretApplyConfiguration](
 			"secrets",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.Secret { return &corev1.Secret{} },
 			func() *corev1.SecretList { return &corev1.SecretList{} },
-			gentype.PrefersProtobuf[*corev1.Secret](),
+			gentype2.PrefersProtobuf[*corev1.Secret](),
 		),
 	}
 }

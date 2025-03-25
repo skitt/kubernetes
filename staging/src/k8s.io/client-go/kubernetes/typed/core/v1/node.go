@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -56,20 +56,20 @@ type NodeInterface interface {
 
 // nodes implements NodeInterface
 type nodes struct {
-	*gentype.ClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration]
 }
 
 // newNodes returns a Nodes
 func newNodes(c *CoreV1Client) *nodes {
 	return &nodes{
-		gentype.NewClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.Node, *corev1.NodeList, *applyconfigurationscorev1.NodeApplyConfiguration](
 			"nodes",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *corev1.Node { return &corev1.Node{} },
 			func() *corev1.NodeList { return &corev1.NodeList{} },
-			gentype.PrefersProtobuf[*corev1.Node](),
+			gentype2.PrefersProtobuf[*corev1.Node](),
 		),
 	}
 }

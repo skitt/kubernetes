@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsnetworkingv1alpha1 "k8s.io/client-go/applyconfigurations/networking/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type IPAddressInterface interface {
 
 // iPAddresses implements IPAddressInterface
 type iPAddresses struct {
-	*gentype.ClientWithListAndApply[*networkingv1alpha1.IPAddress, *networkingv1alpha1.IPAddressList, *applyconfigurationsnetworkingv1alpha1.IPAddressApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*networkingv1alpha1.IPAddress, *networkingv1alpha1.IPAddressList, *applyconfigurationsnetworkingv1alpha1.IPAddressApplyConfiguration]
 }
 
 // newIPAddresses returns a IPAddresses
 func newIPAddresses(c *NetworkingV1alpha1Client) *iPAddresses {
 	return &iPAddresses{
-		gentype.NewClientWithListAndApply[*networkingv1alpha1.IPAddress, *networkingv1alpha1.IPAddressList, *applyconfigurationsnetworkingv1alpha1.IPAddressApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*networkingv1alpha1.IPAddress, *networkingv1alpha1.IPAddressList, *applyconfigurationsnetworkingv1alpha1.IPAddressApplyConfiguration](
 			"ipaddresses",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
 			func() *networkingv1alpha1.IPAddress { return &networkingv1alpha1.IPAddress{} },
 			func() *networkingv1alpha1.IPAddressList { return &networkingv1alpha1.IPAddressList{} },
-			gentype.PrefersProtobuf[*networkingv1alpha1.IPAddress](),
+			gentype2.PrefersProtobuf[*networkingv1alpha1.IPAddress](),
 		),
 	}
 }

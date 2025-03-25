@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/networking/v1"
 	networkingv1 "k8s.io/client-go/applyconfigurations/networking/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typednetworkingv1 "k8s.io/client-go/kubernetes/typed/networking/v1"
 )
 
 // fakeIngresses implements IngressInterface
 type fakeIngresses struct {
-	*gentype.FakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration]
 	Fake *FakeNetworkingV1
 }
 
 func newFakeIngresses(fake *FakeNetworkingV1, namespace string) typednetworkingv1.IngressInterface {
 	return &fakeIngresses{
-		gentype.NewFakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.Ingress, *v1.IngressList, *networkingv1.IngressApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("ingresses"),
@@ -41,8 +41,8 @@ func newFakeIngresses(fake *FakeNetworkingV1, namespace string) typednetworkingv
 			func() *v1.Ingress { return &v1.Ingress{} },
 			func() *v1.IngressList { return &v1.IngressList{} },
 			func(dst, src *v1.IngressList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.IngressList) []*v1.Ingress { return gentype.ToPointerSlice(list.Items) },
-			func(list *v1.IngressList, items []*v1.Ingress) { list.Items = gentype.FromPointerSlice(items) },
+			func(list *v1.IngressList) []*v1.Ingress { return gentype2.ToPointerSlice(list.Items) },
+			func(list *v1.IngressList, items []*v1.Ingress) { list.Items = gentype2.FromPointerSlice(items) },
 		),
 		fake,
 	}

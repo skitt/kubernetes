@@ -27,7 +27,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 )
 
 // CustomResourceDefinitionsGetter has a method to return a CustomResourceDefinitionInterface.
@@ -56,13 +56,13 @@ type CustomResourceDefinitionInterface interface {
 
 // customResourceDefinitions implements CustomResourceDefinitionInterface
 type customResourceDefinitions struct {
-	*gentype.ClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration]
 }
 
 // newCustomResourceDefinitions returns a CustomResourceDefinitions
 func newCustomResourceDefinitions(c *ApiextensionsV1beta1Client) *customResourceDefinitions {
 	return &customResourceDefinitions{
-		gentype.NewClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*apiextensionsv1beta1.CustomResourceDefinition, *apiextensionsv1beta1.CustomResourceDefinitionList, *applyconfigurationapiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration](
 			"customresourcedefinitions",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -73,7 +73,7 @@ func newCustomResourceDefinitions(c *ApiextensionsV1beta1Client) *customResource
 			func() *apiextensionsv1beta1.CustomResourceDefinitionList {
 				return &apiextensionsv1beta1.CustomResourceDefinitionList{}
 			},
-			gentype.PrefersProtobuf[*apiextensionsv1beta1.CustomResourceDefinition](),
+			gentype2.PrefersProtobuf[*apiextensionsv1beta1.CustomResourceDefinition](),
 		),
 	}
 }

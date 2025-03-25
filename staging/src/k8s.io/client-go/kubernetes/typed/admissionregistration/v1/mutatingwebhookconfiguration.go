@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationsadmissionregistrationv1 "k8s.io/client-go/applyconfigurations/admissionregistration/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,13 +52,13 @@ type MutatingWebhookConfigurationInterface interface {
 
 // mutatingWebhookConfigurations implements MutatingWebhookConfigurationInterface
 type mutatingWebhookConfigurations struct {
-	*gentype.ClientWithListAndApply[*admissionregistrationv1.MutatingWebhookConfiguration, *admissionregistrationv1.MutatingWebhookConfigurationList, *applyconfigurationsadmissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*admissionregistrationv1.MutatingWebhookConfiguration, *admissionregistrationv1.MutatingWebhookConfigurationList, *applyconfigurationsadmissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration]
 }
 
 // newMutatingWebhookConfigurations returns a MutatingWebhookConfigurations
 func newMutatingWebhookConfigurations(c *AdmissionregistrationV1Client) *mutatingWebhookConfigurations {
 	return &mutatingWebhookConfigurations{
-		gentype.NewClientWithListAndApply[*admissionregistrationv1.MutatingWebhookConfiguration, *admissionregistrationv1.MutatingWebhookConfigurationList, *applyconfigurationsadmissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*admissionregistrationv1.MutatingWebhookConfiguration, *admissionregistrationv1.MutatingWebhookConfigurationList, *applyconfigurationsadmissionregistrationv1.MutatingWebhookConfigurationApplyConfiguration](
 			"mutatingwebhookconfigurations",
 			c.RESTClient(),
 			scheme.ParameterCodec,
@@ -69,7 +69,7 @@ func newMutatingWebhookConfigurations(c *AdmissionregistrationV1Client) *mutatin
 			func() *admissionregistrationv1.MutatingWebhookConfigurationList {
 				return &admissionregistrationv1.MutatingWebhookConfigurationList{}
 			},
-			gentype.PrefersProtobuf[*admissionregistrationv1.MutatingWebhookConfiguration](),
+			gentype2.PrefersProtobuf[*admissionregistrationv1.MutatingWebhookConfiguration](),
 		),
 	}
 }

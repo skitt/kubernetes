@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/node/v1"
 	nodev1 "k8s.io/client-go/applyconfigurations/node/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typednodev1 "k8s.io/client-go/kubernetes/typed/node/v1"
 )
 
 // fakeRuntimeClasses implements RuntimeClassInterface
 type fakeRuntimeClasses struct {
-	*gentype.FakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration]
 	Fake *FakeNodeV1
 }
 
 func newFakeRuntimeClasses(fake *FakeNodeV1) typednodev1.RuntimeClassInterface {
 	return &fakeRuntimeClasses{
-		gentype.NewFakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.RuntimeClass, *v1.RuntimeClassList, *nodev1.RuntimeClassApplyConfiguration](
 			fake.Fake,
 			"",
 			v1.SchemeGroupVersion.WithResource("runtimeclasses"),
@@ -41,9 +41,9 @@ func newFakeRuntimeClasses(fake *FakeNodeV1) typednodev1.RuntimeClassInterface {
 			func() *v1.RuntimeClass { return &v1.RuntimeClass{} },
 			func() *v1.RuntimeClassList { return &v1.RuntimeClassList{} },
 			func(dst, src *v1.RuntimeClassList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.RuntimeClassList) []*v1.RuntimeClass { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.RuntimeClassList) []*v1.RuntimeClass { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.RuntimeClassList, items []*v1.RuntimeClass) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

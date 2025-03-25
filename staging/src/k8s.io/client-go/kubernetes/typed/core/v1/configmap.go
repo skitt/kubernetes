@@ -26,7 +26,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	applyconfigurationscorev1 "k8s.io/client-go/applyconfigurations/core/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	scheme "k8s.io/client-go/kubernetes/scheme"
 )
 
@@ -52,20 +52,20 @@ type ConfigMapInterface interface {
 
 // configMaps implements ConfigMapInterface
 type configMaps struct {
-	*gentype.ClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration]
+	*gentype2.ClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration]
 }
 
 // newConfigMaps returns a ConfigMaps
 func newConfigMaps(c *CoreV1Client, namespace string) *configMaps {
 	return &configMaps{
-		gentype.NewClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration](
+		gentype2.NewClientWithListAndApply[*corev1.ConfigMap, *corev1.ConfigMapList, *applyconfigurationscorev1.ConfigMapApplyConfiguration](
 			"configmaps",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
 			func() *corev1.ConfigMap { return &corev1.ConfigMap{} },
 			func() *corev1.ConfigMapList { return &corev1.ConfigMapList{} },
-			gentype.PrefersProtobuf[*corev1.ConfigMap](),
+			gentype2.PrefersProtobuf[*corev1.ConfigMap](),
 		),
 	}
 }

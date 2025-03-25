@@ -21,19 +21,19 @@ package fake
 import (
 	v1 "k8s.io/api/discovery/v1"
 	discoveryv1 "k8s.io/client-go/applyconfigurations/discovery/v1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typeddiscoveryv1 "k8s.io/client-go/kubernetes/typed/discovery/v1"
 )
 
 // fakeEndpointSlices implements EndpointSliceInterface
 type fakeEndpointSlices struct {
-	*gentype.FakeClientWithListAndApply[*v1.EndpointSlice, *v1.EndpointSliceList, *discoveryv1.EndpointSliceApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1.EndpointSlice, *v1.EndpointSliceList, *discoveryv1.EndpointSliceApplyConfiguration]
 	Fake *FakeDiscoveryV1
 }
 
 func newFakeEndpointSlices(fake *FakeDiscoveryV1, namespace string) typeddiscoveryv1.EndpointSliceInterface {
 	return &fakeEndpointSlices{
-		gentype.NewFakeClientWithListAndApply[*v1.EndpointSlice, *v1.EndpointSliceList, *discoveryv1.EndpointSliceApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1.EndpointSlice, *v1.EndpointSliceList, *discoveryv1.EndpointSliceApplyConfiguration](
 			fake.Fake,
 			namespace,
 			v1.SchemeGroupVersion.WithResource("endpointslices"),
@@ -41,9 +41,9 @@ func newFakeEndpointSlices(fake *FakeDiscoveryV1, namespace string) typeddiscove
 			func() *v1.EndpointSlice { return &v1.EndpointSlice{} },
 			func() *v1.EndpointSliceList { return &v1.EndpointSliceList{} },
 			func(dst, src *v1.EndpointSliceList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.EndpointSliceList) []*v1.EndpointSlice { return gentype.ToPointerSlice(list.Items) },
+			func(list *v1.EndpointSliceList) []*v1.EndpointSlice { return gentype2.ToPointerSlice(list.Items) },
 			func(list *v1.EndpointSliceList, items []*v1.EndpointSlice) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

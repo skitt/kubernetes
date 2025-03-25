@@ -22,18 +22,18 @@ import (
 	v1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/client/applyconfiguration/apiextensions/v1beta1"
 	typedapiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset/typed/apiextensions/v1beta1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 )
 
 // fakeCustomResourceDefinitions implements CustomResourceDefinitionInterface
 type fakeCustomResourceDefinitions struct {
-	*gentype.FakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration]
 	Fake *FakeApiextensionsV1beta1
 }
 
 func newFakeCustomResourceDefinitions(fake *FakeApiextensionsV1beta1) typedapiextensionsv1beta1.CustomResourceDefinitionInterface {
 	return &fakeCustomResourceDefinitions{
-		gentype.NewFakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1beta1.CustomResourceDefinition, *v1beta1.CustomResourceDefinitionList, *apiextensionsv1beta1.CustomResourceDefinitionApplyConfiguration](
 			fake.Fake,
 			"",
 			v1beta1.SchemeGroupVersion.WithResource("customresourcedefinitions"),
@@ -42,10 +42,10 @@ func newFakeCustomResourceDefinitions(fake *FakeApiextensionsV1beta1) typedapiex
 			func() *v1beta1.CustomResourceDefinitionList { return &v1beta1.CustomResourceDefinitionList{} },
 			func(dst, src *v1beta1.CustomResourceDefinitionList) { dst.ListMeta = src.ListMeta },
 			func(list *v1beta1.CustomResourceDefinitionList) []*v1beta1.CustomResourceDefinition {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1beta1.CustomResourceDefinitionList, items []*v1beta1.CustomResourceDefinition) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,

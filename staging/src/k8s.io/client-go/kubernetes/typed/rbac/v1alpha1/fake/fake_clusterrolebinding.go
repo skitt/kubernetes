@@ -21,19 +21,19 @@ package fake
 import (
 	v1alpha1 "k8s.io/api/rbac/v1alpha1"
 	rbacv1alpha1 "k8s.io/client-go/applyconfigurations/rbac/v1alpha1"
-	gentype "k8s.io/client-go/gentype"
+	gentype2 "k8s.io/client-go/gentype2"
 	typedrbacv1alpha1 "k8s.io/client-go/kubernetes/typed/rbac/v1alpha1"
 )
 
 // fakeClusterRoleBindings implements ClusterRoleBindingInterface
 type fakeClusterRoleBindings struct {
-	*gentype.FakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration]
+	*gentype2.FakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration]
 	Fake *FakeRbacV1alpha1
 }
 
 func newFakeClusterRoleBindings(fake *FakeRbacV1alpha1) typedrbacv1alpha1.ClusterRoleBindingInterface {
 	return &fakeClusterRoleBindings{
-		gentype.NewFakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration](
+		gentype2.NewFakeClientWithListAndApply[*v1alpha1.ClusterRoleBinding, *v1alpha1.ClusterRoleBindingList, *rbacv1alpha1.ClusterRoleBindingApplyConfiguration](
 			fake.Fake,
 			"",
 			v1alpha1.SchemeGroupVersion.WithResource("clusterrolebindings"),
@@ -42,10 +42,10 @@ func newFakeClusterRoleBindings(fake *FakeRbacV1alpha1) typedrbacv1alpha1.Cluste
 			func() *v1alpha1.ClusterRoleBindingList { return &v1alpha1.ClusterRoleBindingList{} },
 			func(dst, src *v1alpha1.ClusterRoleBindingList) { dst.ListMeta = src.ListMeta },
 			func(list *v1alpha1.ClusterRoleBindingList) []*v1alpha1.ClusterRoleBinding {
-				return gentype.ToPointerSlice(list.Items)
+				return gentype2.ToPointerSlice(list.Items)
 			},
 			func(list *v1alpha1.ClusterRoleBindingList, items []*v1alpha1.ClusterRoleBinding) {
-				list.Items = gentype.FromPointerSlice(items)
+				list.Items = gentype2.FromPointerSlice(items)
 			},
 		),
 		fake,
