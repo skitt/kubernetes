@@ -39,10 +39,8 @@ func newFakeStorageClasses(fake *FakeStorageV1) typedstoragev1.StorageClassInter
 			v1.SchemeGroupVersion.WithResource("storageclasses"),
 			v1.SchemeGroupVersion.WithKind("StorageClass"),
 			func(dst, src *v1.StorageClassList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.StorageClassList) []*v1.StorageClass { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.StorageClassList, items []*v1.StorageClass) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.StorageClassList) []v1.StorageClass { return list.Items },
+			func(list *v1.StorageClassList, items []v1.StorageClass) { list.Items = items },
 		),
 		fake,
 	}

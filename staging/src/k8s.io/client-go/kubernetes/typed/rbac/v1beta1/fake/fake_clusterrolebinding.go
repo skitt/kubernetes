@@ -39,12 +39,8 @@ func newFakeClusterRoleBindings(fake *FakeRbacV1beta1) typedrbacv1beta1.ClusterR
 			v1beta1.SchemeGroupVersion.WithResource("clusterrolebindings"),
 			v1beta1.SchemeGroupVersion.WithKind("ClusterRoleBinding"),
 			func(dst, src *v1beta1.ClusterRoleBindingList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.ClusterRoleBindingList) []*v1beta1.ClusterRoleBinding {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1beta1.ClusterRoleBindingList, items []*v1beta1.ClusterRoleBinding) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta1.ClusterRoleBindingList) []v1beta1.ClusterRoleBinding { return list.Items },
+			func(list *v1beta1.ClusterRoleBindingList, items []v1beta1.ClusterRoleBinding) { list.Items = items },
 		),
 		fake,
 	}

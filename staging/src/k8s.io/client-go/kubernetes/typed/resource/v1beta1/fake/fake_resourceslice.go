@@ -39,12 +39,8 @@ func newFakeResourceSlices(fake *FakeResourceV1beta1) typedresourcev1beta1.Resou
 			v1beta1.SchemeGroupVersion.WithResource("resourceslices"),
 			v1beta1.SchemeGroupVersion.WithKind("ResourceSlice"),
 			func(dst, src *v1beta1.ResourceSliceList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.ResourceSliceList) []*v1beta1.ResourceSlice {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1beta1.ResourceSliceList, items []*v1beta1.ResourceSlice) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta1.ResourceSliceList) []v1beta1.ResourceSlice { return list.Items },
+			func(list *v1beta1.ResourceSliceList, items []v1beta1.ResourceSlice) { list.Items = items },
 		),
 		fake,
 	}

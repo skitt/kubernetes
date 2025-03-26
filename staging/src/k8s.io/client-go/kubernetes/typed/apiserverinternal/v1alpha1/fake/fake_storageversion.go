@@ -39,12 +39,8 @@ func newFakeStorageVersions(fake *FakeInternalV1alpha1) typedapiserverinternalv1
 			v1alpha1.SchemeGroupVersion.WithResource("storageversions"),
 			v1alpha1.SchemeGroupVersion.WithKind("StorageVersion"),
 			func(dst, src *v1alpha1.StorageVersionList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.StorageVersionList) []*v1alpha1.StorageVersion {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha1.StorageVersionList, items []*v1alpha1.StorageVersion) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha1.StorageVersionList) []v1alpha1.StorageVersion { return list.Items },
+			func(list *v1alpha1.StorageVersionList, items []v1alpha1.StorageVersion) { list.Items = items },
 		),
 		fake,
 	}

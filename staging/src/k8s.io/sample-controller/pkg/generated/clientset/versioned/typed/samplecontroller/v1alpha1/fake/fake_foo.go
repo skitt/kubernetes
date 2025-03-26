@@ -38,8 +38,8 @@ func newFakeFoos(fake *FakeSamplecontrollerV1alpha1, namespace string) samplecon
 			v1alpha1.SchemeGroupVersion.WithResource("foos"),
 			v1alpha1.SchemeGroupVersion.WithKind("Foo"),
 			func(dst, src *v1alpha1.FooList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.FooList) []*v1alpha1.Foo { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1alpha1.FooList, items []*v1alpha1.Foo) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1alpha1.FooList) []v1alpha1.Foo { return list.Items },
+			func(list *v1alpha1.FooList, items []v1alpha1.Foo) { list.Items = items },
 		),
 		fake,
 	}

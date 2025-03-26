@@ -39,8 +39,8 @@ func newFakeNodes(fake *FakeCoreV1) typedcorev1.NodeInterface {
 			v1.SchemeGroupVersion.WithResource("nodes"),
 			v1.SchemeGroupVersion.WithKind("Node"),
 			func(dst, src *v1.NodeList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.NodeList) []*v1.Node { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.NodeList, items []*v1.Node) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.NodeList) []v1.Node { return list.Items },
+			func(list *v1.NodeList, items []v1.Node) { list.Items = items },
 		),
 		fake,
 	}

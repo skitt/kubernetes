@@ -39,8 +39,8 @@ func newFakeCSIDrivers(fake *FakeStorageV1) typedstoragev1.CSIDriverInterface {
 			v1.SchemeGroupVersion.WithResource("csidrivers"),
 			v1.SchemeGroupVersion.WithKind("CSIDriver"),
 			func(dst, src *v1.CSIDriverList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.CSIDriverList) []*v1.CSIDriver { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.CSIDriverList, items []*v1.CSIDriver) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.CSIDriverList) []v1.CSIDriver { return list.Items },
+			func(list *v1.CSIDriverList, items []v1.CSIDriver) { list.Items = items },
 		),
 		fake,
 	}

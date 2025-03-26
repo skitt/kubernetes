@@ -43,12 +43,8 @@ func newFakeCertificateSigningRequests(fake *FakeCertificatesV1) typedcertificat
 			v1.SchemeGroupVersion.WithResource("certificatesigningrequests"),
 			v1.SchemeGroupVersion.WithKind("CertificateSigningRequest"),
 			func(dst, src *v1.CertificateSigningRequestList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.CertificateSigningRequestList) []*v1.CertificateSigningRequest {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1.CertificateSigningRequestList, items []*v1.CertificateSigningRequest) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.CertificateSigningRequestList) []v1.CertificateSigningRequest { return list.Items },
+			func(list *v1.CertificateSigningRequestList, items []v1.CertificateSigningRequest) { list.Items = items },
 		),
 		fake,
 	}

@@ -39,12 +39,8 @@ func newFakeResourceClaims(fake *FakeResourceV1alpha3, namespace string) typedre
 			v1alpha3.SchemeGroupVersion.WithResource("resourceclaims"),
 			v1alpha3.SchemeGroupVersion.WithKind("ResourceClaim"),
 			func(dst, src *v1alpha3.ResourceClaimList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha3.ResourceClaimList) []*v1alpha3.ResourceClaim {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha3.ResourceClaimList, items []*v1alpha3.ResourceClaim) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha3.ResourceClaimList) []v1alpha3.ResourceClaim { return list.Items },
+			func(list *v1alpha3.ResourceClaimList, items []v1alpha3.ResourceClaim) { list.Items = items },
 		),
 		fake,
 	}

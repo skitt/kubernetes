@@ -44,12 +44,8 @@ func newFakeReplicationControllers(fake *FakeCoreV1, namespace string) typedcore
 			v1.SchemeGroupVersion.WithResource("replicationcontrollers"),
 			v1.SchemeGroupVersion.WithKind("ReplicationController"),
 			func(dst, src *v1.ReplicationControllerList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ReplicationControllerList) []*v1.ReplicationController {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1.ReplicationControllerList, items []*v1.ReplicationController) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.ReplicationControllerList) []v1.ReplicationController { return list.Items },
+			func(list *v1.ReplicationControllerList, items []v1.ReplicationController) { list.Items = items },
 		),
 		fake,
 	}

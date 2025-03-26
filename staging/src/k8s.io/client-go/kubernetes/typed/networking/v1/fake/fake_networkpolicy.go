@@ -39,10 +39,8 @@ func newFakeNetworkPolicies(fake *FakeNetworkingV1, namespace string) typednetwo
 			v1.SchemeGroupVersion.WithResource("networkpolicies"),
 			v1.SchemeGroupVersion.WithKind("NetworkPolicy"),
 			func(dst, src *v1.NetworkPolicyList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.NetworkPolicyList) []*v1.NetworkPolicy { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.NetworkPolicyList, items []*v1.NetworkPolicy) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.NetworkPolicyList) []v1.NetworkPolicy { return list.Items },
+			func(list *v1.NetworkPolicyList, items []v1.NetworkPolicy) { list.Items = items },
 		),
 		fake,
 	}

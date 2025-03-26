@@ -39,8 +39,8 @@ func newFakeSecrets(fake *FakeCoreV1, namespace string) typedcorev1.SecretInterf
 			v1.SchemeGroupVersion.WithResource("secrets"),
 			v1.SchemeGroupVersion.WithKind("Secret"),
 			func(dst, src *v1.SecretList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.SecretList) []*v1.Secret { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.SecretList, items []*v1.Secret) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.SecretList) []v1.Secret { return list.Items },
+			func(list *v1.SecretList, items []v1.Secret) { list.Items = items },
 		),
 		fake,
 	}

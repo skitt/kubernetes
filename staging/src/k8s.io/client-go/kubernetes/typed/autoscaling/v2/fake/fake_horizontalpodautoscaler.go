@@ -39,12 +39,8 @@ func newFakeHorizontalPodAutoscalers(fake *FakeAutoscalingV2, namespace string) 
 			v2.SchemeGroupVersion.WithResource("horizontalpodautoscalers"),
 			v2.SchemeGroupVersion.WithKind("HorizontalPodAutoscaler"),
 			func(dst, src *v2.HorizontalPodAutoscalerList) { dst.ListMeta = src.ListMeta },
-			func(list *v2.HorizontalPodAutoscalerList) []*v2.HorizontalPodAutoscaler {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v2.HorizontalPodAutoscalerList, items []*v2.HorizontalPodAutoscaler) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v2.HorizontalPodAutoscalerList) []v2.HorizontalPodAutoscaler { return list.Items },
+			func(list *v2.HorizontalPodAutoscalerList, items []v2.HorizontalPodAutoscaler) { list.Items = items },
 		),
 		fake,
 	}

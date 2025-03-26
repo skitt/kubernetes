@@ -44,10 +44,8 @@ func newFakeServiceAccounts(fake *FakeCoreV1, namespace string) typedcorev1.Serv
 			v1.SchemeGroupVersion.WithResource("serviceaccounts"),
 			v1.SchemeGroupVersion.WithKind("ServiceAccount"),
 			func(dst, src *v1.ServiceAccountList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ServiceAccountList) []*v1.ServiceAccount { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.ServiceAccountList, items []*v1.ServiceAccount) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.ServiceAccountList) []v1.ServiceAccount { return list.Items },
+			func(list *v1.ServiceAccountList, items []v1.ServiceAccount) { list.Items = items },
 		),
 		fake,
 	}

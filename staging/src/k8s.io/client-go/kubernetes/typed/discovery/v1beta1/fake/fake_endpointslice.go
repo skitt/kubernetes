@@ -39,12 +39,8 @@ func newFakeEndpointSlices(fake *FakeDiscoveryV1beta1, namespace string) typeddi
 			v1beta1.SchemeGroupVersion.WithResource("endpointslices"),
 			v1beta1.SchemeGroupVersion.WithKind("EndpointSlice"),
 			func(dst, src *v1beta1.EndpointSliceList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.EndpointSliceList) []*v1beta1.EndpointSlice {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1beta1.EndpointSliceList, items []*v1beta1.EndpointSlice) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta1.EndpointSliceList) []v1beta1.EndpointSlice { return list.Items },
+			func(list *v1beta1.EndpointSliceList, items []v1beta1.EndpointSlice) { list.Items = items },
 		),
 		fake,
 	}

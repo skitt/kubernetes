@@ -38,10 +38,8 @@ func newFakePodMetricses(fake *FakeMetricsV1alpha1, namespace string) metricsv1a
 			v1alpha1.SchemeGroupVersion.WithResource("pods"),
 			v1alpha1.SchemeGroupVersion.WithKind("PodMetrics"),
 			func(dst, src *v1alpha1.PodMetricsList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.PodMetricsList) []*v1alpha1.PodMetrics { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1alpha1.PodMetricsList, items []*v1alpha1.PodMetrics) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha1.PodMetricsList) []v1alpha1.PodMetrics { return list.Items },
+			func(list *v1alpha1.PodMetricsList, items []v1alpha1.PodMetrics) { list.Items = items },
 		),
 		fake,
 	}

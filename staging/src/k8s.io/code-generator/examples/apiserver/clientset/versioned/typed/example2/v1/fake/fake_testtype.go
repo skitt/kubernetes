@@ -38,8 +38,8 @@ func newFakeTestTypes(fake *FakeSecondExampleV1, namespace string) example2v1.Te
 			v1.SchemeGroupVersion.WithResource("testtypes"),
 			v1.SchemeGroupVersion.WithKind("TestType"),
 			func(dst, src *v1.TestTypeList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.TestTypeList) []*v1.TestType { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.TestTypeList, items []*v1.TestType) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.TestTypeList) []v1.TestType { return list.Items },
+			func(list *v1.TestTypeList, items []v1.TestType) { list.Items = items },
 		),
 		fake,
 	}
