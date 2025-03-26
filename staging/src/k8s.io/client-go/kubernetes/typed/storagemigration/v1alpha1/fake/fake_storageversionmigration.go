@@ -39,11 +39,9 @@ func newFakeStorageVersionMigrations(fake *FakeStoragemigrationV1alpha1) typedst
 			v1alpha1.SchemeGroupVersion.WithResource("storageversionmigrations"),
 			v1alpha1.SchemeGroupVersion.WithKind("StorageVersionMigration"),
 			func(dst, src *v1alpha1.StorageVersionMigrationList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.StorageVersionMigrationList) []*v1alpha1.StorageVersionMigration {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha1.StorageVersionMigrationList, items []*v1alpha1.StorageVersionMigration) {
-				list.Items = gentype2.FromPointerSlice(items)
+			func(list *v1alpha1.StorageVersionMigrationList) []v1alpha1.StorageVersionMigration { return list.Items },
+			func(list *v1alpha1.StorageVersionMigrationList, items []v1alpha1.StorageVersionMigration) {
+				list.Items = items
 			},
 		),
 		fake,

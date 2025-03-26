@@ -48,8 +48,8 @@ func newFakeStatefulSets(fake *FakeAppsV1, namespace string) typedappsv1.Statefu
 			v1.SchemeGroupVersion.WithResource("statefulsets"),
 			v1.SchemeGroupVersion.WithKind("StatefulSet"),
 			func(dst, src *v1.StatefulSetList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.StatefulSetList) []*v1.StatefulSet { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.StatefulSetList, items []*v1.StatefulSet) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.StatefulSetList) []v1.StatefulSet { return list.Items },
+			func(list *v1.StatefulSetList, items []v1.StatefulSet) { list.Items = items },
 		),
 		fake,
 	}

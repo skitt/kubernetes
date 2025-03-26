@@ -39,12 +39,8 @@ func newFakeCSIStorageCapacities(fake *FakeStorageV1beta1, namespace string) typ
 			v1beta1.SchemeGroupVersion.WithResource("csistoragecapacities"),
 			v1beta1.SchemeGroupVersion.WithKind("CSIStorageCapacity"),
 			func(dst, src *v1beta1.CSIStorageCapacityList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.CSIStorageCapacityList) []*v1beta1.CSIStorageCapacity {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1beta1.CSIStorageCapacityList, items []*v1beta1.CSIStorageCapacity) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta1.CSIStorageCapacityList) []v1beta1.CSIStorageCapacity { return list.Items },
+			func(list *v1beta1.CSIStorageCapacityList, items []v1beta1.CSIStorageCapacity) { list.Items = items },
 		),
 		fake,
 	}

@@ -38,8 +38,8 @@ func newFakeAPIServices(fake *FakeApiregistrationV1) apiregistrationv1.APIServic
 			v1.SchemeGroupVersion.WithResource("apiservices"),
 			v1.SchemeGroupVersion.WithKind("APIService"),
 			func(dst, src *v1.APIServiceList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.APIServiceList) []*v1.APIService { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.APIServiceList, items []*v1.APIService) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.APIServiceList) []v1.APIService { return list.Items },
+			func(list *v1.APIServiceList, items []v1.APIService) { list.Items = items },
 		),
 		fake,
 	}

@@ -39,10 +39,8 @@ func newFakeDeployments(fake *FakeAppsV1beta2, namespace string) typedappsv1beta
 			v1beta2.SchemeGroupVersion.WithResource("deployments"),
 			v1beta2.SchemeGroupVersion.WithKind("Deployment"),
 			func(dst, src *v1beta2.DeploymentList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta2.DeploymentList) []*v1beta2.Deployment { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1beta2.DeploymentList, items []*v1beta2.Deployment) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta2.DeploymentList) []v1beta2.Deployment { return list.Items },
+			func(list *v1beta2.DeploymentList, items []v1beta2.Deployment) { list.Items = items },
 		),
 		fake,
 	}

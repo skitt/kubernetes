@@ -39,10 +39,8 @@ func newFakeComponentStatuses(fake *FakeCoreV1) typedcorev1.ComponentStatusInter
 			v1.SchemeGroupVersion.WithResource("componentstatuses"),
 			v1.SchemeGroupVersion.WithKind("ComponentStatus"),
 			func(dst, src *v1.ComponentStatusList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ComponentStatusList) []*v1.ComponentStatus { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.ComponentStatusList, items []*v1.ComponentStatus) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.ComponentStatusList) []v1.ComponentStatus { return list.Items },
+			func(list *v1.ComponentStatusList, items []v1.ComponentStatus) { list.Items = items },
 		),
 		fake,
 	}

@@ -39,10 +39,8 @@ func newFakeFischers(fake *FakeWardleV1alpha1) typedwardlev1alpha1.FischerInterf
 			v1alpha1.SchemeGroupVersion.WithResource("fischers"),
 			v1alpha1.SchemeGroupVersion.WithKind("Fischer"),
 			func(dst, src *v1alpha1.FischerList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.FischerList) []*v1alpha1.Fischer { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1alpha1.FischerList, items []*v1alpha1.Fischer) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha1.FischerList) []v1alpha1.Fischer { return list.Items },
+			func(list *v1alpha1.FischerList, items []v1alpha1.Fischer) { list.Items = items },
 		),
 		fake,
 	}

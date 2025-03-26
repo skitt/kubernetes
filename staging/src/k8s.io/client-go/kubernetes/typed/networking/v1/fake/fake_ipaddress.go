@@ -39,8 +39,8 @@ func newFakeIPAddresses(fake *FakeNetworkingV1) typednetworkingv1.IPAddressInter
 			v1.SchemeGroupVersion.WithResource("ipaddresses"),
 			v1.SchemeGroupVersion.WithKind("IPAddress"),
 			func(dst, src *v1.IPAddressList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.IPAddressList) []*v1.IPAddress { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.IPAddressList, items []*v1.IPAddress) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.IPAddressList) []v1.IPAddress { return list.Items },
+			func(list *v1.IPAddressList, items []v1.IPAddress) { list.Items = items },
 		),
 		fake,
 	}

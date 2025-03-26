@@ -39,12 +39,8 @@ func newFakeDeviceClasses(fake *FakeResourceV1alpha3) typedresourcev1alpha3.Devi
 			v1alpha3.SchemeGroupVersion.WithResource("deviceclasses"),
 			v1alpha3.SchemeGroupVersion.WithKind("DeviceClass"),
 			func(dst, src *v1alpha3.DeviceClassList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha3.DeviceClassList) []*v1alpha3.DeviceClass {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha3.DeviceClassList, items []*v1alpha3.DeviceClass) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha3.DeviceClassList) []v1alpha3.DeviceClass { return list.Items },
+			func(list *v1alpha3.DeviceClassList, items []v1alpha3.DeviceClass) { list.Items = items },
 		),
 		fake,
 	}

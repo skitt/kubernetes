@@ -39,12 +39,8 @@ func newFakeControllerRevisions(fake *FakeAppsV1beta2, namespace string) typedap
 			v1beta2.SchemeGroupVersion.WithResource("controllerrevisions"),
 			v1beta2.SchemeGroupVersion.WithKind("ControllerRevision"),
 			func(dst, src *v1beta2.ControllerRevisionList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta2.ControllerRevisionList) []*v1beta2.ControllerRevision {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1beta2.ControllerRevisionList, items []*v1beta2.ControllerRevision) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta2.ControllerRevisionList) []v1beta2.ControllerRevision { return list.Items },
+			func(list *v1beta2.ControllerRevisionList, items []v1beta2.ControllerRevision) { list.Items = items },
 		),
 		fake,
 	}

@@ -43,8 +43,8 @@ func newFakePods(fake *FakeCoreV1, namespace string) typedcorev1.PodInterface {
 			v1.SchemeGroupVersion.WithResource("pods"),
 			v1.SchemeGroupVersion.WithKind("Pod"),
 			func(dst, src *v1.PodList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.PodList) []*v1.Pod { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.PodList, items []*v1.Pod) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.PodList) []v1.Pod { return list.Items },
+			func(list *v1.PodList, items []v1.Pod) { list.Items = items },
 		),
 		fake,
 	}

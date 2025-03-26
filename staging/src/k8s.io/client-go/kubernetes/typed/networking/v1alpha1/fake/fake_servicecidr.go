@@ -39,12 +39,8 @@ func newFakeServiceCIDRs(fake *FakeNetworkingV1alpha1) typednetworkingv1alpha1.S
 			v1alpha1.SchemeGroupVersion.WithResource("servicecidrs"),
 			v1alpha1.SchemeGroupVersion.WithKind("ServiceCIDR"),
 			func(dst, src *v1alpha1.ServiceCIDRList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.ServiceCIDRList) []*v1alpha1.ServiceCIDR {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha1.ServiceCIDRList, items []*v1alpha1.ServiceCIDR) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha1.ServiceCIDRList) []v1alpha1.ServiceCIDR { return list.Items },
+			func(list *v1alpha1.ServiceCIDRList, items []v1alpha1.ServiceCIDR) { list.Items = items },
 		),
 		fake,
 	}

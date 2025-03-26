@@ -39,8 +39,8 @@ func newFakeEndpoints(fake *FakeCoreV1, namespace string) typedcorev1.EndpointsI
 			v1.SchemeGroupVersion.WithResource("endpoints"),
 			v1.SchemeGroupVersion.WithKind("Endpoints"),
 			func(dst, src *v1.EndpointsList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.EndpointsList) []*v1.Endpoints { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.EndpointsList, items []*v1.Endpoints) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.EndpointsList) []v1.Endpoints { return list.Items },
+			func(list *v1.EndpointsList, items []v1.Endpoints) { list.Items = items },
 		),
 		fake,
 	}

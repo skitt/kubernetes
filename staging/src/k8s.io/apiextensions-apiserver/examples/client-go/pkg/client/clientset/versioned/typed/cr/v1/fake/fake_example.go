@@ -39,8 +39,8 @@ func newFakeExamples(fake *FakeCrV1, namespace string) typedcrv1.ExampleInterfac
 			v1.SchemeGroupVersion.WithResource("examples"),
 			v1.SchemeGroupVersion.WithKind("Example"),
 			func(dst, src *v1.ExampleList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.ExampleList) []*v1.Example { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.ExampleList, items []*v1.Example) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.ExampleList) []v1.Example { return list.Items },
+			func(list *v1.ExampleList, items []v1.Example) { list.Items = items },
 		),
 		fake,
 	}

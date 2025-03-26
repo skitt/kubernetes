@@ -39,10 +39,8 @@ func newFakePriorityClasses(fake *FakeSchedulingV1) typedschedulingv1.PriorityCl
 			v1.SchemeGroupVersion.WithResource("priorityclasses"),
 			v1.SchemeGroupVersion.WithKind("PriorityClass"),
 			func(dst, src *v1.PriorityClassList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.PriorityClassList) []*v1.PriorityClass { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.PriorityClassList, items []*v1.PriorityClass) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1.PriorityClassList) []v1.PriorityClass { return list.Items },
+			func(list *v1.PriorityClassList, items []v1.PriorityClass) { list.Items = items },
 		),
 		fake,
 	}

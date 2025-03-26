@@ -39,12 +39,8 @@ func newFakeVolumeAttachments(fake *FakeStorageV1alpha1) typedstoragev1alpha1.Vo
 			v1alpha1.SchemeGroupVersion.WithResource("volumeattachments"),
 			v1alpha1.SchemeGroupVersion.WithKind("VolumeAttachment"),
 			func(dst, src *v1alpha1.VolumeAttachmentList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha1.VolumeAttachmentList) []*v1alpha1.VolumeAttachment {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha1.VolumeAttachmentList, items []*v1alpha1.VolumeAttachment) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1alpha1.VolumeAttachmentList) []v1alpha1.VolumeAttachment { return list.Items },
+			func(list *v1alpha1.VolumeAttachmentList, items []v1alpha1.VolumeAttachment) { list.Items = items },
 		),
 		fake,
 	}

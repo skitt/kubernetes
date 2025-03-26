@@ -39,8 +39,8 @@ func newFakeEvents(fake *FakeCoreV1, namespace string) typedcorev1.EventInterfac
 			v1.SchemeGroupVersion.WithResource("events"),
 			v1.SchemeGroupVersion.WithKind("Event"),
 			func(dst, src *v1.EventList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.EventList) []*v1.Event { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.EventList, items []*v1.Event) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.EventList) []v1.Event { return list.Items },
+			func(list *v1.EventList, items []v1.Event) { list.Items = items },
 		),
 		fake,
 	}

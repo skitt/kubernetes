@@ -39,10 +39,8 @@ func newFakeIngresses(fake *FakeExtensionsV1beta1, namespace string) typedextens
 			v1beta1.SchemeGroupVersion.WithResource("ingresses"),
 			v1beta1.SchemeGroupVersion.WithKind("Ingress"),
 			func(dst, src *v1beta1.IngressList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.IngressList) []*v1beta1.Ingress { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1beta1.IngressList, items []*v1beta1.Ingress) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta1.IngressList) []v1beta1.Ingress { return list.Items },
+			func(list *v1beta1.IngressList, items []v1beta1.Ingress) { list.Items = items },
 		),
 		fake,
 	}

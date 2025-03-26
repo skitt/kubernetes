@@ -39,12 +39,8 @@ func newFakePodDisruptionBudgets(fake *FakePolicyV1beta1, namespace string) type
 			v1beta1.SchemeGroupVersion.WithResource("poddisruptionbudgets"),
 			v1beta1.SchemeGroupVersion.WithKind("PodDisruptionBudget"),
 			func(dst, src *v1beta1.PodDisruptionBudgetList) { dst.ListMeta = src.ListMeta },
-			func(list *v1beta1.PodDisruptionBudgetList) []*v1beta1.PodDisruptionBudget {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1beta1.PodDisruptionBudgetList, items []*v1beta1.PodDisruptionBudget) {
-				list.Items = gentype2.FromPointerSlice(items)
-			},
+			func(list *v1beta1.PodDisruptionBudgetList) []v1beta1.PodDisruptionBudget { return list.Items },
+			func(list *v1beta1.PodDisruptionBudgetList, items []v1beta1.PodDisruptionBudget) { list.Items = items },
 		),
 		fake,
 	}

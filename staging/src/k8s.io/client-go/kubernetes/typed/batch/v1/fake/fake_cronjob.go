@@ -39,8 +39,8 @@ func newFakeCronJobs(fake *FakeBatchV1, namespace string) typedbatchv1.CronJobIn
 			v1.SchemeGroupVersion.WithResource("cronjobs"),
 			v1.SchemeGroupVersion.WithKind("CronJob"),
 			func(dst, src *v1.CronJobList) { dst.ListMeta = src.ListMeta },
-			func(list *v1.CronJobList) []*v1.CronJob { return gentype2.ToPointerSlice(list.Items) },
-			func(list *v1.CronJobList, items []*v1.CronJob) { list.Items = gentype2.FromPointerSlice(items) },
+			func(list *v1.CronJobList) []v1.CronJob { return list.Items },
+			func(list *v1.CronJobList, items []v1.CronJob) { list.Items = items },
 		),
 		fake,
 	}

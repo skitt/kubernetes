@@ -39,11 +39,9 @@ func newFakeResourceClaimTemplates(fake *FakeResourceV1alpha3, namespace string)
 			v1alpha3.SchemeGroupVersion.WithResource("resourceclaimtemplates"),
 			v1alpha3.SchemeGroupVersion.WithKind("ResourceClaimTemplate"),
 			func(dst, src *v1alpha3.ResourceClaimTemplateList) { dst.ListMeta = src.ListMeta },
-			func(list *v1alpha3.ResourceClaimTemplateList) []*v1alpha3.ResourceClaimTemplate {
-				return gentype2.ToPointerSlice(list.Items)
-			},
-			func(list *v1alpha3.ResourceClaimTemplateList, items []*v1alpha3.ResourceClaimTemplate) {
-				list.Items = gentype2.FromPointerSlice(items)
+			func(list *v1alpha3.ResourceClaimTemplateList) []v1alpha3.ResourceClaimTemplate { return list.Items },
+			func(list *v1alpha3.ResourceClaimTemplateList, items []v1alpha3.ResourceClaimTemplate) {
+				list.Items = items
 			},
 		),
 		fake,
